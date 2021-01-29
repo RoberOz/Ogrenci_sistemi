@@ -2,12 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\StudentController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 
 
 
+Auth::routes();
 
-
-Route::get('/', [StudentController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/admin', [AdminController::class, 'index']);
