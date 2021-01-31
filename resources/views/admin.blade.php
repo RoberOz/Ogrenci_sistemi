@@ -24,11 +24,19 @@
                           <tr height=35>
                             <td align="center">{{$user->name}}</td>
                             <td align="center">{{$user->email}}</td>
-                            <td align="center">Düzenle</td>
-                            <td align="center">Sil</td>
+                            <td align="center">
+                              <button onclick="location.href='{{route('process.edit',$user->id)}}'">Düzenle</button>
+                            </td>
+                            <td align="center">
+                              <button class="js-delete-user-btn" data-id={{$user->id}}>Kişiyi Sil</button>
+                            </td>
                           </tr>
                         @endforeach
                       </table>
+                      <br>
+                      <div align="center">
+                        <button onclick="location.href='admin/process/create'">Ekle</button>
+                      </div>
 
                   </div>
             </div>
@@ -36,3 +44,20 @@
     </div>
 </div>
 @endsection
+
+@push('javascript')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+<script>
+    $('.js-delete-user-btn').on('click', function () {
+        let userId = $(this).attr("data-id");
+        console.log(userId);
+        $.ajax({
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            url: '{{ url('/admin/process/')}}/'+userId,
+            method: 'delete',
+            success: location.reload()
+        });
+    });
+</script>
+@endpush
