@@ -49,15 +49,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 
 <script>
-    $('.js-delete-user-btn').on('click', function () {
-        let userId = $(this).attr("data-id");
-        console.log(userId);
-        $.ajax({
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            url: '{{ url('/admin/process/')}}/'+userId,
-            method: 'delete',
-            success: location.reload()
-        });
+$(document).ready(function(){
+      $('.js-delete-user-btn').on('click', function () {
+          let userId = $(this).attr("data-id");
+          console.log(userId);
+          $.ajax({
+              headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+              url: '{{ url('/admin/process/')}}/'+userId,
+              method: 'delete',
+              success: location.reload()
+          });
+      });
     });
 </script>
 @endpush
