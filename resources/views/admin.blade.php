@@ -25,17 +25,23 @@
                             <td align="center">{{$user->name}}</td>
                             <td align="center">{{$user->email}}</td>
                             <td align="center">
+                              @role('admin')
                               <button onclick="location.href='{{route('admin.edit',$user->id)}}'">Düzenle</button>
+                              @endrole
                             </td>
                             <td align="center">
+                              @role('admin')
                               <button class="js-delete-user-btn" data-id={{$user->id}}>Kişiyi Sil</button>
+                              @endrole
                             </td>
                           </tr>
                         @endforeach
                       </table>
                       <br>
                       <div align="center">
+                        @role('admin')
                         <button onclick="location.href='admin/create'">Ekle</button>
+                        @endrole
                       </div>
                   </div>
 

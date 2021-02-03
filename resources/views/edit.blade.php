@@ -7,6 +7,13 @@
             <div class="card">
 
               <br>
+
+              <div style="background-color:lightblue">
+                  @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                  @endforeach
+              </div>
+
               <form method="post" action="{{url('admin',$user->id)}}">
                 <table align = "center">
                   {{ method_field('PUT') }}

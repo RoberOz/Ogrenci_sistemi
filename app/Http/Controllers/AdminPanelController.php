@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 class AdminPanelController extends Controller
@@ -48,10 +49,12 @@ class AdminPanelController extends Controller
       'password' => 'required|min:9',
       ]);
 
+      $passwordHashed = Hash::make($request->password);
+
       $user = new User();
       $user->name = $request->name;
       $user->email = $request->email;
-      $user->password = $request->password;
+      $user->password = $passwordHashed;
 
       $user->save();
 

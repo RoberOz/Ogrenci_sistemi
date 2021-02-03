@@ -21,10 +21,11 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background-color: #B7C0C1;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('Öğrenci Sistemi', 'Öğrenci Sistemi') }}
+                  <img src="/img/graduation-hat.svg" width="32" height="32" class="d-inline-block align-top" alt="">
+                  {{ config('Öğrenci Sistemi', 'Öğrenci Sistemi') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -42,25 +43,25 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Giriş') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}" style="color:black">{{ __('Giriş') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Kayıt ol') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}" style="color:black">{{ __('Kayıt ol') }}</a>
                                 </li>
                             @endif
                         @else
                           @can('admin panel access')
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link" href="/admin" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link" href="/admin" role="button" aria-haspopup="true" aria-expanded="false" style="color:black" v-pre>
                                     {{ __('Admin Panel') }}
                                 </a>
                             </li>
                           @endcan
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:black" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 

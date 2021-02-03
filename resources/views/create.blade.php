@@ -13,6 +13,13 @@
                 @endif
 
                 <br>
+
+                <div style="background-color:lightblue">
+                    @foreach ($errors->all() as $error)
+                      <li>{{$error}}</li>
+                    @endforeach
+                </div>
+
                 <form method="post" action="{{url('admin')}}">
                   <table align="center">
                     @csrf
