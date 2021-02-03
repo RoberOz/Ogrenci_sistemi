@@ -7,7 +7,7 @@
             <div class="card">
 
               <br>
-              <form method="post" action="{{url('admin/process',$user->id)}}">
+              <form method="post" action="{{url('admin',$user->id)}}">
                 <table align = "center">
                   {{ method_field('PUT') }}
                   @csrf

@@ -13,7 +13,7 @@
                 @endif
 
                 <br>
-                <form method="post" action="{{url('admin/process')}}">
+                <form method="post" action="{{url('admin')}}">
                   <table align="center">
                     @csrf
                     <tr height="35">

@@ -52,11 +52,13 @@
                                 </li>
                             @endif
                         @else
-                          <li class="nav-item dropdown">
-                              <a id="navbarDropdown" class="nav-link" href="/admin" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
-                                  {{ __('Admin Panel') }}
-                              </a>
-                          </li>
+                          @can('admin panel access')
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link" href="/admin" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ __('Admin Panel') }}
+                                </a>
+                            </li>
+                          @endcan
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}

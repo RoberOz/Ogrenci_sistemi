@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 
-class AdminResourceController extends Controller
+class AdminPanelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,9 @@ class AdminResourceController extends Controller
 
     public function index()
     {
-        return redirect('/');
+        $users = User::all();
+
+        return view('admin')->with(compact('users'));
     }
 
     /**

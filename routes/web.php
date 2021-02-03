@@ -3,14 +3,11 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\MainController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AdminResourceController;
+use App\Http\Controllers\AdminPanelController;
 
 
 
 Auth::routes();
 
 Route::get('/', [MainController::class, 'index'])->name('home');
-Route::get('/admin', [AdminController::class, 'index']);
-
-Route::resource('admin/process',AdminResourceController::class);
+Route::resource('/admin',AdminPanelController::class, ['except' => ['show']])->middleware('role:admin');

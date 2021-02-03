@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 class MainController extends Controller
 {
     /**
@@ -23,6 +26,17 @@ class MainController extends Controller
      */
     public function index()
     {
+
+        //Role::create(['name' => 'admin']);
+        //Permission::create(['name' => 'admin panel access']);
+
+        //auth()->user()->givePermissionTo('admin panel access');
+        //auth()->user()->assignRole('admin');
+
+        //$role = Role::findById(1);
+        //$permission = Permission::findById(1);
+        //$role->givePermissionTo($permission);
+
         return view('home');
     }
 }

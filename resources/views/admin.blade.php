@@ -25,7 +25,7 @@
                             <td align="center">{{$user->name}}</td>
                             <td align="center">{{$user->email}}</td>
                             <td align="center">
-                              <button onclick="location.href='{{route('process.edit',$user->id)}}'">Düzenle</button>
+                              <button onclick="location.href='{{route('admin.edit',$user->id)}}'">Düzenle</button>
                             </td>
                             <td align="center">
                               <button class="js-delete-user-btn" data-id={{$user->id}}>Kişiyi Sil</button>
@@ -35,10 +35,10 @@
                       </table>
                       <br>
                       <div align="center">
-                        <button onclick="location.href='admin/process/create'">Ekle</button>
+                        <button onclick="location.href='admin/create'">Ekle</button>
                       </div>
-
                   </div>
+
             </div>
         </div>
     </div>
@@ -55,7 +55,7 @@ $(document).ready(function(){
           console.log(userId);
           $.ajax({
               headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-              url: '{{ url('/admin/process/')}}/'+userId,
+              url: '{{ url('/admin')}}/'+userId,
               method: 'delete',
               success: location.reload()
           });
