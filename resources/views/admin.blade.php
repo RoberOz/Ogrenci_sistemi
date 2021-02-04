@@ -7,48 +7,65 @@
             <div class="card">
                 <div class="card-header" style="background:#C6C6C6"><strong>{{ __('Öğrenciler') }}</strong></div>
                   <div class="card-body" style="background:#C3D6D7">
+
                       @if (session('status'))
                           <div class="alert alert-success" role="alert">
                               {{ session('status') }}
                           </div>
                       @endif
 
-                      <table width=100%>
-                          <tr height=35 class="alert alert-dark" role="alert">
-                            <td align="center"><strong>-Öğrenci İsmi-</strong></td>
-                            <td align="center"><strong>-Öğrenci E-mail Adresi-</strong></td>
-                            <td align="center"><strong></strong></td>
-                            <td align="center"><strong></strong></td>
-                          </tr>
-                        @foreach ($users as $user)
-                          <tr height=35 class="alert alert-secondary" role="alert">
-                            <td align="center">{{$user->name}}</td>
-                            <td align="center">{{$user->email}}</td>
-                            <td align="center">
-                              @if (auth()->user()->hasRole('admin'))
-                                <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('admin.edit',$user->id)}}'">Düzenle</button>
-                              @else
-                                @if (auth()->user()->id == $user->id)
-                                  <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('admin.edit',$user->id)}}'">Düzenle</button>
-                                @endif
-                              @endif
-                            </td>
-                            <td align="center">
-                              @role('admin')
-                                <button class="js-delete-user-btn btn btn-primary btn-outline-light btn-xl" style="background:#B60C09" data-id={{$user->id}}>Kişiyi Sil</button>
-                              @endrole
-                            </td>
-                          </tr>
-                        @endforeach
-                      </table>
-                      <br>
-                      <div align="center">
-                        @role('admin')
-                          <button class="btn btn-primary btn-outline-light btn-xl" style="background:#4C8DE1" onclick="location.href='admin/create'">Ekle</button>
-                        @endrole
+                      <div class="col-sm-12">
+                        <table class="table table-bordered table-hover" width="100%" cellspacing="0" role="grid">
+                          <thead style="background:#B6B6B6">
+                              <tr role="row" align="center">
+                                <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
+                                  Öğrenci İsmi
+                                </th>
+                                <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
+                                  Öğrenci E-mail Adresi
+                                </th>
+                                <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
+                                </th>
+                                <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
+                                </th>
+                              </tr>
+                          </thead>
+                          <tbody style="background:#D1D1D1">
+                            @foreach ($users as $user)
+                              <tr role="row" class="odd">
+                                <td align="center">{{$user->name}}</td>
+                                <td align="center">{{$user->email}}</td>
+                                <td align="center">
+                                  @if ($user->is_graduated == 0)
+                                    Okuyor
+                                  @else
+                                    Mezun
+                                  @endif
+                                </td>
+                                <td align="center">
+                                  @if (auth()->user()->hasRole('admin'))
+                                    <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('admin.edit',$user->id)}}'">Düzenle</button>
+                                  @else
+                                    @if (auth()->user()->id == $user->id)
+                                      <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('admin.edit',$user->id)}}'">Düzenle</button>
+                                    @endif
+                                  @endif
+                                  @role('admin')
+                                    <button class="js-delete-user-btn btn btn-primary btn-outline-light btn-xl" style="background:#B60C09" data-id={{$user->id}}>Kişiyi Sil</button>
+                                  @endrole
+                                </td>
+                              </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                        <div align="center">
+                          @role('admin')
+                            <button class="btn btn-primary btn-outline-light btn-xl" style="background:#4C8DE1" onclick="location.href='admin/create'">Ekle</button>
+                          @endrole
+                        </div>
                       </div>
-                  </div>
 
+                  </div>
             </div>
         </div>
     </div>
