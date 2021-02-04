@@ -39,7 +39,15 @@ class StudentPolicy
 
     public function update(User $user, User $model)
     {
-        return $user > hasRole('admin');
+        if ($user->hasRole('admin')) {
+          return true;
+        }
+        elseif($user->id == $model->id) {
+          return true;
+        }
+        else {
+          return false;
+        }
     }
 
     public function delete(User $user, User $model)

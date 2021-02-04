@@ -52,9 +52,10 @@ class DashboardController extends Controller
 
     public function edit($id)
     {
-        $this->authorize('update', User::class);
-
         $user = User::find($id);
+
+        $this->authorize('update', $user);
+
         if (null == $user) {
             return redirect('/');
         } else {
@@ -64,7 +65,9 @@ class DashboardController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+      $this->authorize('update', User::class);
+
+      $this->validate($request, [
       'name' => 'required|min:3|max:70',
       'email' => 'required|email',
       'password' => 'required|min:9',
