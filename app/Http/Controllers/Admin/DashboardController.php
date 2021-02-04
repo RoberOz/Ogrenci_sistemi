@@ -54,18 +54,19 @@ class DashboardController extends Controller
     {
         $user = User::find($id);
 
-        $this->authorize('update', $user);
-
         if (null == $user) {
             return redirect('/');
         } else {
+
+            $this->authorize('update', $user);
+
             return view('edit', compact('user'));
         }
     }
 
     public function update(Request $request, $id)
     {
-      $this->authorize('update', User::class);
+
 
       $this->validate($request, [
       'name' => 'required|min:3|max:70',
@@ -77,6 +78,9 @@ class DashboardController extends Controller
         if (null == $user) {
             return redirect('/');
         } else {
+
+            $this->authorize('update', $user);
+
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = $request->password;
