@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminPanelController;
 
 
 
+
 Auth::routes();
 
 Route::get('/', [MainController::class, 'index'])->name('home');
