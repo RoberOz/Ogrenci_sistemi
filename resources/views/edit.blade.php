@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card" style="background:#D5D6D5">
+            <div class="card" style="background:#C3D6D7">
 
               <br>
 
@@ -30,7 +30,7 @@
                   <input class="form-control" name="password" type="password" placeholder="şifre" value="{{$user->password}}" required>
                 </div>
                 <div class="form-group" align="center">
-                  <button type="submit" class="btn btn-primary btn-outline-light btn-xl" style="background:#239707">Güncelle</button>
+                  <button type="submit" class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08">Güncelle</button>
                 </div>
               </form>
 

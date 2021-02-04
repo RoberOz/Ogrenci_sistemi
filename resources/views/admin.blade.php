@@ -5,8 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">{{ __('Öğrenciler') }}</div>
-                  <div class="card-body">
+                <div class="card-header" style="background:#C6C6C6"><strong>{{ __('Öğrenciler') }}</strong></div>
+                  <div class="card-body" style="background:#C3D6D7">
                       @if (session('status'))
                           <div class="alert alert-success" role="alert">
                               {{ session('status') }}
