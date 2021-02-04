@@ -54,7 +54,7 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link" href="/admin" role="button" aria-haspopup="true" aria-expanded="false" style="color:black" v-pre>
+                                <a id="navbarDropdown" class="nav-link" href="/admin/dashboard" role="button" aria-haspopup="true" aria-expanded="false" style="color:black" v-pre>
                                     {{ __('Admin Panel') }}
                                 </a>
                             </li>

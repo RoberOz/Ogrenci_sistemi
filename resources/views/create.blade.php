@@ -20,7 +20,7 @@
                     @endforeach
                 </div>
 
-                <form method="post" action="{{url('admin')}}">
+                <form method="post" action="{{url('admin/dashboard')}}">
                   @csrf
                   <div class="form-group">
                     <label for="exampleFormControlInput1">Öğrenci İsmi:</label>

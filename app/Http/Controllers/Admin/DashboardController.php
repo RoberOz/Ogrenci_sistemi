@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
-class AdminPanelController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -58,7 +59,7 @@ class AdminPanelController extends Controller
 
       $user->save();
 
-      return redirect('/admin');
+      return redirect('/admin/dashboard');
     }
 
     /**
@@ -113,7 +114,7 @@ class AdminPanelController extends Controller
 
         $user->save();
 
-        return redirect('/admin');
+        return redirect('/admin/dashboard');
       }
     }
 
