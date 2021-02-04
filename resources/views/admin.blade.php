@@ -14,20 +14,24 @@
                       @endif
 
                       <table width=100%>
-                        <tr height=35>
-                          <td align="center"><strong>-Öğrenci İsmi-</strong></td>
-                          <td align="center"><strong>-Öğrenci E-mail Adresi-</strong></td>
-                          <td align="center"><strong></strong></td>
-                          <td align="center"><strong></strong></td>
-                        </tr>
+                          <tr height=35 class="alert alert-dark" role="alert">
+                            <td align="center"><strong>-Öğrenci İsmi-</strong></td>
+                            <td align="center"><strong>-Öğrenci E-mail Adresi-</strong></td>
+                            <td align="center"><strong></strong></td>
+                            <td align="center"><strong></strong></td>
+                          </tr>
                         @foreach ($users as $user)
-                          <tr height=35>
+                          <tr height=35 class="alert alert-secondary" role="alert">
                             <td align="center">{{$user->name}}</td>
                             <td align="center">{{$user->email}}</td>
                             <td align="center">
-                              @role('admin')
-                              <button onclick="location.href='{{route('admin.edit',$user->id)}}'">Düzenle</button>
-                              @endrole
+                              @if (auth()->user()->hasRole('admin'))
+                                <button onclick="location.href='{{route('admin.edit',$user->id)}}'">Düzenle</button>
+                              @else
+                                @if (auth()->user()->id == $user->id)
+                                  <button onclick="location.href='{{route('admin.edit',$user->id)}}'">Düzenle</button>
+                                @endif
+                              @endif
                             </td>
                             <td align="center">
                               @role('admin')

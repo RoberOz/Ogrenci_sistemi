@@ -13,4 +13,4 @@ use App\Http\Controllers\AdminPanelController;
 Auth::routes();
 
 Route::get('/', [MainController::class, 'index'])->name('home');
-Route::resource('/admin',AdminPanelController::class, ['except' => ['show']])->middleware(['role:admin','isGraduated']);
+Route::resource('/admin',AdminPanelController::class, ['except' => ['show']])->middleware(['isGraduated']);
