@@ -19,9 +19,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body style="background:#34495E">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background-color: #B7C0C1;">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background: #B7C0C1">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                   <img src="/img/graduation-hat.svg" width="32" height="32" class="d-inline-block align-top" alt="">
@@ -63,7 +63,7 @@
                                     {{ Auth::user()->name }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="background:#D4CCCA">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

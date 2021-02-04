@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-              <div class="panel-body">
+              <div class="panel-body" style="background:#D5D6D5">
                 @if (session('status'))
                     <div class="alert alert-success">
                         {{ session('status') }}
@@ -21,25 +21,24 @@
                 </div>
 
                 <form method="post" action="{{url('admin')}}">
-                  <table align="center">
-                    @csrf
-                    <tr height="35">
-                      <td align='center' width = "115"><label>Öğrenci İsmi:</label></td>
-                      <td ><input type="text" name="name" value="{{old('name')}}" required></input></td>
-                    </tr>
-                    <tr height="35">
-                      <td align='center' width = "115"><label>E-mail Adresi:</label></td>
-                      <td ><input type="email" name="email" value="{{old('email')}}" required></input></td>
-                    </tr>
-                    <tr height="35">
-                      <td align='center' width = "115"><label>Şifre:</label></td>
-                      <td ><input type="password" name="password" value="{{old('password')}}" required></input></td>
-                    </tr>
-                    <tr height="35">
-                      <td align="center" colspan="2"><button type="submit">Oluştur</button></td>
-                    </tr>
-                  </table>
+                  @csrf
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Öğrenci İsmi:</label>
+                    <input class="form-control" name="name" type="text" placeholder="isim" value="{{old('name')}}" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">E-mail Adresi:</label>
+                    <input class="form-control" name="email" type="email" placeholder="isim@örnek.com" value="{{old('email')}}" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Şifre:</label>
+                    <input class="form-control" name="password" type="password" placeholder="şifre" value="{{old('password')}}" required>
+                  </div>
+                  <div class="form-group" align="center">
+                    <button type="submit" class="btn btn-primary btn-outline-light btn-xl" style="background:#239707">Oluştur</button>
+                  </div>
                 </form>
+
               </div>
             </div>
         </div>

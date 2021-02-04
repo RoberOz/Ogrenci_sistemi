@@ -26,16 +26,16 @@
                             <td align="center">{{$user->email}}</td>
                             <td align="center">
                               @if (auth()->user()->hasRole('admin'))
-                                <button onclick="location.href='{{route('admin.edit',$user->id)}}'">Düzenle</button>
+                                <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('admin.edit',$user->id)}}'">Düzenle</button>
                               @else
                                 @if (auth()->user()->id == $user->id)
-                                  <button onclick="location.href='{{route('admin.edit',$user->id)}}'">Düzenle</button>
+                                  <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('admin.edit',$user->id)}}'">Düzenle</button>
                                 @endif
                               @endif
                             </td>
                             <td align="center">
                               @role('admin')
-                              <button class="js-delete-user-btn" data-id={{$user->id}}>Kişiyi Sil</button>
+                                <button class="js-delete-user-btn btn btn-primary btn-outline-light btn-xl" style="background:#B60C09" data-id={{$user->id}}>Kişiyi Sil</button>
                               @endrole
                             </td>
                           </tr>
@@ -44,7 +44,7 @@
                       <br>
                       <div align="center">
                         @role('admin')
-                        <button onclick="location.href='admin/create'">Ekle</button>
+                          <button class="btn btn-primary btn-outline-light btn-xl" style="background:#4C8DE1" onclick="location.href='admin/create'">Ekle</button>
                         @endrole
                       </div>
                   </div>
