@@ -28,7 +28,9 @@
         <nav class="topnav navbar navbar-expand shadow justify-content-between justify-content-sm-start navbar-light" id="sidenavAccordion" style="background:#96CDF1">
 
           <!-- Sidenav Toggle Button -->
-          <button class="btn btn-icon btn-transparent-dark order-1 order-lg-0 mr-lg-2" id="sidebarToggle"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+          @if (auth()->user() !== null)
+            <button class="btn btn-icon btn-transparent-dark order-1 order-lg-0 mr-lg-2" id="sidebarToggle"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+          @endif
 
           <!-- Main Menu Link -->
           <a class="navbar-brand" href="{{ url('/') }}">
@@ -76,6 +78,7 @@
         </nav>
 
         <div id="layoutSidenav">
+          @if (auth()->user() !== null)
           <div id="layoutSidenav_nav">
             <nav class="sidenav shadow-right sidenav-dark">
               <div class="sidenav-menu">
@@ -206,13 +209,14 @@
               <div class="sidenav-footer">
                 <div class="sidenav-footer-content">
                   <div class="sidenav-footer-subtitle">Logged in as:</div>
-                  <div class="sidenav-footer-title">Valerie Luna</div>
+                  <div class="sidenav-footer-title">{{auth()->user()->name}}</div>
                 </div>
               </div>
             </nav>
           </div>
+          @endif
 
-          <div id="layoutSidenav_content" style="background:#C9CBCC">
+          <div id="layoutSidenav_content" style="background:#EFEFEF">
             <main>
               <header class="page-header page-header-dark pb-10">
                 <br>
@@ -229,11 +233,11 @@
             <footer class="footer mt-auto footer-light">
               <div class="container-fluid">
                 <div class="row">
-                  <div class="col-md-6 small">Copyright © Öğrenci Sistemi Sitesi 2021</div>
+                  <div class="col-md-6 small" style="color:black">Copyright © Öğrenci Sistemi Sitesi 2021</div>
                   <div class="col-md-6 text-md-right small">
-                      <a href="javascript:void(0);">Privacy Policy</a>
+                      <a href="javascript:void(0);" style="color:black">Privacy Policy</a>
                       ·
-                      <a href="javascript:void(0);">Terms &amp; Conditions</a>
+                      <a href="javascript:void(0);" style="color:black">Terms &amp; Conditions</a>
                   </div>
                 </div>
               </div>
