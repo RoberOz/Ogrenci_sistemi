@@ -45,9 +45,7 @@ class StudentPolicy
         elseif($user->id == $model->id) {
           return true;
         }
-        else {
           return false;
-        }
     }
 
     public function delete(User $user, User $model)

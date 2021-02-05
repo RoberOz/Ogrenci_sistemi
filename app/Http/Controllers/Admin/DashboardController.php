@@ -30,9 +30,9 @@ class DashboardController extends Controller
 
     public function store(Request $request)
     {
-        $this->authorize('create', User::class);
+      $this->authorize('create', User::class);
 
-        $this->validate($request, [
+      $this->validate($request, [
       'name' => 'required|min:3|max:70',
       'email' => 'required|email',
       'password' => 'required|min:9',

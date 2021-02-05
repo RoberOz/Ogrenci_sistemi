@@ -6,7 +6,7 @@ use DB;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class UsersSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.

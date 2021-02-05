@@ -18,4 +18,4 @@ Route::prefix('admin')
     ->middleware('isGraduated')
     ->group(function () {
       Route::resource('dashboard',DashboardController::class, ['except' => ['show']]);
-    });
+});
