@@ -20,7 +20,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="js/scripts.js"></script>
+    <!-- <script src="js/scripts.js"></script> -->
 
     </head>
     <body class="nav-fixed">
@@ -29,7 +29,7 @@
 
           <!-- Sidenav Toggle Button -->
           @if (auth()->user() !== null)
-            <button class="btn btn-icon btn-transparent-dark order-1 order-lg-0 mr-lg-2" id="sidebarToggle"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+            <button class="btn btn-icon btn-transparent-dark order-1 order-lg-0 mr-lg-2" id="sidebarToggle" style="background:#8BBAD9"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
           @endif
 
           <!-- Main Menu Link -->
@@ -57,9 +57,9 @@
                   {{ Auth::user()->name }}
                 </a>
 
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="background:#C3D6D7">
-                  <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    {{ __('Çıkış') }}
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i>
+                    &nbsp Çıkış Yap
                   </a>
 
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -92,25 +92,18 @@
                         <!-- Nested Sidenav Accordion (Pages -> Account)-->
                         <a class="nav-link" href={{route('school-list')}}><i class="fas fa-clipboard-list"></i>&nbsp Okul Listesi</a>
                         <!-- Nested Sidenav Accordion (Pages -> Authentication)-->
-                        <a class="nav-link" href="admin/school-list"><i class="fas fa-plus-circle"></i>&nbsp Kişi Oluştur</a>
+                        <a class="nav-link" href={{route('user.create')}}><i class="fas fa-plus-circle"></i>&nbsp Kişi Oluştur</a>
                       </nav>
                     </div>
                   @endif
-                  <!-- Sidenav Heading (Addons)-->
-                  <div class="sidenav-menu-heading">Plugins</div>
                   <!-- Sidenav Link (Charts)-->
-                  <a class="nav-link" href="charts.html">
-                    <div class="nav-link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg></div>
-                    Charts
-                  </a>
-                  <!-- Sidenav Link (Tables)-->
-                  <a class="nav-link" href="tables.html">
-                    <div class="nav-link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg></div>
-                    Tables
+                  <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <div class="nav-link-icon" ><i class="fas fa-sign-out-alt"></i></div>
+                    Çıkış Yap
                   </a>
                 </div>
               </div>
-              <!-- Sidenav Footer-->
+
               <div class="sidenav-footer">
                 <div class="sidenav-footer-content">
                   <div class="sidenav-footer-subtitle">Logged in as:</div>

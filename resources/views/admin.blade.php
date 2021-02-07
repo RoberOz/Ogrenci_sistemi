@@ -35,9 +35,9 @@
                           <tbody style="background:#D1D1D1">
                             @foreach ($users as $user)
                               <tr role="row" class="odd">
-                                <td align="center">{{$user->name}}</td>
-                                <td align="center">{{$user->email}}</td>
-                                <td align="center">
+                                <td align="center"><br>{{$user->name}}</td>
+                                <td align="center"><br>{{$user->email}}</td>
+                                <td align="center"><br>
                                   @if ($user->hasRole('admin'))
                                     Admin
                                   @else
@@ -50,10 +50,10 @@
                                 </td>
                                 <td align="center">
                                   @if (auth()->user()->hasRole('admin'))
-                                    <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('dashboard.edit',$user->id)}}'">Düzenle</button>
+                                    <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('user.edit',$user->id)}}'">Düzenle</button>
                                   @else
                                     @if (auth()->user()->id == $user->id)
-                                      <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('dashboard.edit',$user->id)}}'">Düzenle</button>
+                                      <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('user.edit',$user->id)}}'">Düzenle</button>
                                     @endif
                                   @endif
                                   @role('admin')
@@ -66,7 +66,7 @@
                         </table>
                         <div align="center">
                           @role('admin')
-                            <button class="btn btn-primary btn-outline-light btn-xl" style="background:#4C8DE1" onclick="location.href='dashboard/create'">Ekle</button>
+                            <button class="btn btn-primary btn-outline-light btn-xl" style="background:#4C8DE1" onclick="location.href='user/create'">Ekle</button>
                           @endrole
                         </div>
                       </div>
@@ -88,9 +88,11 @@ $(document).ready(function(){
           console.log(userId);
           $.ajax({
               headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-              url: '{{ url('/admin/dashboard')}}/'+userId,
+              url: '{{ url('/admin/user')}}/'+userId,
               method: 'delete',
-              success: location.reload()
+              success: function(response) {
+                window.location.href = "school-list";
+              }
           });
       });
     });

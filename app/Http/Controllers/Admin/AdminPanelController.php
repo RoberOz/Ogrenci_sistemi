@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
-class DashboardController extends Controller
+class AdminPanelController extends Controller
 {
     public function __construct()
     {
@@ -41,7 +41,7 @@ class DashboardController extends Controller
 
         $user->save();
 
-        return redirect('/admin/dashboard');
+        return redirect('/admin/school-list');
     }
 
     public function edit($id)
@@ -64,7 +64,7 @@ class DashboardController extends Controller
 
       $this->validate($request, [
       'name' => 'required|min:3|max:70',
-      'email' => 'required|email',
+      'email' => 'required|email|unique',
       'password' => 'required|min:9',
       ]);
 
@@ -81,7 +81,7 @@ class DashboardController extends Controller
 
             $user->save();
 
-            return redirect('/admin/dashboard');
+            return redirect('/admin/school-list');
         }
     }
 
