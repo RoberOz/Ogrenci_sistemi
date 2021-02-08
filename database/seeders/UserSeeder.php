@@ -17,21 +17,28 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::insert([
-          'name' => 'Rober',
-          'email' => 'robertest@gmail.com',
+          'name' => 'admin',
+          'email' => 'admin@gmail.com',
           'password' => Hash::make('123456789'),
         ]);
 
         User::insert([
-          'name' => 'deneme',
-          'email' => 'deneme@gmail.com',
+          'name' => 'ogretmen',
+          'email' => 'ogretmen@gmail.com',
           'password' => Hash::make('123456789'),
         ]);
 
         User::insert([
-          'name' => 'deneme2',
-          'email' => 'deneme2@gmail.com',
+          'name' => 'ogrenci',
+          'email' => 'ogrenci@gmail.com',
           'password' => Hash::make('123456789'),
+        ]);
+
+        User::insert([
+          'name' => 'mezun',
+          'email' => 'mezun@gmail.com',
+          'password' => Hash::make('123456789'),
+          'is_graduated' => 'true',
         ]);
     }
 }

@@ -30,6 +30,9 @@ class MainController extends Controller
 
         auth()->user()->givePermissionTo('teacher panel access');
         auth()->user()->assignRole('teacher');
+        
+        auth()->user()->givePermissionTo('student panel access');
+        auth()->user()->assignRole('student');
 
         $role = Role::findById(1);
         $permission = Permission::findById(1);
@@ -38,6 +41,10 @@ class MainController extends Controller
         $role = Role::findById(2);
         $permission2 = Permission::findById(2);
         $role->givePermissionTo($permission2);
+
+        $role = Role::findById(3);
+        $permission3 = Permission::findById(3);
+        $role->givePermissionTo($permission3);
         */
 
 

@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header" style="background:#C6C6C6"><strong>{{ __('Öğrenciler') }}</strong></div>
+                <div class="card-header" style="background:#C6C6C6"><strong>{{ __('Okul Listesi') }}</strong></div>
                   <div class="card-body" style="background:#C3D6D7">
 
                       @if (session('status'))
@@ -19,10 +19,10 @@
                           <thead style="background:#B6B6B6">
                               <tr role="row" align="center">
                                 <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
-                                  Öğrenci İsmi
+                                  İsim
                                 </th>
                                 <th tabindex="0" rowspan="1" colspan="1" style="width: 150px;">
-                                  Öğrenci E-mail Adresi
+                                  E-mail Adresi
                                 </th>
                                 <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
                                   Durum
@@ -40,6 +40,8 @@
                                 <td align="center"><br>
                                   @if ($user->hasRole('admin'))
                                     Admin
+                                  @elseif($user->hasRole('teacher'))
+                                    Öğretmen
                                   @else
                                     @if ($user->is_graduated == 0)
                                       Okuyor

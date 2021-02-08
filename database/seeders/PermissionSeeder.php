@@ -24,5 +24,10 @@ class PermissionSeeder extends Seeder
         'name' => 'teacher panel access',
         'guard_name' => 'web',
       ]);
+
+      Permission::insert([
+        'name' => 'student panel access',
+        'guard_name' => 'web',
+      ]);
     }
 }

@@ -103,7 +103,20 @@
                     </a>
                     <div class="collapse" id="collapseTeacherPanel" data-parent="#accordionSidenav">
                       <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPagesMenu">
-                        <a class="nav-link" href={{route('school-list')}}><i class="fas fa-book-reader"></i></i>&nbsp Öğrenci Listesi</a>
+                        <a class="nav-link" href={{route('student-list')}}><i class="fas fa-book-reader"></i></i>&nbsp Öğrenci Listesi</a>
+                      </nav>
+                    </div>
+                  @endif
+                  @if (auth()->user()->hasRole('student||admin'))
+                    <div class="sidenav-menu-heading">Öğretmen Panel</div>
+                    <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapseStudentPanel" aria-expanded="false" aria-controls="collapseStudentPanel">
+                      <div class="nav-link"><i class="fas fa-user-graduate"></i></div>
+                        Öğrenci
+                      <div class="sidenav-collapse-arrow"><svg class="svg-inline--fa fa-angle-down fa-w-10" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg><!-- <i class="fas fa-angle-down"></i> Font Awesome fontawesome.com --></div>
+                    </a>
+                    <div class="collapse" id="collapseStudentPanel" data-parent="#accordionSidenav">
+                      <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPagesMenu">
+                        <a class="nav-link" href={{route('student-list')}}><i class="fas fa-book-reader"></i></i>&nbsp Öğrenci Listesi</a>
                       </nav>
                     </div>
                   @endif
