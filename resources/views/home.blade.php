@@ -12,7 +12,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                    <br><br><br><br><br><br><br><br>
                     {{ __('Anasayfa') }}
                 </div>
             </div>

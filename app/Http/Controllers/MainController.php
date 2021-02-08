@@ -30,7 +30,7 @@ class MainController extends Controller
 
         auth()->user()->givePermissionTo('teacher panel access');
         auth()->user()->assignRole('teacher');
-        
+
         auth()->user()->givePermissionTo('student panel access');
         auth()->user()->assignRole('student');
 

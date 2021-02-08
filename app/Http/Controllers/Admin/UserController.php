@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
-class AdminPanelController extends Controller
+class UserController extends Controller
 {
     public function __construct()
     {
@@ -41,7 +41,7 @@ class AdminPanelController extends Controller
 
         $user->save();
 
-        return redirect('/admin/school-list');
+        return redirect('/admin/user-list');
     }
 
     public function edit($id)
@@ -81,7 +81,7 @@ class AdminPanelController extends Controller
 
             $user->save();
 
-            return redirect('/admin/school-list');
+            return redirect('/admin/user-list');
         }
     }
 

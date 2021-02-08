@@ -34,7 +34,7 @@
                           </thead>
                           <tbody style="background:#D1D1D1">
                             @foreach ($users as $user)
-                              @if ($user->hasRole('teacher'))
+                              @if ($user->hasRole('student'))
                                 <tr role="row" class="odd">
                                   <td align="center"><br>{{$user->name}}</td>
                                   <td align="center"><br>{{$user->email}}</td>

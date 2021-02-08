@@ -7,7 +7,6 @@
             <div class="card">
                 <div class="card-header" style="background:#C6C6C6"><strong>{{ __('Okul Listesi') }}</strong></div>
                   <div class="card-body" style="background:#C3D6D7">
-
                       @if (session('status'))
                           <div class="alert alert-success" role="alert">
                               {{ session('status') }}
@@ -93,7 +92,7 @@ $(document).ready(function(){
               url: '{{ url('/admin/user')}}/'+userId,
               method: 'delete',
               success: function(response) {
-                window.location.href = "school-list";
+                window.location.href = "user-list";
               }
           });
       });

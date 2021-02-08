@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 
-class StudentListController extends Controller
+class TeacherListController extends Controller
 {
   public function __construct()
   {
