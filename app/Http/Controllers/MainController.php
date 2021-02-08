@@ -25,18 +25,21 @@ class MainController extends Controller
     public function index()
     {
         /*
-        Role::create(['name' => 'admin']);
-        Permission::create(['name' => 'admin panel access']);
-        */
-
-        /*
         auth()->user()->givePermissionTo('admin panel access');
         auth()->user()->assignRole('admin');
+
+        auth()->user()->givePermissionTo('teacher panel access');
+        auth()->user()->assignRole('teacher');
 
         $role = Role::findById(1);
         $permission = Permission::findById(1);
         $role->givePermissionTo($permission);
+
+        $role = Role::findById(2);
+        $permission2 = Permission::findById(2);
+        $role->givePermissionTo($permission2);
         */
+
 
         return view('home');
     }

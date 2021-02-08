@@ -19,7 +19,7 @@ class AdminPanelController extends Controller
     {
         $this->authorize('create', User::class);
 
-        return view('create');
+        return view('admin.create');
     }
 
     public function store(Request $request)
@@ -54,7 +54,7 @@ class AdminPanelController extends Controller
 
             $this->authorize('update', $user);
 
-            return view('edit', compact('user'));
+            return view('admin.edit', compact('user'));
         }
     }
 
@@ -64,7 +64,7 @@ class AdminPanelController extends Controller
 
       $this->validate($request, [
       'name' => 'required|min:3|max:70',
-      'email' => 'required|email|unique',
+      'email' => 'required|email',
       'password' => 'required|min:9',
       ]);
 

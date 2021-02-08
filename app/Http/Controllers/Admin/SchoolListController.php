@@ -18,6 +18,6 @@ class SchoolListController extends Controller
     {
         $users = User::all();
 
-        return view('admin')->with(compact('users'));
+        return view('admin.admin')->with(compact('users'));
     }
 }

@@ -82,17 +82,28 @@
                   <a class="nav-link" href={{route('home')}}><i class="fas fa-home"></i>&nbsp Anasayfa</a>
                   @if (auth()->user()->hasRole('admin'))
                     <div class="sidenav-menu-heading">Admin Panel</div>
-                    <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapseAdminPanel" aria-expanded="false" aria-controls="collapseAdminPanel">
                       <div class="nav-link"><i class="fas fa-users-cog"></i></div>
                         Admin
                       <div class="sidenav-collapse-arrow"><svg class="svg-inline--fa fa-angle-down fa-w-10" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg><!-- <i class="fas fa-angle-down"></i> Font Awesome fontawesome.com --></div>
                     </a>
-                    <div class="collapse" id="collapsePages" data-parent="#accordionSidenav">
+                    <div class="collapse" id="collapseAdminPanel" data-parent="#accordionSidenav">
                       <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPagesMenu">
-                        <!-- Nested Sidenav Accordion (Pages -> Account)-->
                         <a class="nav-link" href={{route('school-list')}}><i class="fas fa-clipboard-list"></i>&nbsp Okul Listesi</a>
-                        <!-- Nested Sidenav Accordion (Pages -> Authentication)-->
                         <a class="nav-link" href={{route('user.create')}}><i class="fas fa-plus-circle"></i>&nbsp Kişi Oluştur</a>
+                      </nav>
+                    </div>
+                  @endif
+                  @if (auth()->user()->hasRole('teacher||admin'))
+                    <div class="sidenav-menu-heading">Öğretmen Panel</div>
+                    <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapseTeacherPanel" aria-expanded="false" aria-controls="collapseTeacherPanel">
+                      <div class="nav-link"><i class="fas fa-chalkboard-teacher"></i></div>
+                        Öğretmen
+                      <div class="sidenav-collapse-arrow"><svg class="svg-inline--fa fa-angle-down fa-w-10" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg><!-- <i class="fas fa-angle-down"></i> Font Awesome fontawesome.com --></div>
+                    </a>
+                    <div class="collapse" id="collapseTeacherPanel" data-parent="#accordionSidenav">
+                      <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPagesMenu">
+                        <a class="nav-link" href={{route('school-list')}}><i class="fas fa-book-reader"></i></i>&nbsp Öğrenci Listesi</a>
                       </nav>
                     </div>
                   @endif
