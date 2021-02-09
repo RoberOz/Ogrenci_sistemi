@@ -26,9 +26,7 @@
         @endif
       @else
         <li class="nav-item dropdown">
-          <a href="profile/edit" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:black" v-pre>
-            {{ Auth::user()->name }} &nbsp
-          </a>
+            <strong style="color:black">{{ Auth::user()->name }} &nbsp</strong>
         </li>
         <!-- User Dropdown-->
         <li class="nav-item dropdown no-caret mr-3 mr-lg-0 dropdown-user">
