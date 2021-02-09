@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header" style="background:#C6C6C6"><strong>{{ __('Öğrenci Listesi') }}</strong></div>
+                <div class="card-header" style="background:#C6C6C6"><strong>{{ __('Öğretmen Listesi') }}</strong></div>
                   <div class="card-body" style="background:#C3D6D7">
 
                       @if (session('status'))

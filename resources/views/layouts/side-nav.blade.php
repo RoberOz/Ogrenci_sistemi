@@ -5,6 +5,7 @@
         <br>
         <br>
         <a class="nav-link" href={{route('home')}}><i class="fas fa-home"></i>&nbsp Anasayfa</a>
+        <a class="nav-link" href={{route('profile')}}><i class="fas fa-user-circle"></i></i>&nbsp Profilim</a>
           <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapseAdminPanel" aria-expanded="false" aria-controls="collapseAdminPanel">
             <div class="nav-link"><i class="fas fa-users-cog"></i></div>
               Kullanıcı

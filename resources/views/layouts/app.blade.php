@@ -23,7 +23,9 @@
     @include('layouts.top-nav')
 
     <div id="layoutSidenav">
-      @include('layouts.side-nav')
+      @if (auth()->user())
+        @include('layouts.side-nav')
+      @endif
       <div id="layoutSidenav_content" style="background:#EFEFEF">
         <main>
           @include('layouts.header')
