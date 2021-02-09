@@ -14,7 +14,7 @@
                   @endforeach
               </div>
 
-              <form method="post" action="{{url('profile/update',$user->id)}}">
+              <form method="post" action="{{url('profile/edit',$user->id)}}">
                 @csrf
                 {{ method_field('PUT') }}
                 <div class="form-group">

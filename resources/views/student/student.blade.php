@@ -53,10 +53,10 @@
                                   </td>
                                   <td align="center">
                                     @if (auth()->user()->hasRole('admin'))
-                                      <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('user.edit',$user->id)}}'">Düzenle</button>
+                                      <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('user-list.edit',$user->id)}}'">Düzenle</button>
                                     @else
                                       @if (auth()->user()->id == $user->id)
-                                        <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('user.edit',$user->id)}}'">Düzenle</button>
+                                        <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('user-list.edit',$user->id)}}'">Düzenle</button>
                                       @endif
                                     @endif
                                     @role('admin')

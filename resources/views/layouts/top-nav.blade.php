@@ -42,7 +42,7 @@
                     </div>
                 </h6>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="profile/edit">
+                <a class="dropdown-item" href={{route('edit.index')}}>
                     <div class="dropdown-item-icon"><i class="far fa-user-circle"></i></div>
                     Profilim
                 </a>

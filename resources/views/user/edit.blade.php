@@ -14,7 +14,7 @@
                   @endforeach
               </div>
 
-              <form method="post" action="{{url('admin/user',$user->id)}}">
+              <form method="post" action="{{url('user/user-list',$user->id)}}">
                 @csrf
                 {{ method_field('PUT') }}
                 <div class="form-group">
