@@ -10,14 +10,13 @@ class Department extends Model
     use HasFactory;
 
     protected $fillable = [
-        'lecture_id',
         'name',
     ];
 
     public function lecture()
     {
 
-        return $this->belongsTo(Lecture::class, 'lecture_id', 'id');
+        return $this->hasMany(Lecture::class, 'department_id', 'id');
 
     }
 }

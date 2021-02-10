@@ -17,10 +17,10 @@
                       <div class="col-sm-14">
                         <table class="table table-bordered table-hover" width="100%" cellspacing="0" role="grid">
                           <tbody style="background:#D1D1D1">
-                            @foreach ($departments as $department)
-                              @if ($selectedDepartment->name == $department->name)
+                            @foreach ($lectures as $lecture)
+                              @if ($selectedDepartment->id == $lecture->department_id)
                                 <tr role="row" class="odd">
-                                  <td align="center">{{$department->lecture_id}}</td>
+                                  <td align="center">{{$lecture->name}}</td>
                                 </tr>
                               @endif
                             @endforeach

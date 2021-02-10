@@ -22,7 +22,6 @@ class DepartmentSeeder extends Seeder
 
        foreach ($departments as $department) {
          Department::insert([
-           'lecture_id' => '1',
            'name' => $department
          ]);
        }

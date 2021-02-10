@@ -15,8 +15,13 @@ class CreateLecturesTable extends Migration
     {
         Schema::create('lectures', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('department_id')->unsigned();
             $table->string('name', 45);
             $table->timestamps();
+
+            $table->foreign('department_id')
+                ->references('id')
+                ->on('departments');
         });
     }
 

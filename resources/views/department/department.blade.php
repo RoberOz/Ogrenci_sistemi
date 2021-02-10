@@ -29,7 +29,7 @@
                           <tbody style="background:#D1D1D1">
                             @foreach ($departments as $department)
                               <tr role="row" class="odd">
-                                <td align="center"><br>{{$department->departmentsName}}</td>
+                                <td align="center"><br>{{$department->name}}</td>
                                 <td align="center">
                                   <button class="btn btn-primary btn-outline-light btn-xl" style="background:#32A2EC" onclick="location.href='{{route('department-list.show',$department->id)}}'">Detay</button>
                                 </td>
