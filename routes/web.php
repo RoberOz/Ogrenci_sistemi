@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\UserListController;
 use App\Http\Controllers\Teacher\TeacherListController;
 use App\Http\Controllers\Student\StudentListController;
 use App\Http\Controllers\Department\DepartmentListController;
+use App\Http\Controllers\Lecture\LectureListController;
 
 
 Auth::routes();
@@ -44,4 +45,10 @@ Route::prefix('department')
     ->middleware('isGraduated')
     ->group(function () {
         Route::resource('department-list', DepartmentListController::class, ['only' => ['index', 'show']]);
+});
+
+Route::prefix('lecture')
+    ->middleware('isGraduated')
+    ->group(function () {
+        Route::get('lecture-list', [LectureListController::class, 'index'])->name('lecture-list');
 });
