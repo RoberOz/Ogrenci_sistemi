@@ -9,11 +9,6 @@ use App\Models\User;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         User::insert([
@@ -38,7 +33,7 @@ class UserSeeder extends Seeder
           'name' => 'mezun',
           'email' => 'mezun@gmail.com',
           'password' => Hash::make('123456789'),
-          'is_graduated' => 'true',
+          'is_graduated' => '1',
         ]);
     }
 }
