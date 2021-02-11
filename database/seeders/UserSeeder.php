@@ -35,5 +35,11 @@ class UserSeeder extends Seeder
           'password' => Hash::make('123456789'),
           'is_graduated' => '1',
         ]);
+
+        User::insert([
+          'name' => 'Turk Dili ve Edebiyatı Bolumu Başkanı',
+          'email' => 'turkdili@gmail.com',
+          'password' => Hash::make('123456789'),
+        ]);
     }
 }

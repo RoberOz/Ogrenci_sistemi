@@ -21,6 +21,9 @@
                                 <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
                                   Bölümler
                                 </th>
+                                <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
+                                  Bölüm Başkanı
+                                </th>
                                 <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
                                   İşlemler
                                 </th>
@@ -30,6 +33,11 @@
                             @foreach ($departments as $department)
                               <tr role="row" class="odd">
                                 <td align="center"><br>{{$department->name}}</td>
+                                <td align="center"><br>
+                                  @if ($department->user_id !== null)
+                                    {{$department->user->name}}
+                                  @endif
+                                </td>
                                 <td align="center">
                                   <button class="btn btn-primary btn-outline-light btn-xl" style="background:#32A2EC" onclick="location.href='{{route('department-list.show',$department->id)}}'">Detay</button>
                                 </td>

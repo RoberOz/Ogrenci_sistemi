@@ -17,7 +17,7 @@ class DepartmentListController extends Controller
 
     public function index()
     {
-        $departments = Department::all();
+        $departments = Department::with('User')->get();
 
         return view('department.department')->with(compact('departments'));
     }
