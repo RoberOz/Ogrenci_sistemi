@@ -22,7 +22,6 @@ class LectureSeeder extends Seeder
       foreach ($lectures as $lecture) {
         Lecture::insert([
           'name' => $lecture,
-          'department_id' => '1'
         ]);
       }
     }

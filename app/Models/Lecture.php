@@ -17,7 +17,14 @@ class Lecture extends Model
     public function departments()
     {
 
-        return $this->belongsTo(Department::class, 'department_id', 'id');
+        return $this->belongsToMany(Department::class, 'department_lecture','department_id','lecture_id');
+
+    }
+
+    public function users()
+    {
+
+        return $this->belongsToMany(User::class, 'lecture_user','lecture_id','user_id');
 
     }
 }

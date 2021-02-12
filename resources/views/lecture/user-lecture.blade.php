@@ -26,19 +26,18 @@
                               </tr>
                           </thead>
                           <tbody style="background:#D1D1D1">
+
                             @foreach ($lectures as $lecture)
-                              <form method="post" action="{{url('lecture/user-lecture')}}">
-                                @csrf
-                                <tr role="row" class="odd">
-                                  <td align="center"><br>{{$lecture->lectureName}}</td>
-                                  <input class="form-control" name="lectureName" type="hidden" value="{{$lecture->lectureName}}">
-                                  <td align="center">
-                                    <div class="form-group" align="center">
-                                      <button type="submit" class="btn btn-primary btn-outline-light btn-xl" style="background:#239707">Derslerime Ekle</button>
-                                    </div>
-                                  </td>
-                                </tr>
-                              </form>
+                              @foreach ($lecture->users as $user)
+                                @if ($user->pivot->user_id == auth()->user()->id)
+                                  <tr role="row" class="odd">
+                                    <td align="center"><br>{{$lecture->name}}</td>
+                                    <td align="center">
+                                      <button class="btn btn-primary btn-outline-light btn-xl" style="background:#32A2EC" onclick="location.href=''">Dersi Sil</button>
+                                    </td>
+                                  </tr>
+                                @endif
+                              @endforeach
                             @endforeach
                           </tbody>
                         </table>

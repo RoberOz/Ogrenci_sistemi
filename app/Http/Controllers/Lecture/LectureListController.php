@@ -23,4 +23,26 @@ class LectureListController extends Controller
 
       return view('lecture.lecture')->with(compact('lectures'));
     }
+
+    public function addLecture(Request $request)
+    {
+      $this->authorize('create', User::class);
+
+      $this->validate($request, [
+      'name' => 'required|min:3|max:70',
+      'email' => 'required|email',
+      'password' => 'required|min:9',
+      ]);
+
+        $passwordHashed = Hash::make($request->password);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $passwordHashed;
+
+        $user->save();
+
+        return redirect('/user/user-list');
+    }
 }

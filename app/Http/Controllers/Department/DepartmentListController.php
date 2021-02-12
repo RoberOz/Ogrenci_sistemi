@@ -24,10 +24,9 @@ class DepartmentListController extends Controller
 
     public function show($id)
     {
-        $lectures = Lecture::all();
-
+        $departments = Department::with('lectures')->get();
         $selectedDepartment = Department::where('id', $id)->first();
 
-        return view('department.department-lectures')->with(compact('selectedDepartment','lectures'));
+        return view('department.department-lectures')->with(compact('selectedDepartment','departments'));
     }
 }

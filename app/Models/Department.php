@@ -13,10 +13,10 @@ class Department extends Model
         'name',
     ];
 
-    public function lecture()
+    public function lectures()
     {
 
-        return $this->hasMany(Lecture::class, 'department_id', 'id');
+        return $this->belongsToMany(Lecture::class, 'department_lecture','department_id','lecture_id');
 
     }
 

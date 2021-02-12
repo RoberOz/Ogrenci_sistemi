@@ -11,6 +11,7 @@ use App\Http\Controllers\Teacher\TeacherListController;
 use App\Http\Controllers\Student\StudentListController;
 use App\Http\Controllers\Department\DepartmentListController;
 use App\Http\Controllers\Lecture\LectureListController;
+use App\Http\Controllers\Lecture\UserLectureController;
 
 
 Auth::routes();
@@ -51,4 +52,5 @@ Route::prefix('lecture')
     ->middleware('isGraduated')
     ->group(function () {
         Route::get('lecture-list', [LectureListController::class, 'index'])->name('lecture-list');
+        Route::resource('user-lecture', UserLectureController::class, ['only' => ['store','index']]);
 });

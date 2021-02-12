@@ -11,7 +11,7 @@ class DepartmentSeeder extends Seeder
      public function run()
      {
        $departments = [
-         'Turk Dili ve Edebiyatı Bolumu',
+         'Turk Dili ve Edebiyati Bolumu',
          'Tarih Bolumu',
          'Istatistik Bolumu',
          'Matematik - Bilgisayar',

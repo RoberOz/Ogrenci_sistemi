@@ -55,6 +55,7 @@
           <div class="collapse" id="collapseLecturePanel" data-parent="#accordionSidenav">
             <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPagesMenu">
               <a class="nav-link" href={{route('lecture-list')}}><i class="fas fa-clipboard-list"></i>&nbsp Ders Listesi</a>
+              <a class="nav-link" href={{route('user-lecture.index')}}><i class="fas fa-book"></i>&nbsp Seçtğim Dersler</a>
             </nav>
           </div>
         <!-- Sidenav Link (Charts)-->

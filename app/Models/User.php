@@ -38,4 +38,11 @@ class User extends Authenticatable
         return $this->hasOne(Department::class, 'user_id', 'id');
 
     }
+
+    public function lectures()
+    {
+        
+        return $this->hasMany(Lecture::class, 'lecture_user','lecture_id','user_id');
+
+    }
 }
