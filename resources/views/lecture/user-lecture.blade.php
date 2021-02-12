@@ -33,7 +33,7 @@
                                   <tr role="row" class="odd">
                                     <td align="center"><br>{{$lecture->name}}</td>
                                     <td align="center">
-                                      <button class="btn btn-primary btn-outline-light btn-xl" style="background:#32A2EC" onclick="location.href=''">Dersi Sil</button>
+                                      <button class="js-delete-lecture-btn btn btn-primary btn-outline-light btn-xl" style="background:#32A2EC" data-id={{$lecture->id}}>Dersi Sil</button>
                                     </td>
                                   </tr>
                                 @endif
@@ -49,3 +49,24 @@
     </div>
 </div>
 @endsection
+
+@push('lecture-delete-javascript')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+<script>
+$(document).ready(function(){
+      $('.js-delete-lecture-btn').on('click', function () {
+          let lectureId = $(this).attr("data-id");
+          console.log(lectureId);
+          $.ajax({
+              headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+              url: '{{ url('/lecture/user-lecture')}}/'+lectureId,
+              method: 'delete',
+              success: function(response) {
+                window.location.href = "user-lecture";
+              }
+          });
+      });
+    });
+</script>
+@endpush

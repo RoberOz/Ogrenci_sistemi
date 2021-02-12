@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Lecture;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\User;
 use App\Models\Lecture;
 
 class UserLectureController extends Controller
@@ -23,6 +24,25 @@ class UserLectureController extends Controller
 
   public function store(Request $request)
   {
-    return $request;
+    $lectures = Lecture::where('name',$request->lectureName)->first();
+
+    $users = User::where('id',auth()->user()->id);
+
+
+    $lectures->users()->attach(auth()->user()->id);
+
+    return redirect('/lecture/lecture-list');
+  }
+
+  public function destroy($id)
+  {
+    $lectures = Lecture::where('id',$id)->first();
+
+    $users = User::where('id',auth()->user()->id);
+
+
+    $lectures->users()->detach(auth()->user()->id);
+
+    return response()->json([], 204);
   }
 }

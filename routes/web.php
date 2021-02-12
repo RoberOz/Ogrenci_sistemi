@@ -52,5 +52,5 @@ Route::prefix('lecture')
     ->middleware('isGraduated')
     ->group(function () {
         Route::get('lecture-list', [LectureListController::class, 'index'])->name('lecture-list');
-        Route::resource('user-lecture', UserLectureController::class, ['only' => ['store','index']]);
+        Route::resource('user-lecture', UserLectureController::class, ['only' => ['store','index','destroy']]);
 });
