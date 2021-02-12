@@ -29,7 +29,7 @@ class UserLectureController extends Controller
     $users = User::where('id',auth()->user()->id);
 
 
-    $lectures->users()->attach(auth()->user()->id);
+    $lectures->users()->sync([auth()->user()->id],false);
 
     return redirect('/lecture/lecture-list');
   }
