@@ -6,7 +6,8 @@ use App\Http\Middleware\IsGraduated;
 
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\UserListController;
+use App\Http\Controllers\StudentFormController;
+use App\Http\Controllers\User\UserListController;
 use App\Http\Controllers\Teacher\TeacherListController;
 use App\Http\Controllers\Student\StudentListController;
 use App\Http\Controllers\Department\DepartmentListController;
@@ -22,6 +23,11 @@ Route::get('/', [MainController::class, 'index'])->name('home');
 Route::prefix('profile')
     ->group(function () {
         Route::resource('edit', ProfileController::class, ['only' => ['update','index']]);
+});
+
+Route::prefix('student_form')
+    ->group(function () {
+        Route::resource('form', StudentFormController::class, ['only' => ['index','store']]);
 });
 
 Route::prefix('user')

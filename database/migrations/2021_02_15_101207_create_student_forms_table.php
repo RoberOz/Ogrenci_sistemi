@@ -21,16 +21,16 @@ class CreateStudentFormsTable extends Migration
             $table->string('email');
             $table->string('student_no');
 
-            $table->boolean('is_parents_together');
-            $table->boolean('living_with_family');
-            $table->string('family_address');
-            $table->string('living_with');
+            $table->boolean('is_parents_together')->nullable();
+            $table->boolean('living_with_family')->nullable();
+            $table->string('family_address')->nullable();
+            $table->string('living_with')->nullable();
             $table->string('current_address');
-            $table->string('getting_school_with');
+            $table->string('getting_school_with')->nullable();
             $table->string('working_status');
-            $table->boolean('been_in_accident');
-            $table->boolean('had_any_surgery');
-            $table->string('did_have_any_sickness');
+            $table->boolean('been_in_accident')->nullable();
+            $table->boolean('had_any_surgery')->nullable();
+            $table->string('did_have_any_sickness')->nullable();
             $table->string('how_many_siblings');
 
             $table->string('height');

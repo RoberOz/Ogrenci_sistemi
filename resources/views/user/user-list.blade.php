@@ -57,18 +57,14 @@
                                       <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('user-list.edit',$user->id)}}'">Düzenle</button>
                                     @endif
                                   @endif
-                                  @role('admin')
-                                    <button class="js-delete-user-btn btn btn-primary btn-outline-light btn-xl" style="background:#B60C09" data-id={{$user->id}}>Kişiyi Sil</button>
-                                  @endrole
+                                  <button class="js-delete-user-btn btn btn-primary btn-outline-light btn-xl" style="background:#B60C09" data-id={{$user->id}}>Kişiyi Sil</button>
                                 </td>
                               </tr>
                             @endforeach
                           </tbody>
                         </table>
                         <div align="center">
-                          @role('admin')
-                            <button class="btn btn-primary btn-outline-light btn-xl" style="background:#4C8DE1" onclick="location.href='user-list/create'">Ekle</button>
-                          @endrole
+                          <button class="btn btn-primary btn-outline-light btn-xl" style="background:#4C8DE1" onclick="location.href='user-list/create'">Ekle</button>
                         </div>
                       </div>
 
