@@ -41,5 +41,11 @@ class UserSeeder extends Seeder
           'email' => 'turkdili@gmail.com',
           'password' => Hash::make('123456789'),
         ]);
+
+        User::insert([
+          'name' => 'Tarih Bolumu Baskani',
+          'email' => 'tarih@gmail.com',
+          'password' => Hash::make('123456789'),
+        ]);
     }
 }

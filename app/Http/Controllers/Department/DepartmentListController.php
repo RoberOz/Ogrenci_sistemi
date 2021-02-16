@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Department;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\User;
 use App\Models\Lecture;
 use App\Models\Department;
 
@@ -17,9 +18,10 @@ class DepartmentListController extends Controller
 
     public function index()
     {
-        $departments = Department::with('User')->get();
+        $users = User::all();
+        $departments = Department::with('user')->get();
 
-        return view('department.department')->with(compact('departments'));
+        return view('department.department')->with(compact('users','departments'));
     }
 
     public function show($id)

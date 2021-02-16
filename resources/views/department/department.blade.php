@@ -34,9 +34,23 @@
                               <tr role="row" class="odd">
                                 <td align="center"><br>{{$department->name}}</td>
                                 <td align="center"><br>
-                                  @if ($department->user_id !== null)
-                                    {{$department->user->name}}
-                                  @endif
+                                    @if ($department->user_id !== null)
+                                      {{$department->user->name}}
+                                      <button class="js-delete-department-head-btn btn btn-primary btn-outline-light btn-xs" data-id={{$department->id}} style="background:#DC2818">X</button>
+                                    @else
+                                      <form method="post" action="{{url('/department/department-head')}}">
+                                        @csrf
+                                        <select name="department_head">
+                                          @foreach ($users as $user)
+                                            @if ($user->id !== $department->user_id)
+                                              <option value="{{$user->id}}">{{$user->name}}</option>
+                                            @endif
+                                          @endforeach
+                                        </select>
+                                        <input type=hidden name=department_id value={{$department->id}}></input>
+                                        <button class="btn btn-primary btn-outline-light"  style="background:#1AAE14" type="submit">Ata</button>
+                                      </form>
+                                    @endif
                                 </td>
                                 <td align="center">
                                   <button class="btn btn-primary btn-outline-light btn-xl" style="background:#32A2EC" onclick="location.href='{{route('department-list.show',$department->id)}}'">Detay</button>
@@ -53,3 +67,24 @@
     </div>
 </div>
 @endsection
+
+@push('department-head-delete-javascript')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+<script>
+$(document).ready(function(){
+      $('.js-delete-department-head-btn').on('click', function () {
+          let departmentHeadId = $(this).attr("data-id");
+          console.log(departmentHeadId);
+          $.ajax({
+              headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+              url: '{{ url('/department/department-head')}}/'+departmentHeadId,
+              method: 'delete',
+              success: function(response) {
+                window.location.href = "department-list";
+              }
+          });
+      });
+    });
+</script>
+@endpush

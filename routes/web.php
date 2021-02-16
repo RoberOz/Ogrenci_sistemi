@@ -11,6 +11,7 @@ use App\Http\Controllers\User\UserListController;
 use App\Http\Controllers\Teacher\TeacherListController;
 use App\Http\Controllers\Student\StudentListController;
 use App\Http\Controllers\Department\DepartmentListController;
+use App\Http\Controllers\Department\DepartmentHeadController;
 use App\Http\Controllers\Lecture\LectureListController;
 use App\Http\Controllers\Lecture\UserLectureController;
 
@@ -52,6 +53,7 @@ Route::prefix('department')
     ->middleware('isGraduated')
     ->group(function () {
         Route::resource('department-list', DepartmentListController::class, ['only' => ['index', 'show']]);
+        Route::resource('department-head', DepartmentHeadController::class, ['only' => ['store','destroy']]);
 });
 
 Route::prefix('lecture')
