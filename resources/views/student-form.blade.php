@@ -36,15 +36,15 @@
                     <tr height="35">
                       <td align="right"><label>Anne-Baba Beraber: </label></td>
                       <td>
-                        <input type="checkbox" name="is_parents_together" value="1" ? {{old('is_parents_together')}}>Evet<br>
-                        <input type="checkbox" name="is_parents_together" value="0" ? {{old('is_parents_together')}}>Hayır<br>
+                        <input type="checkbox" name="is_parents_together" value="1" {{old('is_parents_together') == '1' ? 'checked' : ''}}>Evet<br>
+                        <input type="checkbox" name="is_parents_together" value="0" {{old('is_parents_together') == '0' ? 'checked' : ''}}>Hayır<br>
                       </td>
                     </tr>
                     <tr height="35">
                       <td align="right"><label>Ailem ile Beraber Yaşıyorum: </label></td>
                       <td>
-                        <input type="checkbox" name="living_with_family" value="1">Evet<br>
-                        <input type="checkbox" name="living_with_family" value="0">Hayır<br>
+                        <input type="checkbox" name="living_with_family" value="1" {{old('living_with_family') == '1' ? 'checked' : ''}}>Evet<br>
+                        <input type="checkbox" name="living_with_family" value="0" {{old('living_with_family') == '0' ? 'checked' : ''}}>Hayır<br>
                       </td>
                     </tr>
                     <tr height="35">
@@ -67,9 +67,9 @@
                       <td align="right"><label>Çalışma Durumunuz: </label></td>
                       <td>
                         <select name="working_status" required>
-                          <option value="" ? {{old('working_status')}}>Seçim Yapınız</option>
-                          <option value="Çalışıyor ve Okuyor">Çalışıyor ve Okuyor</option>
-                          <option value="Okuyor">Okuyor</option>
+                          <option value="">Seçim Yapınız</option>
+                          <option value="Çalışıyor ve Okuyor" {{old('working_status') == 'Çalışıyor ve Okuyor' ? 'selected' : ''}}>Çalışıyor ve Okuyor</option>
+                          <option value="Okuyor" {{old('working_status') == 'Okuyor' ? 'selected' : ''}}>Okuyor</option>
                         </select>
                       </td>
                     </tr>
@@ -89,12 +89,94 @@
                       <td align="right"><label>Kaç Kardeşsiniz? :  </label></td>
                       <td>
                         <select name="how_many_siblings" required>
-                          <option value="" ? {{old('how_many_siblings')}}>Seçim Yapınız</option>
+                          <option value="">Seçim Yapınız</option>
                           @for ($i=0; $i < 11; $i++)
-                            <option value="{{$i}}">{{$i}}</option>
+                            <option value="{{$i}}" {{old('how_many_siblings') == $i ? 'selected' : ''}}>{{$i}}</option>
                           @endfor
                         </select>
                       </td>
+                    </tr>
+                    <tr height="35">
+                      <td align="right"><label>Boy :  </label></td>
+                      <td ><input type="text" name="height" value="{{old('height')}}" placeholder='cm' required></input></td>
+                    </tr>
+                    <tr height="35">
+                      <td align="right"><label>Kilo :  </label></td>
+                      <td ><input type="text" name="weight" value="{{old('weight')}}" placeholder='kg' required></input></td>
+                    </tr>
+                    <tr height="35">
+                    </tr>
+                    <tr height="35">
+                      <td align="right"><label>Anne Adı :  </label></td>
+                      <td ><input type="text" name="mother_name" value="{{old('mother_name')}}" required></input></td>
+                    </tr>
+                    <tr height="35">
+                      <td align="right"><label>Anne Meslek :  </label></td>
+                      <td ><input type="text" name="mother_job" value="{{old('mother_job')}}" required></input></td>
+                    </tr>
+                    <tr height="35">
+                      <td align="right"><label>Anne İş Adresi:  </label></td>
+                      <td ><input type="text" name="mother_job_address" value="{{old('mother_job_address')}}"></input></td>
+                    </tr>
+                    <tr height="35">
+                      <td align="right"><label>Anne Yaşadığı Adresi:  </label></td>
+                      <td ><input type="text" name="mother_current_address" value="{{old('mother_current_address')}}"></input></td>
+                    </tr>
+                    <tr height="35">
+                      <td align="right"><label>Anne Doğum Tarihi:  </label></td>
+                      <td ><input type="date" name="mother_birth_date" value="{{old('mother_birth_date')}}" required></input></td>
+                    </tr>
+                    <tr height="35">
+                      <td align="right"><label>Anne Hayatta mı? :  </label></td>
+                      <td>
+                        <input type="checkbox" name="is_mother_alive" value="1" {{old('is_mother_alive') == '1' ? 'checked' : ''}}>Evet<br>
+                        <input type="checkbox" name="is_mother_alive" value="0" {{old('is_mother_alive') == '0' ? 'checked' : ''}}>Hayır<br>
+                      </td>
+                    </tr>
+                    <tr height="35">
+                      <td align="right"><label>Anne Email:  </label></td>
+                      <td ><input type="email" name="mother_email" value="{{old('mother_email')}}"></input></td>
+                    </tr>
+                    <tr height="35">
+                      <td align="right"><label>Anne Telefon Numarası:  </label></td>
+                      <td ><input type="text" name="mother_phone_number" value="{{old('mother_phone_number')}}" required></input></td>
+                    </tr>
+                    <tr height="35">
+                    </tr>
+                    <tr height="35">
+                      <td align="right"><label>Baba Adı :  </label></td>
+                      <td ><input type="text" name="father_name" value="{{old('father_name')}}" required></input></td>
+                    </tr>
+                    <tr height="35">
+                      <td align="right"><label>Baba Meslek :  </label></td>
+                      <td ><input type="text" name="father_job" value="{{old('father_job')}}" required></input></td>
+                    </tr>
+                    <tr height="35">
+                      <td align="right"><label>Baba İş Adresi:  </label></td>
+                      <td ><input type="text" name="father_job_address" value="{{old('father_job_address')}}"></input></td>
+                    </tr>
+                    <tr height="35">
+                      <td align="right"><label>Baba Yaşadığı Adresi:  </label></td>
+                      <td ><input type="text" name="father_current_address" value="{{old('father_current_address')}}"></input></td>
+                    </tr>
+                    <tr height="35">
+                      <td align="right"><label>Baba Doğum Tarihi:  </label></td>
+                      <td ><input type="date" name="father_birth_date" value="{{old('father_birth_date')}}" required></input></td>
+                    </tr>
+                    <tr height="35">
+                      <td align="right"><label>Baba Hayatta mı? :  </label></td>
+                      <td>
+                        <input type="checkbox" name="is_father_alive" value="1" {{old('is_father_alive') == '1' ? 'checked' : ''}}>Evet<br>
+                        <input type="checkbox" name="is_father_alive" value="0" {{old('is_father_alive') == '0' ? 'checked' : ''}}>Hayır<br>
+                      </td>
+                    </tr>
+                    <tr height="35">
+                      <td align="right"><label>Baba Email:  </label></td>
+                      <td ><input type="email" name="father_email" value="{{old('father_email')}}"></input></td>
+                    </tr>
+                    <tr height="35">
+                      <td align="right"><label>Baba Telefon Numarası:  </label></td>
+                      <td ><input type="text" name="father_phone_number" value="{{old('father_phone_number')}}" required></input></td>
                     </tr>
                     <tr height="35">
                       <td align="center" colspan="2"><br><button class="btn btn-primary btn-outline-light btn-xl" style="background:#4C8DE1" type="submit">Formu Gönder</button></td>
@@ -113,14 +195,12 @@
 
 <script>
   $("input:checkbox").on('click', function() {
-  // in the handler, 'this' refers to the box clicked on
+  // this' refers to the box clicked on
   var $box = $(this);
   if ($box.is(":checked")) {
     // the name of the box is retrieved using the .attr() method
     // as it is assumed and expected to be immutable
     var group = "input:checkbox[name='" + $box.attr("name") + "']";
-    // the checked state of the group/box on the other hand will change
-    // and the current value is retrieved using .prop() method
     $(group).prop("checked", false);
     $box.prop("checked", true);
   } else {
