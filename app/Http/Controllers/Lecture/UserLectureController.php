@@ -24,20 +24,20 @@ class UserLectureController extends Controller
 
   public function store(Request $request)
   {
-    $lectures = Lecture::where('name',$request->lectureName)->first();
+    foreach ($request->lectureNames as $lectureName) {
 
+    $lectures = Lecture::where('name',$lectureName)->first();
     $users = User::where('id',auth()->user()->id);
 
-
     $lectures->users()->sync([auth()->user()->id],false);
-
+    }
+    
     return redirect('/lecture/lecture-list');
   }
 
   public function destroy($id)
   {
     $lectures = Lecture::where('id',$id)->first();
-
     $users = User::where('id',auth()->user()->id);
 
 

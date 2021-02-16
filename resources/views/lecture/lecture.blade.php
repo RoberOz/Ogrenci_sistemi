@@ -26,20 +26,28 @@
                               </tr>
                           </thead>
                           <tbody style="background:#D1D1D1">
-                            @foreach ($lectures as $lecture)
-                              <form method="post" action="{{url('lecture/user-lecture')}}">
-                                @csrf
+                            <form method="post" action="{{url('lecture/user-lecture')}}">
+                              @csrf
+                              @foreach ($lectures as $lecture)
                                 <tr role="row" class="odd">
                                   <td align="center"><br>{{$lecture->lectureName}}</td>
-                                  <input class="form-control" name="lectureName" type="hidden" value="{{$lecture->lectureName}}">
+                                <!--  <input class="form-control" name="lectureName" type="hidden" value="{{$lecture->lectureName}}"> -->
                                   <td align="center">
                                     <div class="form-group" align="center">
-                                      <button type="submit" class="btn btn-primary btn-outline-light btn-xl" style="background:#239707">Derslerime Ekle</button>
+                                      <br>
+                                      <input type="checkbox" name="lectureNames[]" value="{{$lecture->lectureName}}" style="width: 30px;height: 30px;">
                                     </div>
                                   </td>
                                 </tr>
-                              </form>
-                            @endforeach
+                              @endforeach
+                              <tr>
+                                <td>
+                                </td>
+                                <td align="center">
+                                  <button type="submit" class="btn btn-primary btn-outline-light btn-xl" style="background:#239707">Derslerime Ekle</button>
+                                </td>
+                              </tr>
+                            </form>
                           </tbody>
                         </table>
                       </div>

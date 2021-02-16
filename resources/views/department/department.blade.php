@@ -48,7 +48,7 @@
                                           @endforeach
                                         </select>
                                         <input type=hidden name=department_id value={{$department->id}}></input>
-                                        <button class="btn btn-primary btn-outline-light"  style="background:#1AAE14" type="submit">Ata</button>
+                                        <button class="btn btn-primary btn-outline-light btn-sm"  style="background:#1AAE14" type="submit">Ata</button>
                                       </form>
                                     @endif
                                 </td>
