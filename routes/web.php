@@ -57,7 +57,7 @@ Route::prefix('department')
         Route::resource('department-list', DepartmentListController::class, ['only' => ['index']]);
         Route::resource('department-head', DepartmentHeadController::class, ['only' => ['store','destroy']]);
         Route::resource('department-lecture', DepartmentLectureController::class, ['only' => ['show','index']]);
-        Route::resource('department-assign-lecture', DepartmentAssignLectureController::class, ['only' => ['show']]);
+        Route::resource('department-assign-lecture', DepartmentAssignLectureController::class, ['only' => ['show','store']]);
 });
 
 Route::prefix('lecture')

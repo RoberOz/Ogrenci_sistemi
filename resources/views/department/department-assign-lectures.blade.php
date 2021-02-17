@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header" style="background:#C6C6C6"><strong>{{ __("'ne Ders Ata") }}</strong></div>
+                <div class="card-header" style="background:#C6C6C6"><strong>{{ __("$department->name'ne Ders Ata") }}</strong></div>
                   <div class="card-body" style="background:#C3D6D7">
 
                       @if (session('status'))
@@ -27,19 +27,23 @@
                               </tr>
                           </thead>
                           <tbody style="background:#D1D1D1">
-                            @foreach ($lectures as $lecture)
-                              <tr role="row" class="odd">
-                                <td align="center">{{$lecture->name}}</td>
-                                <td align="center"><input type="checkbox" name="lectureNames[]" value="{{$lecture->name}}" style="width: 30px;height: 30px;"></td>
+                            <form method="post" action="{{url('department/department-assign-lecture')}}">
+                              @csrf
+                              @foreach ($lectures as $lecture)
+                                <tr role="row" class="odd">
+                                  <td align="center">{{$lecture->name}}</td>
+                                  <td align="center"><input type="checkbox" name="lectureNames[]" value="{{$lecture->name}}" style="width: 30px;height: 30px;"></td>
+                                  <input type="hidden" name="departmentId" value="{{$department->id}}">
+                                </tr>
+                              @endforeach
+                              <tr>
+                                <td>
+                                </td>
+                                <td align="center">
+                                  <button type="submit" class="btn btn-primary btn-outline-light btn-xl" style="background:#239707">Dersleri Bölüme Ekle</button>
+                                </td>
                               </tr>
-                            @endforeach
-                            <tr>
-                              <td>
-                              </td>
-                              <td align="center">
-                                <button type="submit" class="btn btn-primary btn-outline-light btn-xl" style="background:#239707">Dersleri Bölüme Ekle</button>
-                              </td>
-                            </tr>
+                            </form>
                           </tbody>
                         </table>
                       </div>

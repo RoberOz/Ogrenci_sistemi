@@ -17,9 +17,24 @@ class DepartmentAssignLectureController extends Controller
 
     public function show($id)
     {
-        $departments = Department::all();
+        $department = Department::where('id',$id)->first();
         $lectures = Lecture::all();
 
-        return view('department.department-assign-lectures')->with(compact('departments','lectures'));
+        return view('department.department-assign-lectures')->with(compact('department','lectures'));
     }
+
+    public function store(Request $request)
+    {
+      if ($request->lectureNames) {
+        foreach ($request->lectureNames as $lectureName) {
+          $department = Department::where('id',$request->departmentId)->first();
+          $lecture = Lecture::where('name',$lectureName)->first();
+
+          $department->lectures()->sync([$lecture->id],false);
+        }
+      }
+      
+      return redirect('/lecture/lecture-list');
+    }
+
 }

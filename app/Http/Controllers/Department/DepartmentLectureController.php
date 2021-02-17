@@ -17,6 +17,7 @@ class DepartmentLectureController extends Controller
 
     public function index(Request $request)
     {
+      // index -> delete olarak kullanılıyor
       $department = Department::where('id',$request->departmentId)->first();
       $lecture = Lecture::where('id',$request->departmentLectureId)->first();
 
