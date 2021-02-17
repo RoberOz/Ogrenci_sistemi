@@ -39,6 +39,7 @@
     @stack('user-delete-javascript')
     @stack('lecture-delete-javascript')
     @stack('department-head-delete-javascript')
+    @stack('department-lecture-delete-javascript')
     @stack('checkbox-javascript')
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>

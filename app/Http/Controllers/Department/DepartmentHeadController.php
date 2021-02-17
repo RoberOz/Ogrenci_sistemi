@@ -9,6 +9,11 @@ use App\Models\Department;
 
 class DepartmentHeadController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function store(Request $request)
     {
       $departmentHead = Department::where('id', $request->department_id)->first();

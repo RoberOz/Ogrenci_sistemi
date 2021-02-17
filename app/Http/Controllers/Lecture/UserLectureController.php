@@ -31,7 +31,7 @@ class UserLectureController extends Controller
 
     $lectures->users()->sync([auth()->user()->id],false);
     }
-    
+
     return redirect('/lecture/lecture-list');
   }
 

@@ -21,7 +21,9 @@
                               @if ($department->id == $selectedDepartment->id)
                                 @foreach ($department->lectures as $lecture)
                                   <tr role="row" class="odd">
-                                    <td align="center">{{$lecture->name}}</td>
+                                    <td align="center">{{$lecture->name}}
+                                      <button class="js-delete-department-lecture-btn btn btn-primary btn-outline-light btn-xs" department-id={{$department->id}} data-id={{$lecture->id}} style="background:#DC2818">X</button>
+                                    </td>
                                   </tr>
                                 @endforeach
                               @endif
@@ -36,3 +38,29 @@
     </div>
 </div>
 @endsection
+
+@push('department-lecture-delete-javascript')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+<script>
+$(document).ready(function(){
+      $('.js-delete-department-lecture-btn').on('click', function () {
+          let departmentLectureId = $(this).attr("data-id");
+          let departmentId = $(this).attr("department-id");
+          console.log(departmentLectureId);
+          $.ajax({
+              headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+              url: '{{ url('/department/department-lecture')}}',
+              method: 'get',
+              data: {
+                'departmentId': departmentId,
+                'departmentLectureId':departmentLectureId,
+              },
+              success: function(response) {
+                window.location.href = "";
+              }
+          });
+      });
+    });
+</script>
+@endpush

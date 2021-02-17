@@ -53,7 +53,8 @@
                                     @endif
                                 </td>
                                 <td align="center">
-                                  <button class="btn btn-primary btn-outline-light btn-xl" style="background:#32A2EC" onclick="location.href='{{route('department-list.show',$department->id)}}'">Detay</button>
+                                  <button class="btn btn-primary btn-outline-light btn-xl" style="background:#32A2EC" onclick="location.href='{{route('department-lecture.show',$department->id)}}'">Detay</button>
+                                  <button class="btn btn-primary btn-outline-light btn-xl" style="background:#32A2EC" onclick="location.href='{{route('department-assign-lecture.show',$department->id)}}'">Bölüme Ders Ata</button>
                                 </td>
                               </tr>
                             @endforeach

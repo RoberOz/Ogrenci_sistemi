@@ -16,10 +16,7 @@ class LectureListController extends Controller
 
     public function index()
     {
-      $lectures = Lecture::select(\DB::raw('name AS lectureName'))
-              ->groupBy('lectureName')
-              ->orderBy('lectureName', 'ASC')
-              ->get();
+      $lectures = Lecture::all();
 
       return view('lecture.lecture')->with(compact('lectures'));
     }

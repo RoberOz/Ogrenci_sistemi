@@ -24,11 +24,4 @@ class DepartmentListController extends Controller
         return view('department.department')->with(compact('users','departments'));
     }
 
-    public function show($id)
-    {
-        $departments = Department::with('lectures')->get();
-        $selectedDepartment = Department::where('id', $id)->first();
-
-        return view('department.department-lectures')->with(compact('selectedDepartment','departments'));
-    }
 }
