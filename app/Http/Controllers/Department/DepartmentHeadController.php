@@ -17,7 +17,7 @@ class DepartmentHeadController extends Controller
     public function store(Request $request)
     {
       $departmentHead = Department::where('id', $request->department_id)->first();
-      $departmentHead->user_id = $request->department_head;
+      $departmentHead->department_head_user_id = $request->department_head;
 
       $departmentHead->save();
 
@@ -27,7 +27,7 @@ class DepartmentHeadController extends Controller
     public function destroy($id)
     {
       $department = Department::where('id', $id)->first();
-      $department->user_id = null;
+      $department->department_head_user_id = null;
 
       $department->save();
 

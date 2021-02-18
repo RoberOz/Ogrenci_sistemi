@@ -16,10 +16,10 @@ class CreateDepartmentsTable extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->bigInteger('department_head_user_id')->unsigned()->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')
+            $table->foreign('department_head_user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');

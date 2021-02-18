@@ -33,8 +33,8 @@ class DepartmentAssignLectureController extends Controller
           $department->lectures()->sync([$lecture->id],false);
         }
       }
-      
-      return redirect('/lecture/lecture-list');
+
+      return redirect('/department/department-list');
     }
 
 }

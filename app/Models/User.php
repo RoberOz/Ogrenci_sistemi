@@ -35,14 +35,21 @@ class User extends Authenticatable
     public function department()
     {
 
-        return $this->hasOne(Department::class, 'user_id', 'id');
+        return $this->hasOne(Department::class, 'department_head_user_id', 'id');
 
     }
 
     public function lectures()
     {
-        
+
         return $this->hasMany(Lecture::class, 'lecture_user','lecture_id','user_id');
+
+    }
+
+    public function departments()
+    {
+
+        return $this->hasMany(User::class, 'department_user','user_id','department_id');
 
     }
 }

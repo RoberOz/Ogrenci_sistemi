@@ -34,27 +34,27 @@
                               <tr role="row" class="odd">
                                 <td align="center"><br>{{$department->name}}</td>
                                 <td align="center"><br>
-                                    @if ($department->user_id !== null)
-                                      {{$department->user->name}}
-                                      <button class="js-delete-department-head-btn btn btn-primary btn-outline-light btn-xs" data-id={{$department->id}} style="background:#DC2818">X</button>
-                                    @else
-                                      <form method="post" action="{{url('/department/department-head')}}">
-                                        @csrf
-                                        <select name="department_head">
-                                          @foreach ($users as $user)
-                                            @if ($user->id !== $department->user_id)
-                                              <option value="{{$user->id}}">{{$user->name}}</option>
-                                            @endif
-                                          @endforeach
-                                        </select>
-                                        <input type=hidden name=department_id value={{$department->id}}></input>
-                                        <button class="btn btn-primary btn-outline-light btn-sm"  style="background:#1AAE14" type="submit">Ata</button>
-                                      </form>
-                                    @endif
+                                  @if ($department->department_head_user_id !== null)
+                                    {{$department->user->name}}
+                                    <button class="js-delete-department-head-btn btn btn-primary btn-outline-light btn-xs" data-id={{$department->id}} style="background:#DC2818">X</button>
+                                  @else
+                                    <form method="post" action="{{url('/department/department-head')}}">
+                                      @csrf
+                                      <select name="department_head">
+                                        @foreach ($users as $user)
+                                          @if ($user->id !== $department->user_id)
+                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                          @endif
+                                        @endforeach
+                                      </select>
+                                      <input type=hidden name=department_id value={{$department->id}}></input>
+                                      <button class="btn btn-primary btn-outline-light btn-sm"  style="background:#1AAE14" type="submit">Ata</button>
+                                    </form>
+                                  @endif
                                 </td>
                                 <td align="center">
                                   <button class="btn btn-primary btn-outline-light btn-xl" style="background:#32A2EC" onclick="location.href='{{route('department-lecture.show',$department->id)}}'">Detay</button>
-                                  <button class="btn btn-primary btn-outline-light btn-xl" style="background:#32A2EC" onclick="location.href='{{route('department-assign-lecture.show',$department->id)}}'">Bölüme Ders Ata</button>
+                                  <button class="btn btn-primary btn-outline-light btn-xl" style="background:#19A713" onclick="location.href='{{route('department-assign-lecture.show',$department->id)}}'">Bölüme Ders Ata</button>
                                 </td>
                               </tr>
                             @endforeach

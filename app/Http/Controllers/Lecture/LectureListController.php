@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Lecture;
+use App\Models\Department;
 
 class LectureListController extends Controller
 {
@@ -16,8 +17,9 @@ class LectureListController extends Controller
 
     public function index()
     {
+      $departments = Department::with('user')->with('lectures')->get();
       $lectures = Lecture::all();
 
-      return view('lecture.lecture')->with(compact('lectures'));
+      return view('lecture.lecture')->with(compact('departments','lectures'));
     }
 }
