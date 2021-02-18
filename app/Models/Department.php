@@ -30,7 +30,7 @@ class Department extends Model
     public function users()
     {
 
-        return $this->belongsToMany(User::class, 'department_user','user_id','department_id');
+        return $this->belongsToMany(User::class, 'department_user','user_id','department_id')->withPivot(["is_cap_dal"]);
 
     }
 }

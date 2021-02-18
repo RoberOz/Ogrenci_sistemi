@@ -40,18 +40,21 @@ class LectureSeeder extends Seeder
       foreach ($lecturesTurk as $lectureTurk) {
         Lecture::insert([
           'name' => $lectureTurk,
+          'period' => 'bahar'
         ]);
       }
 
       foreach ($lecturesTarih as $lectureTarih) {
         Lecture::insert([
           'name' => $lectureTarih,
+          'period' => 'bahar'
         ]);
       }
 
       foreach ($lecturesBiyoloji as $lectureBiyoloji) {
         Lecture::insert([
           'name' => $lectureBiyoloji,
+          'period' => 'bahar'
         ]);
       }
     }

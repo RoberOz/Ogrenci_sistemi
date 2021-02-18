@@ -31,7 +31,7 @@
                               @csrf
                               @foreach ($departments as $department)
                                 @foreach ($department->users as $user)
-                                  @if (($user->pivot->user_id == auth()->user()->id) && ($user->pivot->is_cap_dal = 'false'))
+                                  @if (($user->pivot->user_id == auth()->user()->id) && ($user->pivot->is_cap_dal == false))
                                     @if ($user->pivot->department_id == $department->id)
                                       @foreach ($department->lectures as $departmentLecture)
                                         @foreach ($lectures as $lecture)

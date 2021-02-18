@@ -17,6 +17,7 @@ class CreateDepartmentsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->bigInteger('department_head_user_id')->unsigned()->nullable();
+            $table->year('foundation_year');
             $table->timestamps();
 
             $table->foreign('department_head_user_id')

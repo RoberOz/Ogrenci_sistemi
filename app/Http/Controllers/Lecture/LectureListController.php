@@ -17,7 +17,7 @@ class LectureListController extends Controller
 
     public function index()
     {
-      $departments = Department::with('user')->with('lectures')->get();
+      $departments = Department::with('users')->with('lectures')->get();
       $lectures = Lecture::all();
 
       return view('lecture.lecture')->with(compact('departments','lectures'));
