@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Department;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;
 use App\Models\Lecture;
 use App\Models\Department;
 
@@ -26,11 +27,28 @@ class DepartmentAssignLectureController extends Controller
     public function store(Request $request)
     {
       if ($request->lectureNames) {
-        foreach ($request->lectureNames as $lectureName) {
+        foreach ($request->lectureNames['guz'] as $lectureName) {
           $department = Department::where('id',$request->departmentId)->first();
           $lecture = Lecture::where('name',$lectureName)->first();
 
-          $department->lectures()->sync([$lecture->id],false);
+          $pivotArray = [$lecture->id];
+          $pivotArray = [
+            $lecture->id => ['department_year' => $request->departmentYear, 'lecture_period' => 'guz'],
+          ];
+
+          $department->lectures()->sync($pivotArray,false);
+        }
+
+        foreach ($request->lectureNames['bahar'] as $lectureName) {
+          $department = Department::where('id',$request->departmentId)->first();
+          $lecture = Lecture::where('name',$lectureName)->first();
+
+          $pivotArray = [$lecture->id];
+          $pivotArray = [
+            $lecture->id => ['department_year' => $request->departmentYear, 'lecture_period' => 'bahar'],
+          ];
+
+          $department->lectures()->sync($pivotArray,false);
         }
       }
 

@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header" style="background:#C6C6C6"><strong>{{ __('Ders Listesi') }}</strong></div>
+                <div class="card-header" style="background:#C6C6C6"><strong>{{ __('Seçtiğim Ders Listesi') }}</strong></div>
                   <div class="card-body" style="background:#C3D6D7">
 
                       @if (session('status'))
@@ -17,13 +17,14 @@
                       <div class="col-sm-14">
                         <table class="table table-bordered table-hover" width="100%" cellspacing="0" role="grid">
                           <thead style="background:#B6B6B6">
-                              <tr role="row" align="center">
-                                <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
-                                </th>
-                                <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
-                                  İşlemler
-                                </th>
-                              </tr>
+                            <tr role="row" align="center">
+                              <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
+                                Dersler
+                              </th>
+                              <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
+                                İşlemler
+                              </th>
+                            </tr>
                           </thead>
                           <tbody style="background:#D1D1D1">
 

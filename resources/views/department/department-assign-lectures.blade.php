@@ -18,10 +18,13 @@
                         <table class="table table-bordered table-hover" width="100%" cellspacing="0" role="grid">
                           <thead style="background:#B6B6B6">
                               <tr role="row" align="center">
-                                <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
+                                <th tabindex="0" rowspan="1" colspan="1" style="width: 200px;">
                                   Dersler
                                 </th>
-                                <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
+                                <th tabindex="0" rowspan="1" colspan="1" style="width: 10px;">
+                                  Dönem
+                                </th>
+                                <th tabindex="0" rowspan="1" colspan="1" style="width: 20px;">
                                   İşlemler
                                 </th>
                               </tr>
@@ -32,15 +35,19 @@
                               @foreach ($lectures as $lecture)
                                 <tr role="row" class="odd">
                                   <td align="center">{{$lecture->name}}</td>
-                                  <td align="center"><input type="checkbox" name="lectureNames[]" value="{{$lecture->name}}" style="width: 30px;height: 30px;"></td>
+                                  <td align="center">{{$lecture->period}}</td>
+                                  <td align="center"><input type="checkbox" name="lectureNames[{{$lecture->period}}][]" value="{{$lecture->name}}" style="width: 30px;height: 30px;"></td>
                                   <input type="hidden" name="departmentId" value="{{$department->id}}">
+                                  <input type="hidden" name="departmentYear" value="{{$department->foundation_year}}">
                                 </tr>
                               @endforeach
                               <tr>
                                 <td>
                                 </td>
+                                <td>
+                                </td>
                                 <td align="center">
-                                  <button type="submit" class="btn btn-primary btn-outline-light btn-xl" style="background:#239707">Dersleri Bölüme Ekle</button>
+                                  <button class="btn btn-primary btn-outline-light btn-xl" style="background:#239707">Dersleri Bölüme Ekle</button>
                                 </td>
                               </tr>
                             </form>

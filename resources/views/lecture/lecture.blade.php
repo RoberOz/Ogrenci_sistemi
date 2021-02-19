@@ -17,21 +17,21 @@
                       <div class="col-sm-14">
                         <table class="table table-bordered table-hover" width="100%" cellspacing="0" role="grid">
                           <thead style="background:#B6B6B6">
-                              <tr role="row" align="center">
-                                <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
-                                  Dersler
-                                </th>
-                                <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
-                                  İşlemler
-                                </th>
-                              </tr>
+                            <tr role="row" align="center">
+                              <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
+                                Dersler
+                              </th>
+                              <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
+                                İşlemler
+                              </th>
+                            </tr>
                           </thead>
                           <tbody style="background:#D1D1D1">
-                            <form method="post" action="{{url('lecture/user-lecture')}}">
-                              @csrf
-                              @foreach ($departments as $department)
-                                @foreach ($department->users as $user)
-                                  @if (($user->pivot->user_id == auth()->user()->id) && ($user->pivot->is_cap_dal == false))
+                            @foreach ($departments as $department)
+                              @foreach ($department->users as $user)
+                                @if (($user->pivot->user_id == auth()->user()->id) && ($user->pivot->is_cap_dal == false))
+                                  <form method="post" action="{{url('lecture/user-lecture')}}">
+                                    @csrf
                                     @if ($user->pivot->department_id == $department->id)
                                       @foreach ($department->lectures as $departmentLecture)
                                         @foreach ($lectures as $lecture)
@@ -55,10 +55,10 @@
                                         <button type="submit" class="btn btn-primary btn-outline-light btn-xl" style="background:#239707">Derslerime Ekle</button>
                                       </td>
                                     </tr>
-                                  @endif
-                                @endforeach
+                                  </form>
+                                @endif
                               @endforeach
-                            </form>
+                            @endforeach
                           </tbody>
                         </table>
                       </div>

@@ -17,7 +17,7 @@ class Lecture extends Model
     public function departments()
     {
 
-        return $this->belongsToMany(Department::class, 'department_lecture','department_id','lecture_id');
+        return $this->belongsToMany(Department::class, 'department_lecture','department_id','lecture_id')->withPivot(["department_year"]);
 
     }
 
