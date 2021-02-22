@@ -16,7 +16,7 @@ class DepartmentListController extends Controller
         $users = User::all();
         $departments = Department::with('user')->get();
 
-        return view('department.department')->with([
+        return view('department.index')->with([
           'users' => $users,
           'departments' => $departments
         ]);

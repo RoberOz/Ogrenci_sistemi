@@ -15,7 +15,7 @@ class LectureListController extends Controller
       $departments = Department::with('users')->with('lectures')->get();
       $lectures = Lecture::all();
 
-      return view('lecture.lecture')->with([
+      return view('lecture.index')->with([
         'departments' => $departments,
         'lectures' => $lectures
       ]);

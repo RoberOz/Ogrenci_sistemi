@@ -16,7 +16,7 @@ class DepartmentAssignLectureController extends Controller
         $department = Department::where('id',$id)->first();
         $lectures = Lecture::all();
 
-        return view('department.department-assign-lectures')->with([
+        return view('department.assign-lectures')->with([
           'department' => $department,
           'lectures' => $lectures
         ]);

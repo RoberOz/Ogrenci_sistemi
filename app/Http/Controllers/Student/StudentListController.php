@@ -13,7 +13,7 @@ class StudentListController extends Controller
   {
       $users = User::all();
 
-      return view('student.student')->with([
+      return view('student.index')->with([
         'users' => $users
       ]);
   }

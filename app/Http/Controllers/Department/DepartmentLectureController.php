@@ -25,7 +25,7 @@ class DepartmentLectureController extends Controller
       $departments = Department::with('lectures')->get();
       $selectedDepartment = Department::where('id', $id)->first();
 
-      return view('department.department-lectures')->with([
+      return view('department.lectures')->with([
         'selectedDepartment' => $selectedDepartment,
         'departments' => $departments
       ]);
