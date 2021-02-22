@@ -17,14 +17,14 @@ class Lecture extends Model
     public function departments()
     {
 
-        return $this->belongsToMany(Department::class, 'department_lecture','department_id','lecture_id')->withPivot(["department_year"]);
+        return $this->belongsToMany(Department::class, 'department_lecture','department_id','lecture_id')->withPivot(["department_year"])->withTimeStamps();
 
     }
 
     public function users()
     {
 
-        return $this->belongsToMany(User::class, 'lecture_user','lecture_id','user_id');
+        return $this->belongsToMany(User::class, 'lecture_user','lecture_id','user_id')->withTimeStamps();
 
     }
 }

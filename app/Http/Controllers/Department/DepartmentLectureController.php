@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Lecture;
 use App\Models\Department;
+use App\Models\DepartmentLecture;
 
 class DepartmentLectureController extends Controller
 {

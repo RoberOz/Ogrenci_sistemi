@@ -16,7 +16,7 @@ class Department extends Model
     public function lectures()
     {
 
-        return $this->belongsToMany(Lecture::class, 'department_lecture','department_id','lecture_id')->withPivot(["department_year"]);
+        return $this->belongsToMany(Lecture::class, 'department_lecture','department_id','lecture_id')->using('App\Models\DepartmentLecture')->withPivot(["department_year"])->withTimeStamps();
 
     }
 
@@ -30,7 +30,7 @@ class Department extends Model
     public function users()
     {
 
-        return $this->belongsToMany(User::class, 'department_user','user_id','department_id')->withPivot(["is_cap_dal"]);
+        return $this->belongsToMany(User::class, 'department_user','user_id','department_id')->withPivot(["is_cap_dal"])->withTimeStamps();
 
     }
 }

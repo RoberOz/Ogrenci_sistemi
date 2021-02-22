@@ -49,7 +49,7 @@ class User extends Authenticatable
     public function departments()
     {
 
-        return $this->hasMany(User::class, 'department_user','user_id','department_id')->withPivot(["is_cap_dal"]);
+        return $this->hasMany(User::class, 'department_user','user_id','department_id')->withPivot(["is_cap_dal"])->withTimeStamps();
 
     }
 }

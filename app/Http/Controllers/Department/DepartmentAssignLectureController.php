@@ -9,6 +9,7 @@ use App\Http\Requests\AssignDepartmentLectureRequest;
 
 use App\Models\Lecture;
 use App\Models\Department;
+use App\Models\DepartmentLecture;
 
 class DepartmentAssignLectureController extends Controller
 {
@@ -24,7 +25,6 @@ class DepartmentAssignLectureController extends Controller
 
     public function store(AssignDepartmentLectureRequest $request)
     {
-      return $request;
       if(isset($request->lectureNames['guz'])) {
         foreach ($request->lectureNames['guz'] as $lectureName) {
           $department = Department::where('id',$request->departmentId)->first();
