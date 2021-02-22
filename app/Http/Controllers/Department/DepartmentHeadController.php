@@ -19,12 +19,11 @@ class DepartmentHeadController extends Controller
       return redirect(route('department-list.index'));
     }
 
-    public function destroy($id)
+    public function destroy(Department $department_head)
     {
-      $department = Department::where('id', $id)->first();
-      $department->department_head_user_id = null;
+      $department_head->department_head_user_id = null;
 
-      $department->save();
+      $department_head->save();
 
       return response()->json([], 204);
     }

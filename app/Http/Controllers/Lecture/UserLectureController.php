@@ -33,13 +33,12 @@ class UserLectureController extends Controller
     return redirect(route('lecture-list'));
   }
 
-  public function destroy($id)
+  public function destroy(Lecture $user_lecture)
   {
-    $lectures = Lecture::where('id',$id)->first();
     $users = User::where('id',auth()->user()->id);
 
 
-    $lectures->users()->detach(auth()->user()->id);
+    $user_lecture->users()->detach(auth()->user()->id);
 
     return response()->json([], 204);
   }

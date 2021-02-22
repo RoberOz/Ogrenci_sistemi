@@ -5,19 +5,17 @@ namespace App\Http\Controllers\Department;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use Carbon\Carbon;
 use App\Models\Lecture;
 use App\Models\Department;
 
 class DepartmentAssignLectureController extends Controller
 {
-    public function show($id)
+    public function show(Department $department_assign_lecture)
     {
-        $department = Department::where('id',$id)->first();
         $lectures = Lecture::all();
 
         return view('department.assign-lectures')->with([
-          'department' => $department,
+          'department' => $department_assign_lecture,
           'lectures' => $lectures
         ]);
     }

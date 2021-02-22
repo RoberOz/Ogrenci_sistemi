@@ -20,14 +20,11 @@ class DepartmentLectureController extends Controller
       return response()->json([], 204);
     }
 
-    public function show($id)
+    public function show(Department $department_lecture)
     {
-      $departments = Department::with('lectures')->get();
-      $selectedDepartment = Department::where('id', $id)->first();
 
       return view('department.lectures')->with([
-        'selectedDepartment' => $selectedDepartment,
-        'departments' => $departments
+        'department' => $department_lecture
       ]);
     }
 

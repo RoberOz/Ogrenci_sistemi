@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header" style="background:#C6C6C6"><strong>{{ __($selectedDepartment->name.' Dersleri') }}</strong></div>
+                <div class="card-header" style="background:#C6C6C6"><strong>{{ __($department->name.' Dersleri') }}</strong></div>
                   <div class="card-body" style="background:#C3D6D7">
 
                       @if (session('status'))
@@ -17,18 +17,14 @@
                       <div class="col-sm-14">
                         <table class="table table-bordered table-hover" width="100%" cellspacing="0" role="grid">
                           <tbody style="background:#D1D1D1">
-                            @foreach ($departments as $department)
-                              @if ($department->id == $selectedDepartment->id)
-                                @foreach ($department->lectures as $lecture)
-                                  <tr role="row" class="odd">
-                                    <td align="center">{{$lecture->name}}</td>
-                                    <td align="center">{{$lecture->period}}</td>
-                                    <td align="center">
-                                      <button class="js-delete-department-lecture-btn btn btn-primary btn-outline-light btn-xs" department-id={{$department->id}} data-id={{$lecture->id}} style="background:#DC2818">X</button>
-                                    </td>
-                                  </tr>
-                                @endforeach
-                              @endif
+                            @foreach ($department->lectures as $lecture)
+                              <tr role="row" class="odd">
+                                <td align="center">{{$lecture->name}}</td>
+                                <td align="center">{{$lecture->period}}</td>
+                                <td align="center">
+                                  <button class="js-delete-department-lecture-btn btn btn-primary btn-outline-light btn-xs" department-id={{$department->id}} data-id={{$lecture->id}} style="background:#DC2818">X</button>
+                                </td>
+                              </tr>
                             @endforeach
                           </tbody>
                         </table>
