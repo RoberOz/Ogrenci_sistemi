@@ -23,35 +23,35 @@ Auth::routes();
 
 Route::get('/', [MainController::class, 'index'])->name('home');
 
-Route::prefix('profile')
+Route::prefix('profiles')
     ->group(function () {
         Route::resource('edit', ProfileController::class, ['only' => ['update','index']]);
 });
 
-Route::prefix('student_form')
+Route::prefix('student_forms')
     ->group(function () {
         Route::resource('form', StudentFormController::class, ['only' => ['index','store']]);
 });
 
-Route::prefix('user')
+Route::prefix('users')
     ->middleware('isGraduated')
     ->group(function () {
         Route::resource('user-list', UserListController::class, ['except' => ['show']]);
 });
 
-Route::prefix('teacher')
+Route::prefix('teachers')
     ->middleware('isGraduated')
     ->group(function () {
         Route::get('teacher-list', [TeacherListController::class, 'index'])->name('teacher-list');
 });
 
-Route::prefix('student')
+Route::prefix('students')
     ->middleware('isGraduated')
     ->group(function () {
         Route::get('student-list', [StudentListController::class, 'index'])->name('student-list');
 });
 
-Route::prefix('department')
+Route::prefix('departments')
     ->middleware('isGraduated')
     ->group(function () {
         Route::resource('department-list', DepartmentListController::class, ['only' => ['index']]);
@@ -60,7 +60,7 @@ Route::prefix('department')
         Route::resource('department-assign-lecture', DepartmentAssignLectureController::class, ['only' => ['show','store']]);
 });
 
-Route::prefix('lecture')
+Route::prefix('lectures')
     ->middleware('isGraduated')
     ->group(function () {
         Route::get('lecture-list', [LectureListController::class, 'index'])->name('lecture-list');

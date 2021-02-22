@@ -38,7 +38,7 @@
                                     {{$department->user->name}}
                                     <button class="js-delete-department-head-btn btn btn-primary btn-outline-light btn-xs" data-id={{$department->id}} style="background:#DC2818">X</button>
                                   @else
-                                    <form method="post" action="{{url('/department/department-head')}}">
+                                    <form method="post" action="{{url('/departments/department-head')}}">
                                       @csrf
                                       <select name="department_head">
                                         @foreach ($users as $user)
@@ -79,7 +79,7 @@ $(document).ready(function(){
           console.log(departmentHeadId);
           $.ajax({
               headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-              url: '{{ url('/department/department-head')}}/'+departmentHeadId,
+              url: '{{ url('/departments/department-head')}}/'+departmentHeadId,
               method: 'delete',
               success: function(response) {
                 window.location.href = "department-list";

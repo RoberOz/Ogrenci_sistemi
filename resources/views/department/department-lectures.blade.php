@@ -52,7 +52,7 @@ $(document).ready(function(){
           console.log(departmentLectureId);
           $.ajax({
               headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-              url: '{{ url('/department/department-lecture')}}',
+              url: '{{ url('/departments/department-lecture')}}',
               method: 'get',
               data: {
                 'departmentId': departmentId,

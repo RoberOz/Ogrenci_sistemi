@@ -35,7 +35,7 @@ class UserLectureController extends Controller
       }
     }
 
-    return redirect('/lecture/lecture-list');
+    return redirect('/lectures/lecture-list');
   }
 
   public function destroy($id)

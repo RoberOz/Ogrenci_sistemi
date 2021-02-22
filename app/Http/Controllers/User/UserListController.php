@@ -50,7 +50,7 @@ class UserListController extends Controller
 
         $user->save();
 
-        return redirect('/user/user-list');
+        return redirect('/users/user-list');
     }
 
     public function edit($id)
@@ -90,7 +90,7 @@ class UserListController extends Controller
 
             $user->save();
 
-            return redirect('/user/user-list');
+            return redirect('/users/user-list');
         }
     }
 

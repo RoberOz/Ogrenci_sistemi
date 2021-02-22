@@ -43,7 +43,7 @@ class ProfileController extends Controller
 
           $user->save();
 
-          return redirect('/profile/edit');
+          return redirect('/profiles/edit');
       }
     }
 }

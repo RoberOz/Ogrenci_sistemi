@@ -33,7 +33,7 @@
                             @foreach ($departments as $department)
                               @foreach ($department->users as $user)
                                 @if (($user->pivot->user_id == auth()->user()->id) && ($user->pivot->is_cap_dal == false))
-                                  <form method="post" action="{{url('lecture/user-lecture')}}">
+                                  <form method="post" action="{{url('lectures/user-lecture')}}">
                                     @csrf
                                     @if ($user->pivot->department_id == $department->id)
                                       @foreach ($department->lectures as $departmentLecture)

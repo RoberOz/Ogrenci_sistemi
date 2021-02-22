@@ -21,7 +21,7 @@ class DepartmentHeadController extends Controller
 
       $departmentHead->save();
 
-      return redirect('/department/department-list');
+      return redirect('/departments/department-list');
     }
 
     public function destroy($id)

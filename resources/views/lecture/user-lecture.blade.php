@@ -65,7 +65,7 @@ $(document).ready(function(){
           console.log(lectureId);
           $.ajax({
               headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-              url: '{{ url('/lecture/user-lecture')}}/'+lectureId,
+              url: '{{ url('/lectures/user-lecture')}}/'+lectureId,
               method: 'delete',
               success: function(response) {
                 window.location.href = "user-lecture";

@@ -57,7 +57,7 @@ class DepartmentAssignLectureController extends Controller
         }
       }
 
-      return redirect('/department/department-list');
+      return redirect('/departments/department-list');
     }
 
 }

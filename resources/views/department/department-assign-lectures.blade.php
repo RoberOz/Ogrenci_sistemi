@@ -30,7 +30,7 @@
                               </tr>
                           </thead>
                           <tbody style="background:#D1D1D1">
-                            <form method="post" action="{{url('department/department-assign-lecture')}}">
+                            <form method="post" action="{{url('departments/department-assign-lecture')}}">
                               @csrf
                               @foreach ($lectures as $lecture)
                                 <tr role="row" class="odd">
