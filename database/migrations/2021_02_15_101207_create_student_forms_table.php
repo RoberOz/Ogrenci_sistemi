@@ -15,7 +15,7 @@ class CreateStudentFormsTable extends Migration
     {
         Schema::create('student_forms', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id')->unsigned();
+            $table->unsignedBigInteger('user_id');
             $table->string('tc_kimlik_no');
             $table->date('birth_date');
             $table->string('email');

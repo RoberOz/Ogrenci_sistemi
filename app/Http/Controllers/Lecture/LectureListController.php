@@ -21,7 +21,7 @@ class LectureListController extends Controller
       $lectures = Lecture::all();
 
       return view('lecture.lecture')->with([
-        'departments' => $department,
+        'departments' => $departments,
         'lectures' => $lectures
       ]);
     }
