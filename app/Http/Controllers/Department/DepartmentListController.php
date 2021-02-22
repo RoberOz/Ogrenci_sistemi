@@ -21,7 +21,10 @@ class DepartmentListController extends Controller
         $users = User::all();
         $departments = Department::with('user')->get();
 
-        return view('department.department')->with(compact('users','departments'));
+        return view('department.department')->with([
+          'users' => $users,
+          'departments' => $departments
+        ]);
     }
 
 }

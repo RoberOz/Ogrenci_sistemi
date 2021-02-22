@@ -21,12 +21,15 @@ class DepartmentAssignLectureController extends Controller
         $department = Department::where('id',$id)->first();
         $lectures = Lecture::all();
 
-        return view('department.department-assign-lectures')->with(compact('department','lectures'));
+        return view('department.department-assign-lectures')->with([
+          'department' => $department,
+          'lectures' => $lectures
+        ]);
     }
 
     public function store(Request $request)
     {
-      if ($request->lectureNames) {
+      if(isset($request->lectureNames['guz'])) {
         foreach ($request->lectureNames['guz'] as $lectureName) {
           $department = Department::where('id',$request->departmentId)->first();
           $lecture = Lecture::where('name',$lectureName)->first();
@@ -38,7 +41,9 @@ class DepartmentAssignLectureController extends Controller
 
           $department->lectures()->sync($pivotArray,false);
         }
+      }
 
+      if (isset($request->lectureNames['bahar'])) {
         foreach ($request->lectureNames['bahar'] as $lectureName) {
           $department = Department::where('id',$request->departmentId)->first();
           $lecture = Lecture::where('name',$lectureName)->first();

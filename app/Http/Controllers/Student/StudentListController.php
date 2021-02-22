@@ -18,6 +18,8 @@ class StudentListController extends Controller
   {
       $users = User::all();
 
-      return view('student.student')->with(compact('users'));
+      return view('student.student')->with([
+        'users' => $users
+      ]);
   }
 }

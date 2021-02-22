@@ -18,6 +18,8 @@ class TeacherListController extends Controller
   {
       $users = User::all();
 
-      return view('teacher.teacher')->with(compact('users'));
+      return view('teacher.teacher')->with([
+        'users' => $users
+      ]);
   }
 }

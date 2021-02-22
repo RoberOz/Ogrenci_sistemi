@@ -17,7 +17,9 @@ class ProfileController extends Controller
     {
         $user = User::where('id', auth()->user()->id)->first();
 
-        return view('profile')->with(compact('user'));
+        return view('profile')->with([
+          'user' => $user
+        ]);
     }
 
     public function update(Request $request, $id)

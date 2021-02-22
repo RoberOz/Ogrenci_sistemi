@@ -31,7 +31,10 @@ class DepartmentLectureController extends Controller
       $departments = Department::with('lectures')->get();
       $selectedDepartment = Department::where('id', $id)->first();
 
-      return view('department.department-lectures')->with(compact('selectedDepartment','departments'));
+      return view('department.department-lectures')->with([
+        'selectedDepartment' => $selectedDepartment,
+        'departments' => $departments
+      ]);
     }
 
 }

@@ -19,7 +19,9 @@ class UserListController extends Controller
     {
         $users = User::all();
 
-        return view('user.user-list')->with(compact('users'));
+        return view('user.user-list')->with([
+          'users' => $users
+        ]);
     }
 
     public function create()
@@ -61,7 +63,9 @@ class UserListController extends Controller
 
             $this->authorize('update', $user);
 
-            return view('user.edit', compact('user'));
+            return view('user.edit')->with([
+              'user' => $user
+            ]);
         }
     }
 

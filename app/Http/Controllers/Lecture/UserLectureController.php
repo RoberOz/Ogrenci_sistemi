@@ -19,7 +19,9 @@ class UserLectureController extends Controller
   {
     $lectures = Lecture::with('users')->get();
 
-    return view('lecture.user-lecture')->with(compact('lectures'));
+    return view('lecture.user-lecture')->with([
+      'lectures' =>$lectures
+    ]);
   }
 
   public function store(Request $request)

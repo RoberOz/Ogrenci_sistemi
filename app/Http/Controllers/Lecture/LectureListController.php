@@ -20,6 +20,9 @@ class LectureListController extends Controller
       $departments = Department::with('users')->with('lectures')->get();
       $lectures = Lecture::all();
 
-      return view('lecture.lecture')->with(compact('departments','lectures'));
+      return view('lecture.lecture')->with([
+        'departments' => $department,
+        'lectures' => $lectures
+      ]);
     }
 }
