@@ -21,6 +21,9 @@
                               <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
                                 Dersler
                               </th>
+                              <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
+                                Dönem
+                              </th>
                               <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
                                 İşlemler
                               </th>
@@ -38,6 +41,7 @@
                                           @if ($lecture->id == $departmentLecture->pivot->lecture_id)
                                             <tr role="row" class="odd">
                                               <td align="center">{{$lecture->name}}</td>
+                                              <td align="center">{{$lecture->period}}</td>
                                               <td align="center">
                                                 <div class="form-group" align="center">
                                                   <input type="checkbox" name="lectureNames[]" value="{{$lecture->name}}" style="width: 30px;height: 30px;">
@@ -49,6 +53,8 @@
                                       @endforeach
                                     @endif
                                     <tr>
+                                      <td>
+                                      </td>
                                       <td>
                                       </td>
                                       <td align="center">
