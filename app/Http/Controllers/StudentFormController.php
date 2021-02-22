@@ -100,6 +100,6 @@ class StudentFormController extends Controller
 
       $student_form->save();
 
-      return redirect('student_form/form');
+      return redirect(route('form.index'));
   }
 }

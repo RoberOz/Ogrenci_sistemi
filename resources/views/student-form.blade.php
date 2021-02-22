@@ -14,7 +14,7 @@
 
                 <br>
 
-                <form method="post" action="{{url('student_form/form')}}" >
+                <form method="post" action="{{url('student_forms/form')}}" >
                   <table align="center" style="margin-left: 300px;">
                     @csrf
                     <tr height="35">
