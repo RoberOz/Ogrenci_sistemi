@@ -15,9 +15,8 @@ class DepartmentLectureController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Request $request)
+    public function detach(Request $request)
     {
-      // index -> delete olarak kullanılıyor
       $department = Department::where('id',$request->departmentId)->first();
       $lecture = Lecture::where('id',$request->departmentLectureId)->first();
 
