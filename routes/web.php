@@ -24,34 +24,40 @@ Auth::routes();
 Route::get('/', [MainController::class, 'index'])->name('home');
 
 Route::prefix('profiles')
+    ->middleware('auth')
     ->group(function () {
         Route::resource('edit', ProfileController::class, ['only' => ['update','index']]);
 });
 
 Route::prefix('student_forms')
+    ->middleware('auth')
     ->group(function () {
         Route::resource('form', StudentFormController::class, ['only' => ['index','store']]);
 });
 
 Route::prefix('users')
+    ->middleware('auth')
     ->middleware('isGraduated')
     ->group(function () {
         Route::resource('user-list', UserListController::class, ['except' => ['show']]);
 });
 
 Route::prefix('teachers')
+    ->middleware('auth')
     ->middleware('isGraduated')
     ->group(function () {
         Route::get('teacher-list', [TeacherListController::class, 'index'])->name('teacher-list');
 });
 
 Route::prefix('students')
+    ->middleware('auth')
     ->middleware('isGraduated')
     ->group(function () {
         Route::get('student-list', [StudentListController::class, 'index'])->name('student-list');
 });
 
 Route::prefix('departments')
+    ->middleware('auth')
     ->middleware('isGraduated')
     ->group(function () {
         Route::resource('department-list', DepartmentListController::class, ['only' => ['index']]);
@@ -62,6 +68,7 @@ Route::prefix('departments')
 });
 
 Route::prefix('lectures')
+    ->middleware('auth')
     ->middleware('isGraduated')
     ->group(function () {
         Route::get('lecture-list', [LectureListController::class, 'index'])->name('lecture-list');

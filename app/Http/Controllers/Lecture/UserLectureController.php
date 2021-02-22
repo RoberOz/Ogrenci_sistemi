@@ -10,11 +10,6 @@ use App\Models\Lecture;
 
 class UserLectureController extends Controller
 {
-  public function __construct()
-  {
-      $this->middleware('auth');
-  }
-
   public function index()
   {
     $lectures = Lecture::with('users')->get();
