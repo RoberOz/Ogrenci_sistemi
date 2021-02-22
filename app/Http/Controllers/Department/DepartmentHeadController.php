@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Department;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\AssignDepartmentHeadRequest;
+
 use App\Models\Department;
 
 class DepartmentHeadController extends Controller
 {
-    public function store(Request $request)
+    public function store(AssignDepartmentHeadRequest $request)
     {
       $departmentHead = Department::where('id', $request->department_id)->first();
       $departmentHead->department_head_user_id = $request->department_head;

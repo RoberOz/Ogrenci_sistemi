@@ -5,6 +5,9 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
@@ -26,15 +29,9 @@ class UserController extends Controller
         return view('user.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-      $this->authorize('create', User::class);
-
-      $this->validate($request, [
-      'name' => 'required|min:3|max:70',
-      'email' => 'required|email',
-      'password' => 'required|min:9',
-      ]);
+        $this->authorize('create', User::class);
 
         $passwordHashed = Hash::make($request->password);
 
@@ -64,14 +61,8 @@ class UserController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        $this->validate($request, [
-        'name' => 'required|min:3|max:70',
-        'email' => 'required|email',
-        'password' => 'required|min:9',
-        ]);
-
         $user = User::find($id);
         if (null == $user) {
             return redirect('/');

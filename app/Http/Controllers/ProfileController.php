@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests\UpdateProfileRequest;
+
 use App\Models\User;
 
 class ProfileController extends Controller
@@ -17,7 +19,7 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateProfileRequest $request, $id)
     {
         $this->validate($request, [
         'name' => 'required|min:3|max:70',

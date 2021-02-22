@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Department;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\AssignDepartmentLectureRequest;
+
 use App\Models\Lecture;
 use App\Models\Department;
 
@@ -20,8 +22,9 @@ class DepartmentAssignLectureController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(AssignDepartmentLectureRequest $request)
     {
+      return $request;
       if(isset($request->lectureNames['guz'])) {
         foreach ($request->lectureNames['guz'] as $lectureName) {
           $department = Department::where('id',$request->departmentId)->first();
