@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Models\Lecture;
 use App\Models\Department;
 
-class DepartmentListController extends Controller
+class DepartmentController extends Controller
 {
     public function index()
     {

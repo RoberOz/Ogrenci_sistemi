@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Lecture;
 use App\Models\Department;
 
-class LectureListController extends Controller
+class LectureController extends Controller
 {
     public function index()
     {

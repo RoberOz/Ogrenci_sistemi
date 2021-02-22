@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Student;
+namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\User;
 
-class StudentListController extends Controller
+class TeacherController extends Controller
 {
   public function index()
   {
       $users = User::all();
 
-      return view('student.index')->with([
+      return view('teacher.index')->with([
         'users' => $users
       ]);
   }

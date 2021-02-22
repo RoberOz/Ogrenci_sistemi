@@ -7,14 +7,14 @@ use App\Http\Middleware\IsGraduated;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentFormController;
-use App\Http\Controllers\User\UserListController;
-use App\Http\Controllers\Teacher\TeacherListController;
-use App\Http\Controllers\Student\StudentListController;
-use App\Http\Controllers\Department\DepartmentListController;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Teacher\TeacherController;
+use App\Http\Controllers\Student\StudentController;
+use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\Department\DepartmentHeadController;
 use App\Http\Controllers\Department\DepartmentLectureController;
 use App\Http\Controllers\Department\DepartmentAssignLectureController;
-use App\Http\Controllers\Lecture\LectureListController;
+use App\Http\Controllers\Lecture\LectureController;
 use App\Http\Controllers\Lecture\UserLectureController;
 
 
@@ -39,28 +39,28 @@ Route::prefix('users')
     ->middleware('auth')
     ->middleware('isGraduated')
     ->group(function () {
-        Route::resource('user-list', UserListController::class, ['except' => ['show']]);
+        Route::resource('user-list', UserController::class, ['except' => ['show']]);
 });
 
 Route::prefix('teachers')
     ->middleware('auth')
     ->middleware('isGraduated')
     ->group(function () {
-        Route::get('teacher-list', [TeacherListController::class, 'index'])->name('teacher-list');
+        Route::get('teacher-list', [TeacherController::class, 'index'])->name('teacher-list');
 });
 
 Route::prefix('students')
     ->middleware('auth')
     ->middleware('isGraduated')
     ->group(function () {
-        Route::get('student-list', [StudentListController::class, 'index'])->name('student-list');
+        Route::get('student-list', [StudentController::class, 'index'])->name('student-list');
 });
 
 Route::prefix('departments')
     ->middleware('auth')
     ->middleware('isGraduated')
     ->group(function () {
-        Route::resource('department-list', DepartmentListController::class, ['only' => ['index']]);
+        Route::resource('department-list', DepartmentController::class, ['only' => ['index']]);
         Route::resource('department-head', DepartmentHeadController::class, ['only' => ['store','destroy']]);
         Route::resource('department-lecture', DepartmentLectureController::class, ['only' => ['show']]);
         Route::get('department-lecture', [DepartmentLectureController::class, 'detach'])->name('department-lecture-detach');
@@ -71,6 +71,6 @@ Route::prefix('lectures')
     ->middleware('auth')
     ->middleware('isGraduated')
     ->group(function () {
-        Route::get('lecture-list', [LectureListController::class, 'index'])->name('lecture-list');
+        Route::get('lecture-list', [LectureController::class, 'index'])->name('lecture-list');
         Route::resource('user-lecture', UserLectureController::class, ['only' => ['store','index','destroy']]);
 });
