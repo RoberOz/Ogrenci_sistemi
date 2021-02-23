@@ -36,7 +36,7 @@
                                 <tr role="row" class="odd">
                                   <td align="center">{{$lecture->name}}</td>
                                   <td align="center">{{$lecture->period}}</td>
-                                  <td align="center"><input type="checkbox" name="lectureNames[{{$lecture->period}}][]" value="{{$lecture->name}}" style="width: 30px;height: 30px;"></td>
+                                  <td align="center"><input type="checkbox" name="lectureNames[]" value="{{$lecture->name}}" style="width: 30px;height: 30px;"></td>
                                   <input type="hidden" name="departmentId" value="{{$department->id}}">
                                   <input type="hidden" name="departmentYear" value="{{$department->foundation_year}}">
                                 </tr>

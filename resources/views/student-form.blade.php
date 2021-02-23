@@ -36,15 +36,15 @@
                     <tr height="35">
                       <td align="right"><label>Anne-Baba Beraber: </label></td>
                       <td>
-                        <input type="checkbox" name="is_parents_together" value="1" {{old('is_parents_together') == '1' ? 'checked' : ''}}>Evet<br>
-                        <input type="checkbox" name="is_parents_together" value="0" {{old('is_parents_together') == '0' ? 'checked' : ''}}>Hayır<br>
+                        <input type="radio" name="is_parents_together" value="1" {{old('is_parents_together') == '1' ? 'checked' : ''}}>Evet<br>
+                        <input type="radio" name="is_parents_together" value="0" {{old('is_parents_together') == '0' ? 'checked' : ''}}>Hayır<br>
                       </td>
                     </tr>
                     <tr height="35">
                       <td align="right"><label>Ailem ile Beraber Yaşıyorum: </label></td>
                       <td>
-                        <input type="checkbox" name="living_with_family" value="1" {{old('living_with_family') == '1' ? 'checked' : ''}}>Evet<br>
-                        <input type="checkbox" name="living_with_family" value="0" {{old('living_with_family') == '0' ? 'checked' : ''}}>Hayır<br>
+                        <input type="radio" name="living_with_family" value="1" {{old('living_with_family') == '1' ? 'checked' : ''}}>Evet<br>
+                        <input type="radio" name="living_with_family" value="0" {{old('living_with_family') == '0' ? 'checked' : ''}}>Hayır<br>
                       </td>
                     </tr>
                     <tr height="35">
@@ -129,8 +129,8 @@
                     <tr height="35">
                       <td align="right"><label>Anne Hayatta mı? :  </label></td>
                       <td>
-                        <input type="checkbox" name="is_mother_alive" value="1" {{old('is_mother_alive') == '1' ? 'checked' : ''}}>Evet<br>
-                        <input type="checkbox" name="is_mother_alive" value="0" {{old('is_mother_alive') == '0' ? 'checked' : ''}}>Hayır<br>
+                        <input type="radio" name="is_mother_alive" value="1" {{old('is_mother_alive') == '1' ? 'checked' : ''}}>Evet<br>
+                        <input type="radio" name="is_mother_alive" value="0" {{old('is_mother_alive') == '0' ? 'checked' : ''}}>Hayır<br>
                       </td>
                     </tr>
                     <tr height="35">
@@ -166,8 +166,8 @@
                     <tr height="35">
                       <td align="right"><label>Baba Hayatta mı? :  </label></td>
                       <td>
-                        <input type="checkbox" name="is_father_alive" value="1" {{old('is_father_alive') == '1' ? 'checked' : ''}}>Evet<br>
-                        <input type="checkbox" name="is_father_alive" value="0" {{old('is_father_alive') == '0' ? 'checked' : ''}}>Hayır<br>
+                        <input type="radio" name="is_father_alive" value="1" {{old('is_father_alive') == '1' ? 'checked' : ''}}>Evet<br>
+                        <input type="radio" name="is_father_alive" value="0" {{old('is_father_alive') == '0' ? 'checked' : ''}}>Hayır<br>
                       </td>
                     </tr>
                     <tr height="35">
@@ -189,23 +189,3 @@
       </div>
   </div>
 @endsection
-
-@push('checkbox-javascript')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-
-<script>
-  $("input:checkbox").on('click', function() {
-  // this' refers to the box clicked on
-  var $box = $(this);
-  if ($box.is(":checked")) {
-    // the name of the box is retrieved using the .attr() method
-    // as it is assumed and expected to be immutable
-    var group = "input:checkbox[name='" + $box.attr("name") + "']";
-    $(group).prop("checked", false);
-    $box.prop("checked", true);
-  } else {
-    $box.prop("checked", false);
-  }
-});
-</script>
-@endpush

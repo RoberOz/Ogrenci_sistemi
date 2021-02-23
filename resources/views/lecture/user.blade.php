@@ -22,9 +22,6 @@
                                 Dersler
                               </th>
                               <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
-                                Dönem
-                              </th>
-                              <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
                                 İşlemler
                               </th>
                             </tr>
@@ -36,7 +33,6 @@
                                 @if ($user->pivot->user_id == auth()->user()->id)
                                   <tr role="row" class="odd">
                                     <td align="center"><br>{{$lecture->name}}</td>
-                                    <td align="center"><br>{{$lecture->period}}</td>
                                     <td align="center">
                                       <button class="js-delete-lecture-btn btn btn-primary btn-outline-light btn-xl" style="background:#32A2EC" data-id={{$lecture->id}}>Dersi Sil</button>
                                     </td>

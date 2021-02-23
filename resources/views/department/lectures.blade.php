@@ -20,7 +20,6 @@
                             @foreach ($department->lectures as $lecture)
                               <tr role="row" class="odd">
                                 <td align="center">{{$lecture->name}}</td>
-                                <td align="center">{{$lecture->period}}</td>
                                 <td align="center">
                                   <button class="js-delete-department-lecture-btn btn btn-primary btn-outline-light btn-xs" department-id={{$department->id}} data-id={{$lecture->id}} style="background:#DC2818">X</button>
                                 </td>

@@ -14,6 +14,7 @@ use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\Department\DepartmentHeadController;
 use App\Http\Controllers\Department\DepartmentLectureController;
 use App\Http\Controllers\Department\DepartmentAssignLectureController;
+use App\Http\Controllers\Department\DepartmentUserController;
 use App\Http\Controllers\Lecture\LectureController;
 use App\Http\Controllers\Lecture\UserLectureController;
 
@@ -65,6 +66,8 @@ Route::prefix('departments')
         Route::resource('department-lecture', DepartmentLectureController::class, ['only' => ['show']]);
         Route::get('department-lecture', [DepartmentLectureController::class, 'detach'])->name('department-lecture-detach');
         Route::resource('department-assign-lecture', DepartmentAssignLectureController::class, ['only' => ['show','store']]);
+        Route::resource('department-user', DepartmentUserController::class, ['only' => ['store']]);
+        Route::get('department-user', [DepartmentUserController::class, 'detach'])->name('department-user-detach');
 });
 
 Route::prefix('lectures')

@@ -27,6 +27,9 @@
                                 <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
                                   Durum
                                 </th>
+                                <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
+                                  Bölüm
+                                </th>
                                 <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
                                   İşlemler
                                 </th>
@@ -34,37 +37,61 @@
                           </thead>
                           <tbody style="background:#D1D1D1">
                             @foreach ($users as $user)
-                              @if ($user->hasRole('student'))
-                                <tr role="row" class="odd">
-                                  <td align="center"><br>{{$user->name}}</td>
-                                  <td align="center"><br>{{$user->email}}</td>
-                                  <td align="center"><br>
-                                    @if ($user->hasRole('admin'))
-                                      Admin
-                                    @elseif($user->hasRole('teacher'))
-                                      Öğretmen
+                              <tr role="row" class="odd">
+                                <td align="center"><br>{{$user->name}}</td>
+                                <td align="center"><br>{{$user->email}}</td>
+                                <td align="center"><br>
+                                  @if ($user->hasRole('admin'))
+                                    Admin
+                                  @elseif($user->hasRole('teacher'))
+                                    Öğretmen
+                                  @else
+                                    @if ($user->is_graduated == 0)
+                                      Okuyor
                                     @else
-                                      @if ($user->is_graduated == 0)
-                                        Okuyor
-                                      @else
-                                        Mezun
-                                      @endif
+                                      Mezun
                                     @endif
-                                  </td>
-                                  <td align="center">
-                                    @if (auth()->user()->hasRole('admin'))
+                                  @endif
+                                </td>
+                                <td align="center"><br>
+                                  @foreach ($user->departments as $departmentUser)
+                                     @if ($departmentUser->pivot->user_id == $user->id)
+                                       @foreach ($departments as $department)
+                                         @if ($departmentUser->pivot->department_id == $department->id)
+                                           {{$department->name}}
+                                           <button class="js-delete-department-user-btn btn btn-primary btn-outline-light btn-xs" department-id={{$department->id}} data-id={{$user->id}} style="background:#DC2818">X</button>
+                                           @php $isAssignedDepartment = "true" @endphp
+                                         @endif
+                                       @endforeach
+                                     @endif
+                                  @endforeach
+                                  @if ($isAssignedDepartment == "false")
+                                    <form method="post" action="{{url('/departments/department-user')}}">
+                                      @csrf
+                                      <select name="department_id">
+                                        @foreach ($departments as $selectDepartment)
+                                          <option value="{{$selectDepartment->id}}">{{$selectDepartment->name}}</option>
+                                        @endforeach
+                                      </select>
+                                      <input type=hidden name=user_id value={{$user->id}}></input>
+                                      <button class="btn btn-primary btn-outline-light btn-sm"  style="background:#1AAE14" type="submit">Ata</button>
+                                    </form>
+                                  @endif
+                                  @php $isAssignedDepartment = "false" @endphp
+                                </td>
+                                <td align="center">
+                                  @if (auth()->user()->hasRole('admin'))
+                                    <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('user-list.edit',$user->id)}}'">Düzenle</button>
+                                  @else
+                                    @if (auth()->user()->id == $user->id)
                                       <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('user-list.edit',$user->id)}}'">Düzenle</button>
-                                    @else
-                                      @if (auth()->user()->id == $user->id)
-                                        <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('user-list.edit',$user->id)}}'">Düzenle</button>
-                                      @endif
                                     @endif
-                                    @role('admin')
-                                      <button class="js-delete-user-btn btn btn-primary btn-outline-light btn-xl" style="background:#B60C09" data-id={{$user->id}}>Kişiyi Sil</button>
-                                    @endrole
-                                  </td>
-                                </tr>
-                              @endif
+                                  @endif
+                                  @role('admin')
+                                    <button class="js-delete-user-btn btn btn-primary btn-outline-light btn-xl" style="background:#B60C09" data-id={{$user->id}}>Kişiyi Sil</button>
+                                  @endrole
+                                </td>
+                              </tr>
                             @endforeach
                           </tbody>
                         </table>
@@ -76,3 +103,30 @@
     </div>
 </div>
 @endsection
+
+@push('department-user-delete-javascript')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+<script>
+$(document).ready(function(){
+      $('.js-delete-department-user-btn').on('click', function () {
+          let userId = $(this).attr("data-id");
+          let departmentId = $(this).attr("department-id");
+          console.log(userId);
+          console.log(departmentId);
+          $.ajax({
+              headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+              url: '{{ url('/departments/department-user')}}',
+              method: 'get',
+              data: {
+                'userId': userId,
+                'departmentId':departmentId,
+              },
+              success: function(response) {
+                window.location.href = "student-list";
+              }
+          });
+      });
+    });
+</script>
+@endpush

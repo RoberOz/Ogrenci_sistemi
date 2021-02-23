@@ -16,7 +16,6 @@ class CreateLecturesTable extends Migration
         Schema::create('lectures', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 45);
-            $table->string('period', 45);
             $table->timestamps();
         });
     }

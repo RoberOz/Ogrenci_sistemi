@@ -21,27 +21,23 @@
                               <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
                                 Dersler
                               </th>
-                              <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
-                                Dönem
-                              </th>
                               <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
                                 İşlemler
                               </th>
                             </tr>
                           </thead>
                           <tbody style="background:#D1D1D1">
-                            @foreach ($departments as $department)
-                              @foreach ($department->users as $user)
-                                @if (($user->pivot->user_id == auth()->user()->id) && ($user->pivot->is_cap_dal == false))
-                                  <form method="post" action="{{url('lectures/user-lecture')}}">
-                                    @csrf
-                                    @if ($user->pivot->department_id == $department->id)
-                                      @foreach ($department->lectures as $departmentLecture)
+                            <form method="post" action="{{url('lectures/user-lecture')}}">
+                              @csrf
+                              @foreach ($users as $user)
+                                @if ($user->id == auth()->user()->id)
+                                  @foreach ($user->departments as $department)
+                                    @foreach ($departmentLectures as $departmentLecture)
+                                      @if ($departmentLecture->department_id == $department->id)
                                         @foreach ($lectures as $lecture)
-                                          @if ($lecture->id == $departmentLecture->pivot->lecture_id)
+                                          @if ($lecture->id == $departmentLecture->lecture_id)
                                             <tr role="row" class="odd">
                                               <td align="center">{{$lecture->name}}</td>
-                                              <td align="center">{{$lecture->period}}</td>
                                               <td align="center">
                                                 <div class="form-group" align="center">
                                                   <input type="checkbox" name="lectureNames[]" value="{{$lecture->name}}" style="width: 30px;height: 30px;">
@@ -50,21 +46,19 @@
                                             </tr>
                                           @endif
                                         @endforeach
-                                      @endforeach
-                                    @endif
-                                    <tr>
-                                      <td>
-                                      </td>
-                                      <td>
-                                      </td>
-                                      <td align="center">
-                                        <button type="submit" class="btn btn-primary btn-outline-light btn-xl" style="background:#239707">Derslerime Ekle</button>
-                                      </td>
-                                    </tr>
-                                  </form>
+                                      @endif
+                                    @endforeach
+                                  @endforeach
                                 @endif
                               @endforeach
-                            @endforeach
+                              <tr>
+                                <td>
+                                </td>
+                                <td align="center">
+                                  <button type="submit" class="btn btn-primary btn-outline-light btn-xl" style="background:#239707">Derslerime Ekle</button>
+                                </td>
+                              </tr>
+                            </form>
                           </tbody>
                         </table>
                       </div>
