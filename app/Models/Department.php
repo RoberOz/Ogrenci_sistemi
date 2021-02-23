@@ -11,6 +11,7 @@ class Department extends Model
 
     protected $fillable = [
         'name',
+        'foundation_year'
     ];
 
     public function lectures()

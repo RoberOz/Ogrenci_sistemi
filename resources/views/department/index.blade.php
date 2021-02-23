@@ -55,11 +55,15 @@
                                 <td align="center">
                                   <button class="btn btn-primary btn-outline-light btn-xl" style="background:#32A2EC" onclick="location.href='{{route('department-lecture.show',$department->id)}}'">Detay</button>
                                   <button class="btn btn-primary btn-outline-light btn-xl" style="background:#19A713" onclick="location.href='{{route('department-assign-lecture.show',$department->id)}}'">Bölüme Ders Ata</button>
+                                  <button class="js-delete-department-btn btn btn-primary btn-outline-light btn-xl" style="background:#B60C09" data-id={{$department->id}}>Bölümü Sil</button>
                                 </td>
                               </tr>
                             @endforeach
                           </tbody>
                         </table>
+                        <div align="center">
+                          <button class="btn btn-primary btn-outline-light btn-xl" style="background:#4C8DE1" onclick="location.href='department-list/create'">Ekle</button>
+                        </div>
                       </div>
 
                   </div>
@@ -68,6 +72,27 @@
     </div>
 </div>
 @endsection
+
+@push('department-delete-javascript')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+<script>
+$(document).ready(function(){
+      $('.js-delete-department-btn').on('click', function () {
+          let departmentId = $(this).attr("data-id");
+          console.log(departmentId);
+          $.ajax({
+              headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+              url: '{{ url('/departments/department-list')}}/'+departmentId,
+              method: 'delete',
+              success: function(response) {
+                window.location.href = "department-list";
+              }
+          });
+      });
+    });
+</script>
+@endpush
 
 @push('department-head-delete-javascript')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>

@@ -38,6 +38,7 @@
 
     @stack('user-delete-javascript')
     @stack('lecture-delete-javascript')
+    @stack('department-delete-javascript')
     @stack('department-head-delete-javascript')
     @stack('department-lecture-delete-javascript')
     @stack('department-user-delete-javascript')
