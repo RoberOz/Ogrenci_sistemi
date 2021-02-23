@@ -46,6 +46,7 @@
           <div class="collapse" id="collapseDepartmentPanel" data-parent="#accordionSidenav">
             <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPagesMenu">
               <a class="nav-link" href={{route('department-list.index')}}><i class="fas fa-clipboard-list"></i>&nbsp Bölüm Listesi</a>
+              <a class="nav-link" href={{route('department-list.create')}}><i class="fas fa-plus-circle"></i>&nbsp Yeni Bölüm Oluştur</a>
             </nav>
           </div>
           <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapseLecturePanel" aria-expanded="false" aria-controls="collapseLecturePanel">
