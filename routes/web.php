@@ -66,7 +66,7 @@ Route::prefix('departments')
         Route::resource('department-lecture', DepartmentLectureController::class, ['only' => ['show']]);
         Route::get('department-lecture', [DepartmentLectureController::class, 'detach'])->name('department-lecture-detach');
         Route::resource('department-assign-lecture', DepartmentAssignLectureController::class, ['only' => ['show','store']]);
-        Route::resource('department-user', DepartmentUserController::class, ['only' => ['store']]);
+        Route::resource('department-user', DepartmentUserController::class, ['only' => ['store','create']]);
         Route::get('department-user', [DepartmentUserController::class, 'detach'])->name('department-user-detach');
 });
 

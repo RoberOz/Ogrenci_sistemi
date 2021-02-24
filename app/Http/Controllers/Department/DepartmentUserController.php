@@ -12,13 +12,36 @@ use App\Models\Department;
 
 class DepartmentUserController extends Controller
 {
+    public function create(Request $request)
+    {
+        $department = Department::where('id',$request->department_id)->first();
+        $user = User::where('id',$request->user_id)->first();
+        $department_id = $request->department_id;
+        $user_id = $request->user_id;
+
+        return view('department.assign-department')->with([
+          'user' => $user,
+          'department' => $department,
+          'department_id' => $department_id,
+          'user_id' => $user_id
+        ]);
+    }
+
     public function store(AssignDepartmentUserRequest $request)
     {
+        return $request;
         $user = User::where('id',$request->user_id)->first();
+        $department = Department::where('id',$request->department_id)->first();
 
-        $user->departments()->sync([$request->department_id],false);
+        $pivotArray = [$department->id];
+        $pivotArray = [
+          $department->id => ['department_registered_year' => $request->department_registered_year],
+        ];
+
+        $user->departments()->sync($pivotArray,false);
 
         return redirect(route('student-list'));
+
     }
 
     public function detach(Request $request)

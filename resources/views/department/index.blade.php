@@ -55,7 +55,7 @@
                                 <td align="center">
                                   <button class="btn btn-primary btn-outline-light btn-xl" style="background:#32A2EC" onclick="location.href='{{route('department-lecture.show',$department->id)}}'">Detay</button>
                                   <button class="btn btn-primary btn-outline-light btn-xl" style="background:#19A713" onclick="location.href='{{route('department-assign-lecture.show',$department->id)}}'">Bölüme Ders Ata</button>
-                                  <button class="js-delete-department-btn btn btn-primary btn-outline-light btn-xl" style="background:#B60C09" data-id={{$department->id}}>Bölümü Sil</button>
+                                  <button class="js-delete-department-btn btn btn-primary btn-outline-light" style="background:#B60C09" data-id={{$department->id}}>Bölümü Sil</button>
                                 </td>
                               </tr>
                             @endforeach

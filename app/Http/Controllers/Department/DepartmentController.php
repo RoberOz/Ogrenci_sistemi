@@ -36,7 +36,7 @@ class DepartmentController extends Controller
 
       $department->save();
 
-      return redirect(route('user-list.index'));
+      return redirect(route('department-list.index'));
     }
 
     public function destroy($id)

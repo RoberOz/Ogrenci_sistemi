@@ -26,6 +26,8 @@ class AssignDepartmentUserRequest extends FormRequest
         return [
           'user_id' => 'numeric|required',
           'department_id' => 'numeric|required',
+          'department_foundation_year' => 'numeric|required',
+          'department_registered_year' => 'numeric|gte:department_foundation_year|required'
         ];
     }
 }
