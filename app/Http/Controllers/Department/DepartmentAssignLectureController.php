@@ -30,7 +30,15 @@ class DepartmentAssignLectureController extends Controller
           $department = Department::where('id',$request->departmentId)->first();
           $lecture = Lecture::where('name',$lectureName)->first();
 
-          $department->lectures()->sync([$lecture->id],false);
+          $pivotArray=[$lecture->id];
+          $pivotArray=[
+            $lecture->id => [
+              'class' => $request->class,
+              'period' => $request->period
+            ]
+          ];
+
+          $department->lectures()->sync($pivotArray,false);
         }
       }
 

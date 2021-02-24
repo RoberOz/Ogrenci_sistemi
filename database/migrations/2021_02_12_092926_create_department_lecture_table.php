@@ -17,7 +17,8 @@ class CreateDepartmentLectureTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('department_id');
             $table->bigInteger('lecture_id');
-            $table->string('lecture_period')->nullable();
+            $table->integer('class');
+            $table->integer('period');
             $table->timestamps();
         });
     }
