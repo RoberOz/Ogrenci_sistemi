@@ -16,6 +16,7 @@ class CreateDepartmentsTable extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->integer('years');
             $table->unsignedBigInteger('department_head_user_id')->nullable();
             $table->year('foundation_year');
             $table->timestamps();

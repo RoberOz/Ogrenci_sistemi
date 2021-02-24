@@ -27,6 +27,15 @@
                     <input class="form-control" name="name" type="text" placeholder="isim" value="{{old('name')}}" required>
                   </div>
                   <div class="form-group">
+                    <label for="exampleFormControlInput1">Bölüm Kaç Senelik:</label>
+                    <br>
+                    <select name="years" required>
+                      <option value="">Seçim Yapınız</option>
+                      <option value="2" {{old('years') == '2' ? 'selected' : ''}}>2</option>
+                      <option value="4" {{old('years') == '4' ? 'selected' : ''}}>4</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
                     <label for="exampleFormControlInput1">Kurulma Tarihi:</label>
                     <input class="form-control" name="foundation_year" type="text" placeholder="yyyy" value="{{old('foundation_year')}}" required>
                   </div>

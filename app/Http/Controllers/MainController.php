@@ -14,10 +14,10 @@ class MainController extends Controller
 
     public function index()
     {
-        /*
+
         auth()->user()->givePermissionTo('admin panel access');
         auth()->user()->assignRole('admin');
-
+  /*
         auth()->user()->givePermissionTo('teacher panel access');
         auth()->user()->assignRole('teacher');
 

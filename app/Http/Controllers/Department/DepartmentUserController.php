@@ -9,6 +9,7 @@ use App\Http\Requests\AssignDepartmentUserRequest;
 
 use App\Models\User;
 use App\Models\Department;
+use App\Models\DepartmentUser;
 
 class DepartmentUserController extends Controller
 {
@@ -29,7 +30,6 @@ class DepartmentUserController extends Controller
 
     public function store(AssignDepartmentUserRequest $request)
     {
-        return $request;
         $user = User::where('id',$request->user_id)->first();
         $department = Department::where('id',$request->department_id)->first();
 

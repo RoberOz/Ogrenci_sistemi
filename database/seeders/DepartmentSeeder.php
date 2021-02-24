@@ -23,6 +23,7 @@ class DepartmentSeeder extends Seeder
        foreach ($departments as $department) {
          Department::insert([
            'name' => $department,
+           'years' => '4',
            'foundation_year' => '2020',
          ]);
        }

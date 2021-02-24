@@ -32,6 +32,7 @@ class DepartmentController extends Controller
     {
       $department = new Department();
       $department->name = $request->name;
+      $department->years = $request->years;
       $department->foundation_year = $request->foundation_year;
 
       $department->save();

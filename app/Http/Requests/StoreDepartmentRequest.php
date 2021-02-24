@@ -25,7 +25,8 @@ class StoreDepartmentRequest extends FormRequest
     {
         return [
           'name' => 'required',
-          'foundation_year' => 'numeric|required'
+          'years' => 'integer|required'
+          'foundation_year' => 'integer|required'
         ];
     }
 }
