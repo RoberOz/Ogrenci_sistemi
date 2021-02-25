@@ -24,7 +24,7 @@ class Lecture extends Model
     public function users()
     {
 
-        return $this->belongsToMany(User::class, 'lecture_user','lecture_id','user_id')->withTimeStamps();
+        return $this->belongsToMany(User::class, 'lecture_user','lecture_id','user_id')->withPivot(["class","period"])->withTimeStamps();
 
     }
 }

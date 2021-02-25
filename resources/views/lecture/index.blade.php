@@ -23,6 +23,12 @@
                                   Dersler
                                 </th>
                                 <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
+                                  Sınıf
+                                </th>
+                                <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
+                                  Dönem
+                                </th>
+                                <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
                                   İşlemler
                                 </th>
                               </tr>
@@ -39,9 +45,19 @@
                                             @if ($lecture->id == $departmentLecture->lecture_id)
                                               <tr role="row" class="odd">
                                                 <td align="center">{{$lecture->name}}</td>
+                                                <td align="center">{{$departmentLecture->class}}. Sınıf</td>
+                                                <td align="center">
+                                                  @if ($departmentLecture->period == 1)
+                                                    Güz
+                                                  @elseif($departmentLecture->period == 2)
+                                                    Bahar
+                                                  @endif
+                                                </td>
                                                 <td align="center">
                                                   <div class="form-group" align="center">
                                                     <input type="checkbox" name="lectureNames[]" value="{{$lecture->name}}" style="width: 30px;height: 30px;">
+                                                    <input type="hidden" name="class" value="{{$departmentLecture->class}}">
+                                                    <input type="hidden" name="period" value="{{$departmentLecture->period}}">
                                                   </div>
                                                 </td>
                                               </tr>
@@ -53,6 +69,10 @@
                                   @endif
                                 @endforeach
                                 <tr>
+                                  <td>
+                                  </td>
+                                  <td>
+                                  </td>
                                   <td>
                                   </td>
                                   <td align="center">

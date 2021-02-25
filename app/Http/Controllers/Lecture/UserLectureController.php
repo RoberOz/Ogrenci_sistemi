@@ -26,7 +26,15 @@ class UserLectureController extends Controller
           $lectures = Lecture::where('name',$lectureName)->first();
           $users = User::where('id',auth()->user()->id);
 
-          $lectures->users()->sync([auth()->user()->id],false);
+          $pivotArray = [auth()->user()->id];
+          $pivotArray =[
+            auth()->user()->id => [
+              'class' => $request->class,
+              'period' => $request->period
+            ],
+          ];
+
+          $lectures->users()->sync($pivotArray,false);
       }
     }
 

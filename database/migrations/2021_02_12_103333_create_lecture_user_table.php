@@ -16,6 +16,8 @@ class CreateLectureUserTable extends Migration
         Schema::create('lecture_user', function (Blueprint $table) {
             $table->bigInteger('lecture_id');
             $table->bigInteger('user_id');
+            $table->integer('class');
+            $table->integer('period');
             $table->timestamps();
         });
     }
