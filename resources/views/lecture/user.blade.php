@@ -27,9 +27,11 @@
                               <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
                                 Dönem
                               </th>
-                              <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
-                                İşlemler
-                              </th>
+                              @if ($isFirstPeriodRegistrationDate || $isSecondPeriodRegistrationDate)
+                                <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
+                                  İşlemler
+                                </th>
+                              @endif
                             </tr>
                           </thead>
                           <tbody style="background:#D1D1D1">
@@ -37,20 +39,24 @@
                             @foreach ($lectures as $lecture)
                               @foreach ($lecture->users as $user)
                                 @if ($user->pivot->user_id == auth()->user()->id)
-                                  <tr role="row" class="odd">
-                                    <td align="center"><br>{{$lecture->name}}</td>
-                                    <td align="center"><br>{{$user->pivot->class}}. Sınıf</td>
-                                    <td align="center"><br>
-                                      @if ($user->pivot->period == 1)
-                                        Güz
-                                      @elseif ($user->pivot->period == 2)
-                                        Bahar
+                                  @if ($period == $user->pivot->period)
+                                    <tr role="row" class="odd">
+                                      <td align="center"><br>{{$lecture->name}}</td>
+                                      <td align="center"><br>{{$user->pivot->class}}. Sınıf</td>
+                                      <td align="center"><br>
+                                        @if ($user->pivot->period == 1)
+                                          Güz
+                                        @elseif ($user->pivot->period == 2)
+                                          Bahar
+                                        @endif
+                                      </td>
+                                      @if ($isFirstPeriodRegistrationDate || $isSecondPeriodRegistrationDate)
+                                        <td align="center">
+                                          <button class="js-delete-lecture-btn btn btn-primary btn-outline-light btn-xl" style="background:#32A2EC" data-id={{$lecture->id}}>Dersi Sil</button>
+                                        </td>
                                       @endif
-                                    </td>
-                                    <td align="center">
-                                      <button class="js-delete-lecture-btn btn btn-primary btn-outline-light btn-xl" style="background:#32A2EC" data-id={{$lecture->id}}>Dersi Sil</button>
-                                    </td>
-                                  </tr>
+                                    </tr>
+                                  @endif
                                 @endif
                               @endforeach
                             @endforeach

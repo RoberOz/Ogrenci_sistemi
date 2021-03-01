@@ -42,6 +42,11 @@ class LectureController extends Controller
         $period = 0;
       }
 
+      $currentYear = Carbon::now()->year;
+      $studentRegisteredYear = $departmentUser->department_registered_year;
+
+      $studentCurrentClass = $currentYear - $studentRegisteredYear + 1;
+
       return view('lecture.index')->with([
         'users' => $users,
         'lectures' => $lectures,
@@ -49,7 +54,8 @@ class LectureController extends Controller
         'departmentUser' => $departmentUser,
         'isFirstPeriodRegistrationDate' => $isFirstPeriodRegistrationDate,
         'isSecondPeriodRegistrationDate' => $isSecondPeriodRegistrationDate,
-        'period' => $period
+        'period' => $period,
+        'studentCurrentClass' => $studentCurrentClass,
       ]);
     }
 }
