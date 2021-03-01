@@ -14,6 +14,12 @@
                           </div>
                       @endif
 
+                      <div style="background-color:lightblue">
+                          @foreach ($errors->all() as $error)
+                            <li>{{$error}}</li>
+                          @endforeach
+                      </div>
+
                       <div class="col-sm-14">
                         <table class="table table-bordered table-hover" width="100%" cellspacing="0" role="grid">
                           <thead style="background:#B6B6B6">

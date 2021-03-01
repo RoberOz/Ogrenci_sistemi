@@ -17,14 +17,14 @@ class DepartmentUserController extends Controller
     {
         $department = Department::where('id',$request->department_id)->first();
         $user = User::where('id',$request->user_id)->first();
-        $department_id = $request->department_id;
-        $user_id = $request->user_id;
-
+        if (($department == null) || ($user == null)) {
+          return back()->withErrors('Hatalı işlem yaptınız, bir daha deneyiniz');
+        }
         return view('department.assign-department')->with([
           'user' => $user,
           'department' => $department,
-          'department_id' => $department_id,
-          'user_id' => $user_id
+          'department_id' => $request->department_id,
+          'user_id' => $request->user_id
         ]);
     }
 
