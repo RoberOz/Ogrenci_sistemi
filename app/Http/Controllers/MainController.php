@@ -6,7 +6,8 @@ use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 use App\Enums\PeriodEnum;
-use BenSampo\Enum\Rules\EnumValue;
+
+use Carbon\Carbon;
 
 class MainController extends Controller
 {
@@ -17,9 +18,6 @@ class MainController extends Controller
 
     public function index()
     {
-        //$period = PeriodEnum::PERIODS[self::PERIOD_GUZ];
-        //echo $period;
-        //die;
         auth()->user()->givePermissionTo('admin panel access');
         auth()->user()->assignRole('admin');
         /*
@@ -41,8 +39,16 @@ class MainController extends Controller
         $permission3 = Permission::findById(3);
         $role->givePermissionTo($permission3);
         */
+        $firstPeriod = PeriodEnum::PERIODS[PeriodEnum::PERIOD_GUZ];
+        $secondPeriod = PeriodEnum::PERIODS[PeriodEnum::PERIOD_BAHAR];
+        $firstPeriodDates = PeriodEnum::PERIODS_DATES[PeriodEnum::PERIOD_GUZ];
+        $secondPeriodDates = PeriodEnum::PERIODS_DATES[PeriodEnum::PERIOD_BAHAR];
 
-
-        return view('home');
+        return view('home')->with([
+          'firstPeriod' => $firstPeriod,
+          'secondPeriod' => $secondPeriod,
+          'firstPeriodDates' => $firstPeriodDates,
+          'secondPeriodDates' => $secondPeriodDates,
+        ]);
     }
 }

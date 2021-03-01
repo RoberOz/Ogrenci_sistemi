@@ -28,9 +28,11 @@
                                 <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
                                   Dönem
                                 </th>
-                                <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
-                                  İşlemler
-                                </th>
+                                @if ($isFirstPeriodRegistrationDate || $isSecondPeriodRegistrationDate)
+                                  <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
+                                    İşlemler
+                                  </th>
+                                @endif
                               </tr>
                             </thead>
                             <tbody style="background:#D1D1D1">
@@ -43,24 +45,28 @@
                                         @if ($departmentLecture->department_id == $department->id)
                                           @foreach ($lectures as $lecture)
                                             @if ($lecture->id == $departmentLecture->lecture_id)
-                                              <tr role="row" class="odd">
-                                                <td align="center">{{$lecture->name}}</td>
-                                                <td align="center">{{$departmentLecture->class}}. Sınıf</td>
-                                                <td align="center">
-                                                  @if ($departmentLecture->period == 1)
-                                                    Güz
-                                                  @elseif($departmentLecture->period == 2)
-                                                    Bahar
+                                              @if ($period == $departmentLecture->period)
+                                                <tr role="row" class="odd">
+                                                  <td align="center">{{$lecture->name}}</td>
+                                                  <td align="center">{{$departmentLecture->class}}. Sınıf</td>
+                                                  <td align="center">
+                                                    @if ($departmentLecture->period == 1)
+                                                      Güz
+                                                    @elseif($departmentLecture->period == 2)
+                                                      Bahar
+                                                    @endif
+                                                  </td>
+                                                  @if ($isFirstPeriodRegistrationDate || $isSecondPeriodRegistrationDate)
+                                                    <td align="center">
+                                                      <div class="form-group" align="center">
+                                                        <input type="checkbox" name="lectureNames[]" value="{{$lecture->name}}" style="width: 30px;height: 30px;">
+                                                        <input type="hidden" name="class" value="{{$departmentLecture->class}}">
+                                                        <input type="hidden" name="period" value="{{$departmentLecture->period}}">
+                                                      </div>
+                                                    </td>
                                                   @endif
-                                                </td>
-                                                <td align="center">
-                                                  <div class="form-group" align="center">
-                                                    <input type="checkbox" name="lectureNames[]" value="{{$lecture->name}}" style="width: 30px;height: 30px;">
-                                                    <input type="hidden" name="class" value="{{$departmentLecture->class}}">
-                                                    <input type="hidden" name="period" value="{{$departmentLecture->period}}">
-                                                  </div>
-                                                </td>
-                                              </tr>
+                                                </tr>
+                                              @endif
                                             @endif
                                           @endforeach
                                         @endif
@@ -68,17 +74,19 @@
                                     @endforeach
                                   @endif
                                 @endforeach
-                                <tr>
-                                  <td>
-                                  </td>
-                                  <td>
-                                  </td>
-                                  <td>
-                                  </td>
-                                  <td align="center">
-                                    <button type="submit" class="btn btn-primary btn-outline-light btn-xl" style="background:#239707">Derslerime Ekle</button>
-                                  </td>
-                                </tr>
+                                @if ($isFirstPeriodRegistrationDate || $isSecondPeriodRegistrationDate)
+                                  <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td align="center">
+                                      <button type="submit" class="btn btn-primary btn-outline-light btn-xl" style="background:#239707">Derslerime Ekle</button>
+                                    </td>
+                                  </tr>
+                                @endif
                               </form>
                             </tbody>
                           </table>

@@ -6,20 +6,26 @@ use BenSampo\Enum\Enum;
 
 final class PeriodEnum extends Enum
 {
-    const PERIOD_GUZ  = 'guz';
-    const PERIOD_BAHAR  = 'bahar';
+    public const PERIOD_GUZ  = 'guz';
+    public const PERIOD_BAHAR  = 'bahar';
 
-    const PERIODS = [
-      self [PERIOD_GUZ] => 'Güz',
-      //self [PERIOD_BAHAR] => 'Bahar',
+    public const PERIODS = [
+      'guz' => 'Güz',
+      'bahar' => 'Bahar',
     ];
 
-    const PERIODS_DATES = [
-      PERIOD_GUZ => [
-        'start_date' => '2020-09-14',
-        'end_date' => '2021-01-26',
+    public const PERIODS_DATES = [
+      'guz' => [
         'lecture_registeration_start_date' => '2020-09-07',
         'lecture_registeration_end_date' => '2020-09-11',
+        'start_date' => '2020-09-07',
+        'end_date' => '2021-01-22',
+      ],
+      'bahar' => [
+        'lecture_registeration_start_date' => '2021-02-15',
+        'lecture_registeration_end_date' => '2021-02-19',
+        'start_date' => '2021-02-15',
+        'end_date' => '2021-06-15',
       ],
     ];
 }
