@@ -26,8 +26,8 @@ class AssignDepartmentLectureRequest extends FormRequest
         return [
             'departmentId' => 'numeric|required',
             'lectureNames' => 'required',
-            'class' => 'integer|digits:1|required|',
-            'period' => 'integer|digits:1|required|'
+            'class' => 'integer|digits:1|in:1,2,3,4|required|',
+            'period' => 'integer|digits:1|in:1,2|required|'
         ];
     }
 }

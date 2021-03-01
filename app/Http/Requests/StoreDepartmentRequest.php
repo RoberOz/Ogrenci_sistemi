@@ -24,8 +24,8 @@ class StoreDepartmentRequest extends FormRequest
     public function rules()
     {
         return [
-          'name' => 'required',
-          'years' => 'integer|required',
+          'name' => 'required|unique:departments,name',
+          'years' => 'integer|in:2,4|required',
           'foundation_year' => 'integer|required'
         ];
     }

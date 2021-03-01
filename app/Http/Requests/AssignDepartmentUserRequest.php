@@ -24,8 +24,8 @@ class AssignDepartmentUserRequest extends FormRequest
     public function rules()
     {
         return [
-          'user_id' => 'numeric|required',
-          'department_id' => 'numeric|required',
+          'user_id' => 'numeric|exists:users,id|required',
+          'department_id' => 'numeric|exists:departments,id|required',
           'department_foundation_year' => 'numeric|required',
           'department_registered_year' => 'numeric|digits:4|gte:department_foundation_year|required'
         ];

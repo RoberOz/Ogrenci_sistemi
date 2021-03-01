@@ -24,8 +24,8 @@ class AssignDepartmentHeadRequest extends FormRequest
     public function rules()
     {
         return [
-            'department_head' => 'numeric|required',
-            'department_id' => 'numeric|required'
+            'department_head' => 'numeric|exists:users,id|required',
+            'department_id' => 'numeric|exists:departments,id|required'
         ];
     }
 }

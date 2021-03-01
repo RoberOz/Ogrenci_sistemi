@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
+use App\Enums\PeriodEnum;
+use BenSampo\Enum\Rules\EnumValue;
+
 class MainController extends Controller
 {
     public function __construct()
@@ -14,7 +17,9 @@ class MainController extends Controller
 
     public function index()
     {
-
+        //$period = PeriodEnum::PERIODS[self::PERIOD_GUZ];
+        //echo $period;
+        //die;
         auth()->user()->givePermissionTo('admin panel access');
         auth()->user()->assignRole('admin');
         /*
