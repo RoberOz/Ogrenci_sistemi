@@ -9,7 +9,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentFormController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Teacher\TeacherController;
+use App\Http\Controllers\Teacher\TeacherExportController;
 use App\Http\Controllers\Student\StudentController;
+use App\Http\Controllers\Student\StudentExportController;
 use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\Department\DepartmentHeadController;
 use App\Http\Controllers\Department\DepartmentLectureController;
@@ -48,6 +50,7 @@ Route::prefix('teachers')
     ->middleware('isGraduated')
     ->group(function () {
         Route::get('teacher-list', [TeacherController::class, 'index'])->name('teacher-list');
+        Route::get('/export', [TeacherExportController::class, 'export'])->name('teacher-export');
 });
 
 Route::prefix('students')
@@ -55,6 +58,7 @@ Route::prefix('students')
     ->middleware('isGraduated')
     ->group(function () {
         Route::get('student-list', [StudentController::class, 'index'])->name('student-list');
+        Route::get('/export', [StudentExportController::class, 'export'])->name('student-export');
 });
 
 Route::prefix('departments')
