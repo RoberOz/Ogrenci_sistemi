@@ -12,6 +12,7 @@ use App\Http\Controllers\Teacher\TeacherController;
 use App\Http\Controllers\Teacher\TeacherExportController;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Student\StudentExportController;
+use App\Http\Controllers\Student\StudentImportController;
 use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\Department\DepartmentHeadController;
 use App\Http\Controllers\Department\DepartmentLectureController;
@@ -59,6 +60,8 @@ Route::prefix('students')
     ->group(function () {
         Route::get('student-list', [StudentController::class, 'index'])->name('student-list');
         Route::get('/export', [StudentExportController::class, 'export'])->name('student-export');
+        Route::get('/import', [StudentImportController::class, 'show'])->name('student-import-show');
+        Route::post('/import', [StudentImportController::class, 'store'])->name('student-import-store');
 });
 
 Route::prefix('departments')

@@ -37,6 +37,7 @@
           <div class="collapse" id="collapseStudentPanel" data-parent="#accordionSidenav">
             <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPagesMenu">
               <a class="nav-link" href={{route('student-list')}}><i class="fas fa-clipboard-list"></i>&nbsp Öğrenci Listesi</a>
+              <a class="nav-link" href={{route('student-import-show')}}><i class="fas fa-upload"></i>&nbsp Liste Yükle</a>
               <a class="nav-link" href={{route('student-export')}}><i class="fas fa-download"></i>&nbsp Listeyi İndir</a>
             </nav>
           </div>

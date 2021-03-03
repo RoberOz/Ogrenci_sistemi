@@ -43,61 +43,63 @@
                           </thead>
                           <tbody style="background:#D1D1D1">
                             @foreach ($users as $user)
-                              <tr role="row" class="odd">
-                                <td align="center"><br>{{$user->name}}</td>
-                                <td align="center"><br>{{$user->email}}</td>
-                                <td align="center"><br>
-                                  @if ($user->hasRole('admin'))
-                                    Admin
-                                  @elseif($user->hasRole('teacher'))
-                                    Öğretmen
-                                  @else
-                                    @if ($user->is_graduated == 0)
-                                      Okuyor
+                              @if ($user->hasrole('student'))
+                                <tr role="row" class="odd">
+                                  <td align="center"><br>{{$user->name}}</td>
+                                  <td align="center"><br>{{$user->email}}</td>
+                                  <td align="center"><br>
+                                    @if ($user->hasRole('admin'))
+                                      Admin
+                                    @elseif($user->hasRole('teacher'))
+                                      Öğretmen
                                     @else
-                                      Mezun
+                                      @if ($user->is_graduated == 0)
+                                        Okuyor
+                                      @else
+                                        Mezun
+                                      @endif
                                     @endif
-                                  @endif
-                                </td>
-                                <td align="center"><br>
-                                  @foreach ($user->departments as $departmentUser)
-                                     @if ($departmentUser->pivot->user_id == $user->id)
-                                       @foreach ($departments as $department)
-                                         @if ($departmentUser->pivot->department_id == $department->id)
-                                           {{$department->name}}
-                                           <button class="js-delete-department-user-btn btn btn-primary btn-outline-light btn-xs" department-id={{$department->id}} data-id={{$user->id}} style="background:#DC2818">X</button>
-                                           @php $isAssignedDepartment = "true" @endphp
-                                         @endif
-                                       @endforeach
-                                     @endif
-                                  @endforeach
-                                  @if ($isAssignedDepartment == "false")
-                                    <form method="get" action="{{url('/departments/department-user/create')}}">
-                                      @csrf
-                                      <select name="department_id">
-                                        @foreach ($departments as $selectDepartment)
-                                          <option value="{{$selectDepartment->id}}">{{$selectDepartment->name}}</option>
-                                        @endforeach
-                                      </select>
-                                      <input type=hidden name=user_id value={{$user->id}}></input>
-                                      <button class="btn btn-primary btn-outline-light btn-sm"  style="background:#1AAE14" type="submit">Ata</button>
-                                    </form>
-                                  @endif
-                                  @php $isAssignedDepartment = "false" @endphp
-                                </td>
-                                <td align="center">
-                                  @if (auth()->user()->hasRole('admin'))
-                                    <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('user-list.edit',$user->id)}}'">Düzenle</button>
-                                  @else
-                                    @if (auth()->user()->id == $user->id)
+                                  </td>
+                                  <td align="center"><br>
+                                    @foreach ($user->departments as $departmentUser)
+                                       @if ($departmentUser->pivot->user_id == $user->id)
+                                         @foreach ($departments as $department)
+                                           @if ($departmentUser->pivot->department_id == $department->id)
+                                             {{$department->name}}
+                                             <button class="js-delete-department-user-btn btn btn-primary btn-outline-light btn-xs" department-id={{$department->id}} data-id={{$user->id}} style="background:#DC2818">X</button>
+                                             @php $isAssignedDepartment = "true" @endphp
+                                           @endif
+                                         @endforeach
+                                       @endif
+                                    @endforeach
+                                    @if ($isAssignedDepartment == "false")
+                                      <form method="get" action="{{url('/departments/department-user/create')}}">
+                                        @csrf
+                                        <select name="department_id">
+                                          @foreach ($departments as $selectDepartment)
+                                            <option value="{{$selectDepartment->id}}">{{$selectDepartment->name}}</option>
+                                          @endforeach
+                                        </select>
+                                        <input type=hidden name=user_id value={{$user->id}}></input>
+                                        <button class="btn btn-primary btn-outline-light btn-sm"  style="background:#1AAE14" type="submit">Ata</button>
+                                      </form>
+                                    @endif
+                                    @php $isAssignedDepartment = "false" @endphp
+                                  </td>
+                                  <td align="center">
+                                    @if (auth()->user()->hasRole('admin'))
                                       <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('user-list.edit',$user->id)}}'">Düzenle</button>
+                                    @else
+                                      @if (auth()->user()->id == $user->id)
+                                        <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('user-list.edit',$user->id)}}'">Düzenle</button>
+                                      @endif
                                     @endif
-                                  @endif
-                                  @role('admin')
-                                    <button class="js-delete-user-btn btn btn-primary btn-outline-light btn-xl" style="background:#B60C09" data-id={{$user->id}}>Kişiyi Sil</button>
-                                  @endrole
-                                </td>
-                              </tr>
+                                    @role('admin')
+                                      <button class="js-delete-user-btn btn btn-primary btn-outline-light btn-xl" style="background:#B60C09" data-id={{$user->id}}>Kişiyi Sil</button>
+                                    @endrole
+                                  </td>
+                                </tr>
+                              @endif
                             @endforeach
                           </tbody>
                         </table>
