@@ -38,9 +38,9 @@ class StudentExport implements
     public function headings(): array
     {
         return [
-            'İsim',
+            'Name',
             'Email',
-            'Mezun Durumu',
+            'Graduation Status',
         ];
     }
 
@@ -48,7 +48,7 @@ class StudentExport implements
     {
         return [
           AfterSheet::class => function (AfterSheet $event) {
-            $event->sheet->getStyle('A1:D1')->applyFromArray([
+            $event->sheet->getStyle('A1:C1')->applyFromArray([
               'font' => [
                 'bold' => true
               ]

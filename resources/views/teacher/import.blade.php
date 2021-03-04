@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-              <div class="card-header">Excel ile Öğrenci Kaydet</div>
+              <div class="card-header">Excel ile Öğretmen Kaydet</div>
 
               <br>
 
@@ -16,7 +16,7 @@
               </div>
 
               <br>
-              <form method="post" action="{{url('students/import')}}" enctype="multipart/form-data">
+              <form method="post" action="{{url('teachers/import')}}" enctype="multipart/form-data">
                 @csrf
                 <div align="center">
                   <input type="file" name="file">

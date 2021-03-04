@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\StoreStudentImport;
+
 use App\Imports\StudentImport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -15,7 +17,7 @@ class StudentImportController extends Controller
       return view('student.import');
     }
 
-    public function store(Request $request)
+    public function store(StoreStudentImport $request)
     {
       $file = $request->file('file');
       Excel::import(new StudentImport, $file);

@@ -37,7 +37,7 @@ class TeacherExport implements
     public function headings(): array
     {
         return [
-            'İsim',
+            'Name',
             'Email',
         ];
     }
@@ -46,7 +46,7 @@ class TeacherExport implements
     {
         return [
           AfterSheet::class => function (AfterSheet $event) {
-            $event->sheet->getStyle('A1:C1')->applyFromArray([
+            $event->sheet->getStyle('A1:B1')->applyFromArray([
               'font' => [
                 'bold' => true
               ]
