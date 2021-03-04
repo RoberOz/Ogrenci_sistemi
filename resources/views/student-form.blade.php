@@ -1,19 +1,56 @@
 @extends('layouts.app')
 
 @section('content')
+  <div class="row justify-content-center">
+    <div style="background-color:lightblue">
+      @foreach ($errors->all() as $error)
+        <li>{{$error}}</li>
+      @endforeach
+    </div>
+  </div>
+
+  <br>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col">
+          <div class="card" style="background:#F2F2F2">
+            <div class="card-header">Excel ile Öğrenci Formu Kaydet</div>
+
+            <br><br>
+
+            <form method="post" action="{{url('student_forms/import')}}" enctype="multipart/form-data">
+              @csrf
+              <div align="center">
+                <input type="file" name="file">
+                <button type="submit" class="btn btn-primary btn-outline-light btn-xl">Yükle</button>
+              </div>
+            </form>
+            <br>
+
+          </div>
+      </div>
+
+      <div class="col">
+        <div class="card" style="background:#F2F2F2">
+          <div class="card-header">Öğrenci Formlarını indir</div>
+            <div align="center">
+              <br><br>
+                <button onClick="location.href='{{route('student-form-export')}}'" class="btn btn-primary btn-outline-light btn-xl">İndir</button>
+              <br><br>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <br>
+
   <div class="container">
       <div class="row justify-content-center">
           <div class="col-md-12">
               <div class="card" style="background:#F2F2F2">
-
-                <div style="background-color:lightblue">
-                  @foreach ($errors->all() as $error)
-                    <li>{{$error}}</li>
-                  @endforeach
-                </div>
-
                 <br>
-
                 <form method="post" action="{{url('student_forms/form')}}" >
                   <table align="center" style="margin-left: 300px;">
                     @csrf
@@ -183,7 +220,7 @@
                     </tr>
                   </table>
                 </form>
-
+                <br>
               </div>
           </div>
       </div>

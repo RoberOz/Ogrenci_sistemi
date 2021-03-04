@@ -5,9 +5,9 @@ namespace App\Imports;
 use App\Models\User;
 
 use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
 use Illuminate\Support\Facades\Hash;
 
-use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
@@ -40,7 +40,8 @@ class StudentImport implements ToCollection, WithHeadingRow, WithValidation
     {
         return [
           '*.name' => ['required'],
-          '*.email' => ['email', 'unique:users,email', 'required']
+          '*.email' => ['email', 'unique:users,email', 'required'],
+          '*.is_graduated' => ['boolean']
         ];
     }
 }

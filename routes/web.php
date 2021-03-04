@@ -6,7 +6,9 @@ use App\Http\Middleware\IsGraduated;
 
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\StudentFormController;
+use App\Http\Controllers\StudentForm\StudentFormController;
+use App\Http\Controllers\StudentForm\StudentFormExportController;
+use App\Http\Controllers\StudentForm\StudentFormImportController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Teacher\TeacherController;
 use App\Http\Controllers\Teacher\TeacherExportController;
@@ -38,6 +40,8 @@ Route::prefix('student_forms')
     ->middleware('auth')
     ->group(function () {
         Route::resource('form', StudentFormController::class, ['only' => ['index','store']]);
+        Route::get('export', [StudentFormExportController::class, 'export'])->name('student-form-export');
+        Route::post('import', [StudentFormImportController::class, 'import'])->name('student-form-import');
 });
 
 Route::prefix('users')
@@ -52,9 +56,9 @@ Route::prefix('teachers')
     ->middleware('isGraduated')
     ->group(function () {
         Route::get('teacher-list', [TeacherController::class, 'index'])->name('teacher-list');
-        Route::get('/export', [TeacherExportController::class, 'export'])->name('teacher-export');
-        Route::get('/import', [TeacherImportController::class, 'show'])->name('teacher-import-show');
-        Route::post('/import', [TeacherImportController::class, 'store'])->name('teacher-import-store');
+        Route::get('export', [TeacherExportController::class, 'export'])->name('teacher-export');
+        Route::get('import', [TeacherImportController::class, 'show'])->name('teacher-import-show');
+        Route::post('import', [TeacherImportController::class, 'store'])->name('teacher-import-store');
 });
 
 Route::prefix('students')
@@ -62,9 +66,9 @@ Route::prefix('students')
     ->middleware('isGraduated')
     ->group(function () {
         Route::get('student-list', [StudentController::class, 'index'])->name('student-list');
-        Route::get('/export', [StudentExportController::class, 'export'])->name('student-export');
-        Route::get('/import', [StudentImportController::class, 'show'])->name('student-import-show');
-        Route::post('/import', [StudentImportController::class, 'store'])->name('student-import-store');
+        Route::get('export', [StudentExportController::class, 'export'])->name('student-export');
+        Route::get('import', [StudentImportController::class, 'show'])->name('student-import-show');
+        Route::post('import', [StudentImportController::class, 'store'])->name('student-import-store');
 });
 
 Route::prefix('departments')
