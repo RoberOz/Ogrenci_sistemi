@@ -23,9 +23,8 @@ class DepartmentLectureController extends Controller
 
     public function show(Department $department_lecture)
     {
-
       return view('department.lectures')->with([
-        'department' => $department_lecture
+        'department' => $department_lecture,
       ]);
     }
 

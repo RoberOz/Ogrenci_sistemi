@@ -19,6 +19,7 @@ use App\Http\Controllers\Student\StudentImportController;
 use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\Department\DepartmentHeadController;
 use App\Http\Controllers\Department\DepartmentLectureController;
+use App\Http\Controllers\Department\DepartmentLectureExamController;
 use App\Http\Controllers\Department\DepartmentAssignLectureController;
 use App\Http\Controllers\Department\DepartmentUserController;
 use App\Http\Controllers\Lecture\LectureController;
@@ -78,6 +79,7 @@ Route::prefix('departments')
         Route::resource('department-list', DepartmentController::class, ['only' => ['index','create','store','destroy']]);
         Route::resource('department-head', DepartmentHeadController::class, ['only' => ['store','destroy']]);
         Route::resource('department-lecture', DepartmentLectureController::class, ['only' => ['show']]);
+        Route::resource('department-lecture-exams', DepartmentLectureExamController::class, ['only' => ['index','store']]);
         Route::get('department-lecture', [DepartmentLectureController::class, 'detach'])->name('department-lecture-detach');
         Route::resource('department-assign-lecture', DepartmentAssignLectureController::class, ['only' => ['show','store']]);
         Route::resource('department-user', DepartmentUserController::class, ['only' => ['store','create']]);

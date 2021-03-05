@@ -16,42 +16,5 @@ class UserSeeder extends Seeder
           'email' => 'admin@gmail.com',
           'password' => Hash::make('123456789'),
         ]);
-
-        User::insert([
-          'name' => 'ogretmen',
-          'email' => 'ogretmen@gmail.com',
-          'password' => Hash::make('123456789'),
-        ]);
-
-        User::insert([
-          'name' => 'ogrenci',
-          'email' => 'ogrenci@gmail.com',
-          'password' => Hash::make('123456789'),
-        ]);
-
-        User::insert([
-          'name' => 'mezun',
-          'email' => 'mezun@gmail.com',
-          'password' => Hash::make('123456789'),
-          'is_graduated' => '1',
-        ]);
-
-        User::insert([
-          'name' => 'Turk Dili ve Edebiyati Bolumu Baskani',
-          'email' => 'turkdili@gmail.com',
-          'password' => Hash::make('123456789'),
-        ]);
-
-        User::insert([
-          'name' => 'Tarih Bolumu Baskani',
-          'email' => 'tarih@gmail.com',
-          'password' => Hash::make('123456789'),
-        ]);
-
-        User::insert([
-          'name' => 'Biyoloji Bolumu Baskani',
-          'email' => 'biyoloji@gmail.com',
-          'password' => Hash::make('123456789'),
-        ]);
     }
 }
