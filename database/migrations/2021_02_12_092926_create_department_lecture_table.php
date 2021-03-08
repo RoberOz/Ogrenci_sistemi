@@ -19,8 +19,6 @@ class CreateDepartmentLectureTable extends Migration
             $table->bigInteger('lecture_id');
             $table->integer('class');
             $table->integer('period');
-            $table->date('first_exam')->nullable();
-            $table->date('second_exam')->nullable();
             $table->timestamps();
         });
     }

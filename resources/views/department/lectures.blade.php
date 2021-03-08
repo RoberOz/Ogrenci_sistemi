@@ -41,17 +41,29 @@
                           <tbody style="background:#D1D1D1">
                             @foreach ($department->lectures as $lecture)
                               <tr role="row" class="odd">
-                                <td align="center">{{$lecture->name}}</td>
-                                <td align="center">{{$lecture->pivot->class}}. Sınıf</td>
+                                <td align="center"><br>{{$lecture->name}}</td>
+                                <td align="center"><br>{{$lecture->pivot->class}}. Sınıf</td>
                                 <td align="center">
                                   @if ($lecture->pivot->period == 1)
-                                    Güz
+                                    <br>Güz
                                   @elseif ($lecture->pivot->period == 2)
-                                    Bahar
+                                    <br>Bahar
                                   @endif
                                 </td>
-                                <td align="center">{{$lecture->pivot->first_exam}}</td>
-                                <td align="center">{{$lecture->pivot->second_exam}}</td>
+                                <td align="center">
+                                  @foreach ($examinations as $examination)
+                                    @if ($examination->department_lecture_id == $lecture->id && $examination->exam_id == 1)
+                                      <br>{{$examination->exam_date}}
+                                    @endif
+                                  @endforeach
+                                </td>
+                                <td align="center">
+                                  @foreach ($examinations as $examination)
+                                    @if ($examination->department_lecture_id == $lecture->id && $examination->exam_id == 2)
+                                      <br>{{$examination->exam_date}}
+                                    @endif
+                                  @endforeach
+                                </td>
                                 <td align="center">
                                   <form method="get" action="{{url('departments/department-lecture-exams')}}">
                                     @csrf

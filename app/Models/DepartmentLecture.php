@@ -11,4 +11,9 @@ class DepartmentLecture extends Pivot
     use HasFactory;
 
     protected $guarded = [];
+
+    public function examinations()
+    {
+        return $this->hasMany(Examination::class, 'department_lecture_id', 'id');
+    }
 }

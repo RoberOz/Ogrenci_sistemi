@@ -17,7 +17,7 @@ class Department extends Model
     public function lectures()
     {
 
-        return $this->belongsToMany(Lecture::class, 'department_lecture','department_id','lecture_id')->using('App\Models\DepartmentLecture')->withPivot(["class","period","first_exam","second_exam"])->withTimeStamps();
+        return $this->belongsToMany(Lecture::class, 'department_lecture','department_id','lecture_id')->using('App\Models\DepartmentLecture')->withPivot(["class","period"])->withTimeStamps();
 
     }
 

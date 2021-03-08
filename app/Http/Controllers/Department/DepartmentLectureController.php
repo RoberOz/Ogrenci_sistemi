@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Lecture;
 use App\Models\Department;
+use App\Models\Examination;
 use App\Models\DepartmentLecture;
 
 class DepartmentLectureController extends Controller
@@ -23,8 +24,11 @@ class DepartmentLectureController extends Controller
 
     public function show(Department $department_lecture)
     {
+      $examinations = Examination::all();
+
       return view('department.lectures')->with([
         'department' => $department_lecture,
+        'examinations' => $examinations,
       ]);
     }
 

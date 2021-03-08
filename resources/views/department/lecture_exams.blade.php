@@ -62,41 +62,41 @@
                           <tr role="row" class="odd">
                             @foreach ($departments as $department)
                               @if ($department->id == $departmentId)
-                                <td align="center">{{$department->name}}</td>
+                                <td align="center"><br><br>{{$department->name}}</td>
                               @endif
                             @endforeach
                             @foreach ($lectures as $lecture)
                               @if ($lecture->id == $lectureId)
-                                <td align="center">{{$lecture->name}}</td>
+                                <td align="center"><br><br>{{$lecture->name}}</td>
                               @endif
                             @endforeach
-                            <td align="center">{{$class}}.Sınıf</td>
+                            <td align="center"><br><br>{{$class}}.Sınıf</td>
                             <td align="center">
                               @if ($period == 1)
-                                Güz
+                                <br><br> Güz
                               @elseif ($period == 2)
-                                Bahar
+                                <br><br> Bahar
                               @endif
                             </td>
                             <td align="center">
                               <form method="post" action="{{url('departments/department-lecture-exams')}}">
                                 @csrf
-                                <input type="date" name="first_exam">
-                                <input type="hidden" name="department_id" value="{{$departmentId}}">
-                                <input type="hidden" name="lecture_id" value="{{$lectureId}}">
-                                <input type="hidden" name="class" value="{{$class}}">
-                                <input type="hidden" name="period" value="{{$period}}">
+                                <input type="date" name="first_exam"><br><br>
+                                <input type="time" name="exam_start_time"> -
+                                <input type="time" name="exam_end_time"><br><br>
+                                <input type="hidden" name="department_lecture_id" value="{{$departmentLecture->id}}">
+                                <input type="hidden" name="exam_id" value="1">
                                 <button type="submit" class="btn btn-primary btn-outline-light btn-sm" style="background:#19A713">Ata</button>
                               </form>
                             </td>
                             <td align="center">
                               <form method="post" action="{{url('departments/department-lecture-exams')}}">
                                 @csrf
-                                  <input type="date" name="second_exam">
-                                  <input type="hidden" name="department_id" value="{{$departmentId}}">
-                                  <input type="hidden" name="lecture_id" value="{{$lectureId}}">
-                                  <input type="hidden" name="class" value="{{$class}}">
-                                  <input type="hidden" name="period" value="{{$period}}">
+                                  <input type="date" name="second_exam"><br><br>
+                                  <input type="time" name="exam_start_time"> -
+                                  <input type="time" name="exam_end_time"><br><br>
+                                  <input type="hidden" name="department_lecture_id" value="{{$departmentLecture->id}}">
+                                  <input type="hidden" name="exam_id" value="2">
                                 <button type="submit" class="btn btn-primary btn-outline-light btn-sm" style="background:#19A713">Ata</button>
                               </form>
                             </td>

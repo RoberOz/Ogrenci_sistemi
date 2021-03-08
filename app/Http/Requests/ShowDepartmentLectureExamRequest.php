@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreDepartmentLectureExamRequest extends FormRequest
+class ShowDepartmentLectureExamRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,10 @@ class StoreDepartmentLectureExamRequest extends FormRequest
     public function rules()
     {
         return [
-          'first_exam' => 'date',
-          'second_exam' => 'date',
-          'exam_start_time' => 'date_format:H:i|before:exam_end_time|required',
-          'exam_end_time' => 'date_format:H:i|after:exam_start_time|required',
-          'department_lecture_id' => 'numeric|exists:department_lecture,id|required',
-          'exam_id' => 'numeric|in:1,2|required'
+          'department_id' => 'numeric|exists:department_lecture,department_id|required',
+          'lecture_id' => 'numeric|exists:department_lecture,lecture_id|required',
+          'class' => 'numeric|in:1,2,3,4|required',
+          'period' => 'numeric|in:1,2|required'
         ];
     }
 }
