@@ -54,6 +54,7 @@
                                   @foreach ($examinations as $examination)
                                     @if ($examination->department_lecture_id == $lecture->id && $examination->exam_id == 1)
                                       <br>{{$examination->exam_date}}
+                                      <button class="js-delete-department-exam-date-lecture-btn btn btn-primary btn-outline-light btn-xs" exam-id="1" data-id={{$examination->department_lecture_id}} style="background:#DC2818">X</button>
                                     @endif
                                   @endforeach
                                 </td>
@@ -61,6 +62,7 @@
                                   @foreach ($examinations as $examination)
                                     @if ($examination->department_lecture_id == $lecture->id && $examination->exam_id == 2)
                                       <br>{{$examination->exam_date}}
+                                      <button class="js-delete-department-exam-date-lecture-btn btn btn-primary btn-outline-light btn-xs" exam-id="2" data-id={{$examination->department_lecture_id}} style="background:#DC2818">X</button>
                                     @endif
                                   @endforeach
                                 </td>
@@ -103,6 +105,33 @@ $(document).ready(function(){
               method: 'get',
               data: {
                 'departmentId': departmentId,
+                'departmentLectureId':departmentLectureId,
+              },
+              success: function(response) {
+                window.location.href = "";
+              }
+          });
+      });
+    });
+</script>
+@endpush
+
+@push('department-lecture-exam-date-delete-javascript')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+<script>
+$(document).ready(function(){
+      $('.js-delete-department-exam-date-lecture-btn').on('click', function () {
+          let examId = $(this).attr("exam-id");
+          let departmentLectureId = $(this).attr("data-id");
+          console.log(examId);
+          console.log(departmentLectureId);
+          $.ajax({
+              headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+              url: '{{ url('/departments/department-lecture-exams')}}/'+departmentLectureId,
+              method: 'delete',
+              data: {
+                'examId': examId,
                 'departmentLectureId':departmentLectureId,
               },
               success: function(response) {

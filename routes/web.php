@@ -79,7 +79,7 @@ Route::prefix('departments')
         Route::resource('department-list', DepartmentController::class, ['only' => ['index','create','store','destroy']]);
         Route::resource('department-head', DepartmentHeadController::class, ['only' => ['store','destroy']]);
         Route::resource('department-lecture', DepartmentLectureController::class, ['only' => ['show']]);
-        Route::resource('department-lecture-exams', DepartmentLectureExamController::class, ['only' => ['index','store']]);
+        Route::resource('department-lecture-exams', DepartmentLectureExamController::class, ['only' => ['index','store','destroy']]);
         Route::get('department-lecture', [DepartmentLectureController::class, 'detach'])->name('department-lecture-detach');
         Route::resource('department-assign-lecture', DepartmentAssignLectureController::class, ['only' => ['show','store']]);
         Route::resource('department-user', DepartmentUserController::class, ['only' => ['store','create']]);

@@ -91,4 +91,14 @@ class DepartmentLectureExamController extends Controller
         return redirect(route('home'));
       }
     }
+
+    public function destroy(Request $request)
+    {
+      Examination::where('department_lecture_id', $request->departmentLectureId)
+                 ->where('exam_id', $request->examId)
+                 ->first()
+                 ->delete();
+
+      return response()->json([], 204);
+    }
   }
