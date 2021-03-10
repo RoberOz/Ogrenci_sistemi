@@ -13,4 +13,9 @@ class Examination extends Model
     {
         return $this->belongsTo(DepartmentLecture::class, 'department_lecture_id', 'id');
     }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class, 'examination_id', 'id');
+    }
 }

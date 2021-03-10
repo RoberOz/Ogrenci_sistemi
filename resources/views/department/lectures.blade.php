@@ -75,6 +75,13 @@
                                     <input type="hidden" name=period value="{{$lecture->pivot->period}}">
                                     <button type="submit" class="btn btn-primary btn-outline-light" style="background:#19A713">Sınav Tarihi Değiştir</button>
                                   </form>
+                                  <form method="get" action="{{url('exams/modify-exam')}}">
+                                    <input type="hidden" name=lecture_id value="{{$lecture->pivot->lecture_id}}">
+                                    <input type="hidden" name=department_id value="{{$lecture->pivot->department_id}}">
+                                    <input type="hidden" name=class value="{{$lecture->pivot->class}}">
+                                    <input type="hidden" name=period value="{{$lecture->pivot->period}}">
+                                    <button type="submit" class="btn btn-primary btn-outline-light" style="background:#C38D08">Sınav Sorularını Düzenle</button>
+                                  </form>
                                   <button class="js-delete-department-lecture-btn btn btn-primary btn-outline-light btn-xs" department-id={{$department->id}} data-id={{$lecture->id}} style="background:#DC2818">Dersi Sil</button>
                                 </td>
                               </tr>

@@ -39,7 +39,7 @@ class DepartmentLectureExamController extends Controller
 
     public function store(StoreDepartmentLectureExamRequest $request)
     {
-      if ($request->first_exam == null || $request->second_exam == null) {
+      if ($request->first_exam == null && $request->second_exam == null) {
         return redirect(route('home'));
       }
 

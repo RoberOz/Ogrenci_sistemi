@@ -22,6 +22,7 @@ use App\Http\Controllers\Department\DepartmentLectureController;
 use App\Http\Controllers\Department\DepartmentLectureExamController;
 use App\Http\Controllers\Department\DepartmentAssignLectureController;
 use App\Http\Controllers\Department\DepartmentUserController;
+use App\Http\Controllers\Exam\ExamController;
 use App\Http\Controllers\Lecture\LectureController;
 use App\Http\Controllers\Lecture\UserLectureController;
 
@@ -79,11 +80,17 @@ Route::prefix('departments')
         Route::resource('department-list', DepartmentController::class, ['only' => ['index','create','store','destroy']]);
         Route::resource('department-head', DepartmentHeadController::class, ['only' => ['store','destroy']]);
         Route::resource('department-lecture', DepartmentLectureController::class, ['only' => ['show']]);
-        Route::resource('department-lecture-exams', DepartmentLectureExamController::class, ['only' => ['index','store','destroy']]);
         Route::get('department-lecture', [DepartmentLectureController::class, 'detach'])->name('department-lecture-detach');
+        Route::resource('department-lecture-exams', DepartmentLectureExamController::class, ['only' => ['index','store','destroy']]);
         Route::resource('department-assign-lecture', DepartmentAssignLectureController::class, ['only' => ['show','store']]);
         Route::resource('department-user', DepartmentUserController::class, ['only' => ['store','create']]);
         Route::get('department-user', [DepartmentUserController::class, 'detach'])->name('department-user-detach');
+});
+
+Route::prefix('exams')
+    ->group(function () {
+        Route::resource('modify-exam', ExamController::class, ['only' => ['store','index','update','destroy']]);
+        Route::get('modify-exam-paper', [ExamController::class, 'showExamQuestion'])->name('modify-exam');
 });
 
 Route::prefix('lectures')

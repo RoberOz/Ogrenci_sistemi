@@ -43,9 +43,15 @@ class LectureController extends Controller
       }
 
       $currentYear = Carbon::now()->year;
-      $studentRegisteredYear = $departmentUser->department_registered_year;
 
-      $studentCurrentClass = $currentYear - $studentRegisteredYear + 1;
+      if (isset($departmentUser->department_registered_year)) {
+        $studentRegisteredYear = $departmentUser->department_registered_year;
+
+        $studentCurrentClass = $currentYear - $studentRegisteredYear + 1;
+      }
+      else {
+        $studentCurrentClass = null;
+      }
 
       return view('lecture.index')->with([
         'users' => $users,
