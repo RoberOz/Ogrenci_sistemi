@@ -85,7 +85,7 @@ class DepartmentLectureExamController extends Controller
 
         $examination->save();
 
-        return redirect(route('department-list.index'));
+        return back();
       }
       else {
         return redirect(route('home'));

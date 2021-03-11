@@ -14,8 +14,8 @@ class Examination extends Model
         return $this->belongsTo(DepartmentLecture::class, 'department_lecture_id', 'id');
     }
 
-    public function questions()
+    public function examinationQuestions()
     {
-        return $this->hasMany(Question::class, 'examination_id', 'id');
+        return $this->hasMany(ExaminationQuestion::class, 'examination_id', 'id');
     }
 }

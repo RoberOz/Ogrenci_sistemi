@@ -42,7 +42,7 @@ class DepartmentAssignLectureController extends Controller
         }
       }
 
-      return redirect(route('department-list.index'));
+      return back();
     }
 
 }

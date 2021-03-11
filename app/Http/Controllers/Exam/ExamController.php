@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Department;
 use App\Models\DepartmentLecture;
 use App\Models\Examination;
-use App\Models\Question;
+use App\Models\ExaminationQuestion;
 
 class ExamController extends Controller
 {
@@ -34,34 +34,88 @@ class ExamController extends Controller
                                   ->where('exam_id', $request->exam_id)
                                   ->first();
 
-        $questions = Question::all();
+        $examinationQuestions = ExaminationQuestion::orderBy('order','ASC')->get();
 
         return view('exam.questions')->with([
           'examination' => $examination,
-          'questions' => $questions,
+          'examinationQuestions' => $examinationQuestions,
         ]);
     }
 
-    public function store(Request $request)
+    public function addNewQuestion(Request $request)
     {
-        $question = new Question();
-        $question->examination_id = $request->examination_id;
-        $question->order = 1;
-        $question->content = $request->content;
-        $question->options = json_encode($request->options);
+        $orderExaminationQuestion = ExaminationQuestion::where('examination_id', $request->examinationId)
+                                                       ->orderBy('order','DESC')
+                                                       ->first();
 
-        $question->save();
+        $examinationQuestion = new ExaminationQuestion();
+        $examinationQuestion->examination_id = $request->examinationId;
+        if ($orderExaminationQuestion !== null) {
+          $examinationQuestion->order = $orderExaminationQuestion->order + 1;
+        }
+        else {
+          $examinationQuestion->order = 1;
+        }
+        $examinationQuestion->content = "Soru";
+        $examinationQuestion->options = ['1' => '', '2' => ''];
 
-        return redirect(route('department-list.index'));
+        $examinationQuestion->save();
+
+        return response()->json([], 204);
     }
 
-    public function update(Request $request, $id)
+    public function addNewQuestionOption(Request $request)
     {
-        //
+        $examinationQuestioncontrol = ExaminationQuestion::where('id', $request->examinationQuestionId)
+                                                         ->first();
+        $examinationQuestion = ExaminationQuestion::where('id', $request->examinationQuestionId)
+                                                  ->first();
+
+        for ($i=1; $i < 10; $i++) {
+          $examinationQuestion->options += [$i => ''];
+          $examinationQuestion->save();
+          $examinationQuestioncheck = ExaminationQuestion::where('id', $request->examinationQuestionId)
+                                                         ->first();
+
+          if ($examinationQuestioncontrol->options !== $examinationQuestioncheck->options) {
+            break;
+          }
+        }
+
+        return response()->json([], 204);
+    }
+
+    public function deleteQuestionOption(Request $request)
+    {
+        $previousExaminationQuestion = ExaminationQuestion::where('id', $request->examinationQuestionId)
+                                                          ->first();
+        $examinationQuestion = ExaminationQuestion::where('id', $request->examinationQuestionId)
+                                                  ->first();
+        $examinationQuestion->options = [];
+        foreach ($previousExaminationQuestion->options as $key => $value) {
+          if ($key !== (int)$request->key) {
+            $examinationQuestion->options += [$key => $value];
+          }
+        }
+        $examinationQuestion->save();
+        return response()->json([], 204);
+    }
+
+    public function storeExamQuestions(Request $request)
+    {
+        $examinationQuestion = ExaminationQuestion::where('id', $request->examinationQuestionId)
+                                                  ->first();
+
+        $examinationQuestion->content = $request->content;
+
+        $examinationQuestion->save();
+        return back();
     }
 
     public function destroy($id)
     {
-        //
+        ExaminationQuestion::where('id', $id)->delete();
+
+        return response()->json([], 204);
     }
 }
