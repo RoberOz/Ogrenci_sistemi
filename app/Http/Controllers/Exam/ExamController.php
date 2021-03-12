@@ -93,7 +93,7 @@ class ExamController extends Controller
                                                   ->first();
         $examinationQuestion->options = [];
         foreach ($previousExaminationQuestion->options as $key => $value) {
-          if ($key !== (int)$request->key) {
+          if ($key !== (int)$request->jsonKey) {
             $examinationQuestion->options += [$key => $value];
           }
         }

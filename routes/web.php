@@ -94,7 +94,7 @@ Route::prefix('exams')
         Route::post('modify-exam-add-question', [ExamController::class, 'addNewQuestion'])->name('add-exam-question');
         Route::post('modify-exam-add-question-option', [ExamController::class, 'addNewQuestionOption'])->name('add-exam-question-option');
         Route::post('modify-exam-store', [ExamController::class, 'storeExamQuestions'])->name('add-exam-store');
-        Route::get('modify-exam-delete-question-option', [ExamController::class, 'deleteQuestionOption'])->name('delete-exam-question-option');
+        Route::post('modify-exam-delete-question-option', [ExamController::class, 'deleteQuestionOption'])->name('delete-exam-question-option');
 });
 
 Route::prefix('lectures')
