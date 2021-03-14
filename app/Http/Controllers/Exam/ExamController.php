@@ -103,6 +103,8 @@ class ExamController extends Controller
 
     public function storeExamQuestions(Request $request)
     {
+        $examinationQuestionConst = ExaminationQuestion::where('id', $request->examinationQuestionId)
+                                                        ->first();
         $examinationQuestion = ExaminationQuestion::where('id', $request->examinationQuestionId)
                                                   ->first();
 
@@ -110,10 +112,26 @@ class ExamController extends Controller
           $examinationQuestion->content = $value;
         }
 
-        foreach ($request->jsonKey as $jsonKey => $jsonKeyValue) {
-          foreach ($request->jsonValue as $jsonValueKey => $jsonValue) {
-            if ($jsonKeyValue !== null && $jsonValue !== null) {
-              $examinationQuestion->options = [$jsonKeyValue => $jsonValue];
+        if ($request->jsonKey !== null && $request->jsonValue !== null) {
+          if ($request->jsonKey == null) {
+            foreach ($examinationQuestionConst->options as $jsonKey => $jsonKeyValue) {
+              foreach ($request->jsonValue as $jsonValueKey => $jsonValue) {
+                $examinationQuestion->options = [$jsonKey => $jsonValue];
+              }
+            }
+          }
+          elseif ($request->jsonValue == null) {
+            foreach ($request->jsonKey as $jsonKey => $jsonKeyValue) {
+              foreach ($examinationQuestionConst->options as $jsonValueKey => $jsonValue) {
+                $examinationQuestion->options = [$jsonKeyValue => $jsonValue];
+              }
+            }
+          }
+          else {
+            foreach ($request->jsonKey as $jsonKey => $jsonKeyValue) {
+              foreach ($request->jsonValue as $jsonValueKey => $jsonValue) {
+                $examinationQuestion->options = [$jsonKeyValue => $jsonValue];
+              }
             }
           }
         }

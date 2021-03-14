@@ -111,7 +111,7 @@ import draggable from 'vuedraggable';
           submitForm(){
             axios.post('/exams/modify-exam-store',this.fields)
                  .then((response) => {
-                   //location.reload();
+                   location.reload();
                  })
                  .catch((error) => {
                    console.log('Error submitForm failed!');
