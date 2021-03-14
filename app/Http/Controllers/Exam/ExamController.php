@@ -93,7 +93,7 @@ class ExamController extends Controller
                                                   ->first();
         $examinationQuestion->options = [];
         foreach ($previousExaminationQuestion->options as $key => $value) {
-          if ($key !== (int)$request->jsonKey) {
+          if ($key !== $request->jsonKey && $key !== (int)$request->jsonKey) {
             $examinationQuestion->options += [$key => $value];
           }
         }
@@ -106,10 +106,20 @@ class ExamController extends Controller
         $examinationQuestion = ExaminationQuestion::where('id', $request->examinationQuestionId)
                                                   ->first();
 
-        $examinationQuestion->content = $request->content;
+        foreach ($request->content as $key => $value) {
+          $examinationQuestion->content = $value;
+        }
+
+        foreach ($request->jsonKey as $jsonKey => $jsonKeyValue) {
+          foreach ($request->jsonValue as $jsonValueKey => $jsonValue) {
+            if ($jsonKeyValue !== null && $jsonValue !== null) {
+              $examinationQuestion->options = [$jsonKeyValue => $jsonValue];
+            }
+          }
+        }
 
         $examinationQuestion->save();
-        return back();
+        return response()->json([], 204);
     }
 
     public function destroy($id)
