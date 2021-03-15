@@ -103,39 +103,41 @@ class ExamController extends Controller
 
     public function storeExamQuestions(Request $request)
     {
-        $examinationQuestionConst = ExaminationQuestion::where('id', $request->examinationQuestionId)
-                                                        ->first();
+
         $examinationQuestion = ExaminationQuestion::where('id', $request->examinationQuestionId)
                                                   ->first();
 
-        foreach ($request->content as $key => $value) {
-          $examinationQuestion->content = $value;
+        if ($request->examinationQuestionId == null) {
+          return response()->json([], 417);
         }
 
-        if ($request->jsonKey !== null && $request->jsonValue !== null) {
-          if ($request->jsonKey == null) {
-            foreach ($examinationQuestionConst->options as $jsonKey => $jsonKeyValue) {
-              foreach ($request->jsonValue as $jsonValueKey => $jsonValue) {
-                $examinationQuestion->options = [$jsonKey => $jsonValue];
-              }
-            }
-          }
-          elseif ($request->jsonValue == null) {
-            foreach ($request->jsonKey as $jsonKey => $jsonKeyValue) {
-              foreach ($examinationQuestionConst->options as $jsonValueKey => $jsonValue) {
-                $examinationQuestion->options = [$jsonKeyValue => $jsonValue];
-              }
-            }
-          }
-          else {
-            foreach ($request->jsonKey as $jsonKey => $jsonKeyValue) {
-              foreach ($request->jsonValue as $jsonValueKey => $jsonValue) {
-                $examinationQuestion->options = [$jsonKeyValue => $jsonValue];
-              }
-            }
+        $optionsUntouched = "1";
+        foreach ($request->options as $option) {
+          if ($option['key'] == null && $option['value'] == null ) {
+            $optionsUntouched = "0";
           }
         }
 
+        if ($request->content !== null) {
+          $examinationQuestion->content = $request->content;
+        }
+        else {
+          return response()->json([], 417);
+        }
+
+        if ($optionsUntouched == "1") {
+          $examinationQuestion->options = [];
+          foreach ($request->options as $option) {
+            foreach ($option['key'] as $key => $keyValue) {
+              foreach ($option['value'] as $valueKey => $value) {
+                if (($valueKey == $key) && ($keyValue !== null) && ($value !== null) && ($key !== null) && ($valueKey !== null)) {
+                  $examinationQuestion->options += [$keyValue => $value];
+                }
+              }
+            }
+          }
+        }
+        
         $examinationQuestion->save();
         return response()->json([], 204);
     }
@@ -147,3 +149,26 @@ class ExamController extends Controller
         return response()->json([], 204);
     }
 }
+/*
+if ($request->jsonKey !== null && $request->jsonValue !== null) {
+  if ($request->jsonKey == null) {
+    foreach ($examinationQuestionConst->options as $jsonKey => $jsonKeyValue) {
+      foreach ($request->jsonValue as $jsonValueKey => $jsonValue) {
+        $examinationQuestion->options = [$jsonKey => $jsonValue];
+      }
+    }
+  }
+  elseif ($request->jsonValue == null) {
+    foreach ($request->jsonKey as $jsonKey => $jsonKeyValue) {
+      foreach ($examinationQuestionConst->options as $jsonValueKey => $jsonValue) {
+        $examinationQuestion->options = [$jsonKeyValue => $jsonValue];
+      }
+    }
+  }
+  else {
+    foreach ($request->jsonKey as $jsonKey => $jsonKeyValue) {
+      foreach ($request->jsonValue as $jsonValueKey => $jsonValue) {
+        $examinationQuestion->options = [$jsonKeyValue => $jsonValue];
+
+
+        */

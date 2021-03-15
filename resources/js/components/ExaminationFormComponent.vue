@@ -10,12 +10,12 @@
               <div v-for="examinationquestion in examinationquestions" :key="examinationquestion.id">
                 <div v-if="examination.id == examinationquestion.examination_id">
                   <div class="list-group-item">
-                    <textarea rows="2" cols="80" @change="changeContent(examinationquestion.id,examinationquestion.content,examination.id,$event)" required>{{examinationquestion.content}}</textarea>
+                    <textarea rows="2" cols="80" v-model="fields.content" @change="findExamID(examinationquestion.id, examination.id)" required></textarea>
                     <button type="button" class="btn btn-primary btn-outline-light" style="background:#B60C09" @click="deleteQuestion(examinationquestion.id)">Soruyu Sil</button>
                     <br>
                     <div v-for="(value, key) in examinationquestion.options">
-                      <input type="text" :value="key" @change="changeKey(examinationquestion.id,key,examination.id,$event)" style="width:30px;"></input>:
-                      <input type="text" :value="examinationquestion.options[key]" @change="changeValue(examinationquestion.id,key,examination.id,$event)">
+                      <input type="text" v-model="fields.jsonKey[key]" @change="findExamID(examinationquestion.id, examination.id)" style="width:30px;"> :
+                      <input type="text" v-model="fields.jsonValue[key]" @change="findExamID(examinationquestion.id, examination.id)">
                       <button type="button" class="btn btn-primary btn-outline-light btn-sm" style="background:#B60C09" @click="deleteQuestionOption(examinationquestion.id,key)">X</button>
                       <br><br>
                     </div>
@@ -57,8 +57,9 @@ import draggable from 'vuedraggable';
               examinationId:"",
               order:"",
               content: {},
-              jsonKey: {},
-              jsonValue: {},
+              options: [],
+              jsonKey: [],
+              jsonValue: [],
             },
           }
         },
@@ -109,9 +110,11 @@ import draggable from 'vuedraggable';
                  });
           },
           submitForm(){
+            this.fields.options = [{key: this.fields.jsonKey, value: this.fields.jsonValue}];
             axios.post('/exams/modify-exam-store',this.fields)
                  .then((response) => {
-                   location.reload();
+                   //location.reload();
+                   console.log('Başarılı');
                  })
                  .catch((error) => {
                    console.log('Error submitForm failed!');
@@ -122,22 +125,8 @@ import draggable from 'vuedraggable';
             this.oldIndex = evt.oldIndex;
             this.newIndex = evt.newIndex;
           },
-          changeContent: function(examinationQuestionId,content,examinationId,eventContent) {
-            console.log(eventContent);
-            this.fields.content[examinationQuestionId] = event.target.value;
-            this.fields.examinationQuestionId = examinationQuestionId;
-            this.fields.examinationId = examinationId;
-          },
-          changeKey: function(examinationQuestionId,key,examinationId,eventKey) {
-            console.log(eventKey);
-            this.fields.jsonKey[examinationQuestionId] = event.target.value;
-            this.fields.examinationQuestionId = examinationQuestionId;
-            this.fields.examinationId = examinationId;
-          },
-          changeValue: function(examinationQuestionId,key,examinationId,eventValue) {
-            console.log(eventValue);
-            this.fields.jsonValue[examinationQuestionId] = event.target.value;
-            this.fields.examinationQuestionId = examinationQuestionId;
+          findExamID(questionId,examinationId) {
+            this.fields.examinationQuestionId = questionId;
             this.fields.examinationId = examinationId;
           },
         },
