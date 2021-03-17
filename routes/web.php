@@ -88,6 +88,8 @@ Route::prefix('departments')
 });
 
 Route::prefix('exams')
+    ->middleware('auth')
+    ->middleware('isGraduated')
     ->group(function () {
         Route::resource('modify-exam', ExamController::class, ['only' => ['index','destroy']]);
         Route::get('modify-exam-paper', [ExamController::class, 'showExamQuestion'])->name('modify-exam');

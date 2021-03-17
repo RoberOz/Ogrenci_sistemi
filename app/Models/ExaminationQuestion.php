@@ -10,7 +10,7 @@ class ExaminationQuestion extends Model
     use HasFactory;
 
     protected $casts = [
-      'options'  => 'array'
+      'options'  => 'json'
     ];
 
     public function examination()

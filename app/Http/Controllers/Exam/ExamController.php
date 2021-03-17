@@ -103,43 +103,34 @@ class ExamController extends Controller
 
     public function storeExamQuestions(Request $request)
     {
+        $examinationQuestionLast = ExaminationQuestion::orderBy('id', 'DESC')->first();
 
-        $examinationQuestion = ExaminationQuestion::where('id', $request->examinationQuestionId)
-                                                  ->first();
+        for ($i=0; $i <= $examinationQuestionLast->id; $i++) {
+          $question = $request[$i];
+          if ($request[$i] !== null) {
+            $examinationQuestion = ExaminationQuestion::where('id', $question['examinationQuestionId'])
+                                                      ->first();
 
-        if ($request->examinationQuestionId == null) {
-          return response()->json([], 417);
-        }
-
-        $optionsUntouched = "1";
-        foreach ($request->options as $option) {
-          if ($option['key'] == null && $option['value'] == null ) {
-            $optionsUntouched = "0";
-          }
-        }
-
-        if ($request->content !== null) {
-          $examinationQuestion->content = $request->content;
-        }
-        else {
-          return response()->json([], 417);
-        }
-
-        if ($optionsUntouched == "1") {
-          $examinationQuestion->options = [];
-          foreach ($request->options as $option) {
-            foreach ($option['key'] as $key => $keyValue) {
-              foreach ($option['value'] as $valueKey => $value) {
-                if (($valueKey == $key) && ($keyValue !== null) && ($value !== null) && ($key !== null) && ($valueKey !== null)) {
-                  $examinationQuestion->options += [$keyValue => $value];
+            $examinationQuestion->content = $question['content'];
+            $examinationQuestion->options = [];
+            foreach ($question['options'] as $option) {
+              foreach ($option['key'] as $key => $keyValue) {
+                foreach ($option['value'] as $valueKey => $value) {
+                  if ($key == $valueKey && ($keyValue !== null && $value !== null)) {
+                    $examinationQuestion->options += [$keyValue => $value];
+                  }
                 }
               }
             }
           }
         }
-        
         $examinationQuestion->save();
         return response()->json([], 204);
+
+
+        //$examinationQuestion = ExaminationQuestion::where('id', $request->examinationQuestionId)
+        //                                          ->first();
+        //return response()->json([]);
     }
 
     public function destroy($id)
