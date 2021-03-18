@@ -42,95 +42,31 @@ class ExamController extends Controller
         ]);
     }
 
-    public function addNewQuestion(Request $request)
-    {
-        $orderExaminationQuestion = ExaminationQuestion::where('examination_id', $request->examinationId)
-                                                       ->orderBy('order','DESC')
-                                                       ->first();
-
-        $examinationQuestion = new ExaminationQuestion();
-        $examinationQuestion->examination_id = $request->examinationId;
-        if ($orderExaminationQuestion !== null) {
-          $examinationQuestion->order = $orderExaminationQuestion->order + 1;
-        }
-        else {
-          $examinationQuestion->order = 1;
-        }
-        $examinationQuestion->content = "Soru";
-        $examinationQuestion->options = ['1' => '', '2' => ''];
-
-        $examinationQuestion->save();
-
-        return response()->json([], 204);
-    }
-
-    public function addNewQuestionOption(Request $request)
-    {
-        $examinationQuestioncontrol = ExaminationQuestion::where('id', $request->examinationQuestionId)
-                                                         ->first();
-        $examinationQuestion = ExaminationQuestion::where('id', $request->examinationQuestionId)
-                                                  ->first();
-
-        for ($i=1; $i < 10; $i++) {
-          $examinationQuestion->options += [$i => ''];
-          $examinationQuestion->save();
-          $examinationQuestioncheck = ExaminationQuestion::where('id', $request->examinationQuestionId)
-                                                         ->first();
-
-          if ($examinationQuestioncontrol->options !== $examinationQuestioncheck->options) {
-            break;
-          }
-        }
-
-        return response()->json([], 204);
-    }
-
-    public function deleteQuestionOption(Request $request)
-    {
-        $previousExaminationQuestion = ExaminationQuestion::where('id', $request->examinationQuestionId)
-                                                          ->first();
-        $examinationQuestion = ExaminationQuestion::where('id', $request->examinationQuestionId)
-                                                  ->first();
-        $examinationQuestion->options = [];
-        foreach ($previousExaminationQuestion->options as $key => $value) {
-          if ($key !== $request->jsonKey && $key !== (int)$request->jsonKey) {
-            $examinationQuestion->options += [$key => $value];
-          }
-        }
-        $examinationQuestion->save();
-        return response()->json([], 204);
-    }
-
     public function storeExamQuestions(Request $request)
     {
-        $examinationQuestionLast = ExaminationQuestion::orderBy('id', 'DESC')->first();
-
-        for ($i=0; $i <= $examinationQuestionLast->id; $i++) {
-          $question = $request[$i];
-          if ($request[$i] !== null) {
-            $examinationQuestion = ExaminationQuestion::where('id', $question['examinationQuestionId'])
-                                                      ->first();
-
-            $examinationQuestion->content = $question['content'];
-            $examinationQuestion->options = [];
-            foreach ($question['options'] as $option) {
-              foreach ($option['key'] as $key => $keyValue) {
-                foreach ($option['value'] as $valueKey => $value) {
-                  if ($key == $valueKey && ($keyValue !== null && $value !== null)) {
-                    $examinationQuestion->options += [$keyValue => $value];
-                  }
+        $checkDatabase = 0;
+        for ($i=0; $i <= count($request->all()); $i++) {
+            if ($request[$i] !== null) {
+              $question = $request[$i];
+              if ($checkDatabase == 0) {
+                $examinationQuestions = ExaminationQuestion::where('examination_id',$question['examinationId'])->get();
+                $checkDatabase = 1;
+                foreach ($examinationQuestions as $examinationQuestion) {
+                  $examinationQuestion->delete();
                 }
               }
-            }
-          }
+              $examinationQuestion = new ExaminationQuestion();
+              $examinationQuestion->content = $question['content'];
+              $examinationQuestion->examination_id = $question['examinationId'];
+              $examinationQuestion->order = "1";
+              $examinationQuestion->options = ['1' => '', '2' => ''];
+
+              $examinationQuestion->save();
+              }
         }
-        $examinationQuestion->save();
-        return response()->json([], 204);
 
 
-        //$examinationQuestion = ExaminationQuestion::where('id', $request->examinationQuestionId)
-        //                                          ->first();
-        //return response()->json([]);
+        return response()->json([$examinationQuestion]);
     }
 
     public function destroy($id)
@@ -140,26 +76,3 @@ class ExamController extends Controller
         return response()->json([], 204);
     }
 }
-/*
-if ($request->jsonKey !== null && $request->jsonValue !== null) {
-  if ($request->jsonKey == null) {
-    foreach ($examinationQuestionConst->options as $jsonKey => $jsonKeyValue) {
-      foreach ($request->jsonValue as $jsonValueKey => $jsonValue) {
-        $examinationQuestion->options = [$jsonKey => $jsonValue];
-      }
-    }
-  }
-  elseif ($request->jsonValue == null) {
-    foreach ($request->jsonKey as $jsonKey => $jsonKeyValue) {
-      foreach ($examinationQuestionConst->options as $jsonValueKey => $jsonValue) {
-        $examinationQuestion->options = [$jsonKeyValue => $jsonValue];
-      }
-    }
-  }
-  else {
-    foreach ($request->jsonKey as $jsonKey => $jsonKeyValue) {
-      foreach ($request->jsonValue as $jsonValueKey => $jsonValue) {
-        $examinationQuestion->options = [$jsonKeyValue => $jsonValue];
-
-
-        */

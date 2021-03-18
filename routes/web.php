@@ -93,10 +93,7 @@ Route::prefix('exams')
     ->group(function () {
         Route::resource('modify-exam', ExamController::class, ['only' => ['index','destroy']]);
         Route::get('modify-exam-paper', [ExamController::class, 'showExamQuestion'])->name('modify-exam');
-        Route::post('modify-exam-add-question', [ExamController::class, 'addNewQuestion'])->name('add-exam-question');
-        Route::post('modify-exam-add-question-option', [ExamController::class, 'addNewQuestionOption'])->name('add-exam-question-option');
         Route::post('modify-exam-store', [ExamController::class, 'storeExamQuestions'])->name('add-exam-store');
-        Route::post('modify-exam-delete-question-option', [ExamController::class, 'deleteQuestionOption'])->name('delete-exam-question-option');
 });
 
 Route::prefix('lectures')
