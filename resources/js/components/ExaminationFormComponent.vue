@@ -5,19 +5,21 @@
       <div class="list-group col" id="examinationQuestions">
         <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" @click="addNewQuestion()">Soru Ekle</button>
         <br>
-        <draggable ghost-class="ghost" @end="onEnd">
+        <draggable ghost-class="ghost" @end="onEnd" :options="{animation:200}">
           <transition-group type="transition">
             <div v-for="(question,index) in questions" :key="index">
-              <div class="list-group-item">
-                <textarea rows="2" cols="80" v-model="question.content" @change="findExamId(index,examination.id)" required></textarea>
-                <button type="button" class="btn btn-primary btn-outline-light" style="background:#B60C09" @click="deleteQuestion(index)">Soruyu Sil</button>
-                <div v-for="option in question.options">
-                  <input type="text" v-model="option.key" @change="findExamId(index,examination.id)" style="width:30px;"> :
-                  <input type="text" v-model="option.value" @change="findExamId(index,examination.id)">
-                  <button type="button" class="btn btn-primary btn-outline-light btn-sm" style="background:#B60C09" @click="deleteQuestionOption(index)">X</button>
-                  <br><br>
+              <div v-if="(question.examination_id == examination.id) || question.examination_id == '' ">
+                <div class="list-group-item">
+                  <textarea rows="2" cols="80" v-model="question.content" @change="findExamId(index,examination.id)" required></textarea>
+                  <button type="button" class="btn btn-primary btn-outline-light" style="background:#B60C09" @click="deleteQuestion(index)">Soruyu Sil</button>
+                  <div v-for="option in question.options">
+                    <input type="text" v-model="option.key" @change="findExamId(index,examination.id)" style="width:30px;"> :
+                    <input type="text" v-model="option.value" @change="findExamId(index,examination.id)">
+                    <button type="button" class="btn btn-primary btn-outline-light btn-sm" style="background:#B60C09" @click="deleteQuestionOption(index)">X</button>
+                    <br><br>
+                  </div>
+                  <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" @click="addNewQuestionOption(index)">Şık Ekle</button>
                 </div>
-                <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" @click="addNewQuestionOption(index)">Şık Ekle</button>
               </div>
             </div>
           </transition-group>
@@ -36,6 +38,7 @@
 <script>
 import axios from "axios";
 import draggable from 'vuedraggable';
+import Swal from 'sweetalert2';
 
     export default {
         props: [
@@ -52,7 +55,7 @@ import draggable from 'vuedraggable';
             questions: [
               {
                 examinationQuestionId:"",
-                examinationId: "",
+                examination_id: "",
                 order: "",
                 content: "",
                 options: [
@@ -65,11 +68,15 @@ import draggable from 'vuedraggable';
             ],
           }
         },
+        mounted() {
+            this.loadExaminationQuestions();
+            console.log('Examination Form Component Mounted.');
+        },
         methods:{
           addNewQuestion(){
             this.questions.push({
                             examinationQuestionId:"",
-                            examinationId:"",
+                            examination_id:"",
                             order: "",
                             content: "",
                             options: [
@@ -93,12 +100,25 @@ import draggable from 'vuedraggable';
             this.questions[index].options.pop();
           },
           submitForm(){
-            axios.post('/exams/modify-exam-store',this.questions)
+            axios.post('/api/v1/exams/modify-exam-store',this.questions)
                  .then((response) => {
-                   //location.reload();
-                   console.log('Başarılı');
+                   Swal.fire({
+                     position: 'top-end',
+                     icon: 'success',
+                     title: 'Sınav başarıyla kaydedildi',
+                     showConfirmButton: false,
+                     timer: 1500,
+                    });
+                    //examination_idlocation.reload();
+                   console.log('success');
                  })
                  .catch((error) => {
+                   Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Hata',
+                    text: 'Eksik veya hatalı giriş yaptınız!',
+                  })
                    console.log('Error submitForm failed!');
                  });
           },
@@ -108,12 +128,19 @@ import draggable from 'vuedraggable';
             this.newIndex = evt.newIndex;
           },
           findExamId(index,id) {
-            this.questions[index].examinationId = id;
+            this.questions[index].examination_id = id;
+          },
+          loadExaminationQuestions(){
+            axios.get('/api/v1/exams/load-examination-questions')
+                 .then((response) => {
+                     this.questions = response.data.data;
+                     console.log("success");
+                 })
+                 .catch((error) => {
+                   console.log('Error loadExaminationQuestions failed!');
+                 });
           },
         },
-        mounted() {
-            console.log('Examination Form Component Mounted.');
-        }
     }
 </script>
 

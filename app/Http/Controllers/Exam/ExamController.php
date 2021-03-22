@@ -42,33 +42,6 @@ class ExamController extends Controller
         ]);
     }
 
-    public function storeExamQuestions(Request $request)
-    {
-        $checkDatabase = 0;
-        for ($i=0; $i <= count($request->all()); $i++) {
-            if ($request[$i] !== null) {
-              $question = $request[$i];
-              if ($checkDatabase == 0) {
-                $examinationQuestions = ExaminationQuestion::where('examination_id',$question['examinationId'])->get();
-                $checkDatabase = 1;
-                foreach ($examinationQuestions as $examinationQuestion) {
-                  $examinationQuestion->delete();
-                }
-              }
-              $examinationQuestion = new ExaminationQuestion();
-              $examinationQuestion->content = $question['content'];
-              $examinationQuestion->examination_id = $question['examinationId'];
-              $examinationQuestion->order = "1";
-              $examinationQuestion->options = ['1' => '', '2' => ''];
-
-              $examinationQuestion->save();
-              }
-        }
-
-
-        return response()->json([$examinationQuestion]);
-    }
-
     public function destroy($id)
     {
         ExaminationQuestion::where('id', $id)->delete();
