@@ -124,6 +124,11 @@ import Swal from 'sweetalert2';
           },
           onEnd: function(evt) {
             console.log(evt);
+            console.log("evt.oldIndex: " + evt.oldIndex);
+            console.log("evt.newIndex: " + evt.newIndex);
+            this.questions[evt.oldIndex].order = evt.newIndex;
+            this.questions[evt.newIndex].order = evt.oldIndex;
+
             this.oldIndex = evt.oldIndex;
             this.newIndex = evt.newIndex;
           },
@@ -134,7 +139,7 @@ import Swal from 'sweetalert2';
             axios.get('/api/v1/exams/load-examination-questions')
                  .then((response) => {
                      this.questions = response.data.data;
-                     console.log("success");
+                     console.log("loadExaminationQuestions successful");
                  })
                  .catch((error) => {
                    console.log('Error loadExaminationQuestions failed!');

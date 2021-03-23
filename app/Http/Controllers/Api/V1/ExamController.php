@@ -30,7 +30,7 @@ class ExamController extends Controller
           $examinationQuestion = new ExaminationQuestion();
           $examinationQuestion->content = $question['content'];
           $examinationQuestion->examination_id = $question['examination_id'];
-          $examinationQuestion->order = "1";
+          $examinationQuestion->order = $question['order'];
           $examinationQuestion->options = $question['options'];
 
           $examinationQuestion->save();
@@ -41,7 +41,7 @@ class ExamController extends Controller
 
     public function getExamQuestions()
     {
-        $examinationQuestions = ExaminationQuestion::all();
+        $examinationQuestions = ExaminationQuestion::orderBy('order')->get();
 
         return response()->json([
           'data' => $examinationQuestions,
