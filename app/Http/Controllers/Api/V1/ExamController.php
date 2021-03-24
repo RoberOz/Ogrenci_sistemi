@@ -30,7 +30,21 @@ class ExamController extends Controller
           $examinationQuestion = new ExaminationQuestion();
           $examinationQuestion->content = $question['content'];
           $examinationQuestion->examination_id = $question['examination_id'];
-          $examinationQuestion->order = $question['order'];
+          if ($question['order'] !== null) {
+            $examinationQuestion->order = $question['order'];
+          }
+          else {
+            $order = ExaminationQuestion::where('examination_id',$question['examination_id'])
+                                        ->orderBy('order','DESC')
+                                        ->first();
+            if (isset($order->order)) {
+              $examinationQuestion->order = $order->order + 1;
+              $order = "";
+            }
+            else {
+              $examinationQuestion->order = 0;
+            }
+          }
           $examinationQuestion->options = $question['options'];
 
           $examinationQuestion->save();

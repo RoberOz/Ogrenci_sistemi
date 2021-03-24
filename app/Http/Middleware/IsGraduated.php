@@ -9,8 +9,10 @@ class IsGraduated
 {
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->is_graduated) {
+        if (auth()->user()) {
+          if (auth()->user()->is_graduated) {
             return abort(401);
+          }
         }
 
         return $next($request);
