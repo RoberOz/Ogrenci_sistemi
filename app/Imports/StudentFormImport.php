@@ -17,17 +17,29 @@ class StudentFormImport implements ToCollection, WithHeadingRow, WithValidation
     {
       foreach ($rows as $row)
       {
-        if ($row['is_parents_together'] == null) {
+        if ($row['is_parents_together'] == "No") {
           $row['is_parents_together'] = 0;
         }
-        if ($row['living_with_family'] == null) {
+        elseif ($row['is_parents_together'] == "Yes") {
+          $row['is_parents_together'] = 1;
+        }
+        if ($row['living_with_family'] == "No") {
           $row['living_with_family'] = 0;
         }
-        if ($row['is_mother_alive'] == null) {
+        elseif ($row['living_with_family'] == "Yes") {
+          $row['living_with_family'] = 1;
+        }
+        if ($row['is_mother_alive'] == "No") {
           $row['is_mother_alive'] = 0;
         }
-        if ($row['is_father_alive'] == null) {
+        elseif ($row['is_mother_alive'] == "Yes") {
+          $row['is_mother_alive'] = 1;
+        }
+        if ($row['is_father_alive'] == "No") {
           $row['is_father_alive'] = 0;
+        }
+        elseif ($row['is_father_alive'] == "Yes") {
+          $row['is_father_alive'] = 1;
         }
         StudentForm::create([
           'user_id' => $row['user_id'],
@@ -73,8 +85,8 @@ class StudentFormImport implements ToCollection, WithHeadingRow, WithValidation
           '*.birth_date' => ['date','required'],
           '*.email' => ['email','required'],
           '*.student_no' => ['numeric','required'],
-          '*.is_parents_together' => ['in:1,0'],
-          '*.living_with_family' => ['in:1,0'],
+          '*.is_parents_together' => ['in:Yes,No'],
+          '*.living_with_family' => ['in:Yes,No'],
           '*.family_address' => [''],
           '*.living_with' => [''],
           '*.current_address' => ['required'],
@@ -90,7 +102,7 @@ class StudentFormImport implements ToCollection, WithHeadingRow, WithValidation
           '*.mother_job_address' => [''],
           '*.mother_current_address' => [''],
           '*.mother_birth_date' => ['date','required'],
-          '*.is_mother_alive' => ['required','in:1,0'],
+          '*.is_mother_alive' => ['required','in:Yes,No'],
           '*.mother_email' => ['email'],
           '*.mother_phone_number' => ['numeric','required'],
           '*.father_name' => ['required'],
@@ -98,7 +110,7 @@ class StudentFormImport implements ToCollection, WithHeadingRow, WithValidation
           '*.father_job_address' => [''],
           '*.father_current_address' => [''],
           '*.father_birth_date' => ['date','required'],
-          '*.is_father_alive' => ['required','in:1,0'],
+          '*.is_father_alive' => ['required','in:Yes,No'],
           '*.father_email' => ['email'],
           '*.father_phone_number' => ['numeric','required'],
         ];

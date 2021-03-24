@@ -7,9 +7,9 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Events\BeforeExport;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -19,7 +19,7 @@ class StudentExport implements
     ShouldAutoSize,
     WithMapping,
     WithHeadings,
-    WithEvents
+    WithStyles
 {
     public function collection()
     {
@@ -31,7 +31,7 @@ class StudentExport implements
         return [
             $user->name,
             $user->email,
-            $user->is_graduated,
+            $user->is_graduated ? 'Yes' : 'No',
         ];
     }
 
@@ -40,20 +40,14 @@ class StudentExport implements
         return [
             'Name',
             'Email',
-            'Graduation Status',
+            'Is Graduated',
         ];
     }
 
-    public function registerEvents(): array
+    public function styles(Worksheet $sheet)
     {
         return [
-          AfterSheet::class => function (AfterSheet $event) {
-            $event->sheet->getStyle('A1:C1')->applyFromArray([
-              'font' => [
-                'bold' => true
-              ]
-            ]);
-          }
+          1 => ['font' => ['bold' => true]],
         ];
     }
 }

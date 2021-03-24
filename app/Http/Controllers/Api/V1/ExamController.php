@@ -6,23 +6,23 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\ExaminationQuestion;
+use Validator;
 
 class ExamController extends Controller
 {
     public function storeExamQuestions(Request $request)
     {
-        $questions = $request->all();
-
         //Validation  *****************
-        $checkDatabase = false;
-        if ($checkDatabase == false) {
-          foreach ($questions as $question) {
-            $examinationQuestions = ExaminationQuestion::where('examination_id',$question['examination_id'])->get();
-            foreach ($examinationQuestions as $examinationQuestion) {
-              $examinationQuestion->delete();
-            }
-          }
-          $checkDatabase = true;
+        $validator = Validator::make($request->all(), [
+          'row.*.content' => 'required',
+          'row.*.examination_id' => 'exist:examinations,id|required',
+          'row.*.options' => 'array|required',
+          'row.*.content' => 'integer|required',
+        ]);
+
+        $questions = $request->all();
+        foreach ($questions as $question) {
+          $examinationQuestions = ExaminationQuestion::where('examination_id',$question['examination_id'])->delete();
         }
         // ****************************
 

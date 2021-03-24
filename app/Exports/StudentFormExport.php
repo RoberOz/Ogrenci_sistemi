@@ -3,20 +3,22 @@
 namespace App\Exports;
 
 use App\Models\StudentForm;
+use App\Models\User;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Events\BeforeExport;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class StudentFormExport implements
     FromCollection,
     ShouldAutoSize,
     WithMapping,
-    WithHeadings,
-    WithEvents
+    Withstyles,
+    WithHeadings
 {
     public function collection()
     {
@@ -27,12 +29,13 @@ class StudentFormExport implements
     {
         return [
             $studentForm->user_id,
+            User::where('id',$studentForm->user_id)->first()->name,
             $studentForm->tc_kimlik_no,
             $studentForm->birth_date,
             $studentForm->email,
             $studentForm->student_no,
-            $studentForm->is_parents_together,
-            $studentForm->living_with_family,
+            $studentForm->is_parents_together ? 'Yes' : 'No',
+            $studentForm->living_with_family ? 'Yes' : 'No',
             $studentForm->family_address,
             $studentForm->living_with,
             $studentForm->current_address,
@@ -47,14 +50,14 @@ class StudentFormExport implements
             $studentForm->mother_job,
             $studentForm->mother_job_address,
             $studentForm->mother_birth_date,
-            $studentForm->is_mother_alive,
+            $studentForm->is_mother_alive ? 'Yes' : 'No',
             $studentForm->mother_email,
             $studentForm->mother_phone_number,
             $studentForm->father_name,
             $studentForm->father_job,
             $studentForm->father_job_address,
             $studentForm->father_birth_date,
-            $studentForm->is_father_alive,
+            $studentForm->is_father_alive ? 'Yes' : 'No',
             $studentForm->father_email,
             $studentForm->father_phone_number,
         ];
@@ -64,6 +67,7 @@ class StudentFormExport implements
     {
         return [
             'User id',
+            'User name',
             'Tc kimlik no',
             'Birth date',
             'Email',
@@ -97,16 +101,10 @@ class StudentFormExport implements
         ];
     }
 
-    public function registerEvents(): array
+    public function styles(Worksheet $sheet)
     {
         return [
-          AfterSheet::class => function (AfterSheet $event) {
-            $event->sheet->getStyle('A1:AE1')->applyFromArray([
-              'font' => [
-                'bold' => true
-              ]
-            ]);
-          }
+          1 => ['font' => ['bold' => true]],
         ];
     }
 }

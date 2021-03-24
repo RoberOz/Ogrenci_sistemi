@@ -20,16 +20,19 @@ class StudentImport implements ToCollection, WithHeadingRow, WithValidation
     {
         foreach ($rows as $row)
         {
-          if (($row['name'] !== null && $row['email'] !== null))
+          if (($row['name'] !== null && $row['email'] !== null) && $row['is_graduated'] !== null)
           {
-            if ($row['graduation_status'] == null)
+            if ($row['is_graduated'] == "No")
             {
-              $row['graduation_status'] = false;
+              $row['is_graduated'] = false;
+            }
+            elseif (row['is_graduated'] == "Yes") {
+              $row['is_graduated'] = true;
             }
             User::create([
                 'name' => $row['name'],
                 'email' => $row['email'],
-                'is_graduated' => $row['graduation_status'],
+                'is_graduated' => $row['is_graduated'],
                 'password' => Hash::make('password'),
             ])->assignRole('student');
           }
@@ -41,7 +44,7 @@ class StudentImport implements ToCollection, WithHeadingRow, WithValidation
         return [
           '*.name' => ['required'],
           '*.email' => ['email', 'unique:users,email', 'required'],
-          '*.is_graduated' => ['boolean']
+          '*.is_graduated' => ['in:Yes,No']
         ];
     }
 }

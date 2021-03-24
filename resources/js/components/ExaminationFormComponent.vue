@@ -10,7 +10,7 @@
             <div v-for="(question,index) in questions" :key="index">
               <div v-if="(question.examination_id == examination.id) || question.examination_id == '' ">
                 <div class="list-group-item">
-                  <textarea rows="2" cols="80" v-model="question.content" @change="findExamId(index,examination.id)" required></textarea>
+                  <textarea rows="2" cols="80" v-model="question.content" @change="findExamId(index,examination.id)"></textarea>
                   <button type="button" class="btn btn-primary btn-outline-light" style="background:#B60C09" @click="deleteQuestion(index)">Soruyu Sil</button>
                   <div v-for="option in question.options">
                     <input type="text" v-model="option.key" @change="findExamId(index,examination.id)" style="width:30px;"> :
