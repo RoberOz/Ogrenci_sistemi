@@ -108,12 +108,8 @@ $(document).ready(function(){
           console.log(departmentLectureId);
           $.ajax({
               headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-              url: '{{ url('/departments/department-lecture')}}',
-              method: 'get',
-              data: {
-                'departmentId': departmentId,
-                'departmentLectureId':departmentLectureId,
-              },
+              url: '/departments/'+ departmentId +'/lecture/'+ departmentLectureId,
+              method: 'delete',
               success: function(response) {
                 window.location.href = "";
               }

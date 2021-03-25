@@ -15,42 +15,28 @@ class ExamController extends Controller
         //Validation  *****************
         $validator = Validator::make($request->all(), [
           'row.*.content' => 'required',
-          'row.*.examination_id' => 'exist:examinations,id|required',
+          'examination_id' => 'exist:examinations,id|required',
           'row.*.options' => 'array|required',
           'row.*.content' => 'integer|required',
         ]);
 
         $questions = $request->all();
         foreach ($questions as $question) {
-          $examinationQuestions = ExaminationQuestion::where('examination_id',$question['examination_id'])->delete();
+          $examinationQuestions = ExaminationQuestion::where('examination_id',$request->examination_id)->delete();
         }
         // ****************************
 
         foreach ($questions as $question) {
           $examinationQuestion = new ExaminationQuestion();
           $examinationQuestion->content = $question['content'];
-          $examinationQuestion->examination_id = $question['examination_id'];
-          if ($question['order'] !== null) {
-            $examinationQuestion->order = $question['order'];
-          }
-          else {
-            $order = ExaminationQuestion::where('examination_id',$question['examination_id'])
-                                        ->orderBy('order','DESC')
-                                        ->first();
-            if (isset($order->order)) {
-              $examinationQuestion->order = $order->order + 1;
-              $order = "";
-            }
-            else {
-              $examinationQuestion->order = 0;
-            }
-          }
+          $examinationQuestion->examination_id = $request->examination_id;
+          $examinationQuestion->order = $question['order'];
           $examinationQuestion->options = $question['options'];
 
           $examinationQuestion->save();
         }
 
-        return response()->json([], 204);
+        return response()->json([], 201);
     }
 
     public function getExamQuestions()

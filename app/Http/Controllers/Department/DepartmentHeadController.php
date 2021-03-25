@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\AssignDepartmentHeadRequest;
+use App\Http\Requests\UnassignDepartmentHeadRequest;
 
 use App\Models\Department;
 
@@ -18,15 +19,18 @@ class DepartmentHeadController extends Controller
 
       $departmentHead->save();
 
+      $data = $request->input('department_head');
+      $request->session()->flash('department_head', $data);
+
       return redirect(route('department-list.index'));
     }
 
-    public function destroy(Department $department_head)
+    public function unassign(UnassignDepartmentHeadRequest $request)
     {
+      $department_head = Department::where('id',$request->departmentHeadId)->first();
       $department_head->department_head_user_id = null;
 
       $department_head->save();
-
       return response()->json([], 204);
     }
 }

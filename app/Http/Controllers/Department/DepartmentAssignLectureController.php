@@ -25,7 +25,7 @@ class DepartmentAssignLectureController extends Controller
 
     public function store(AssignDepartmentLectureRequest $request)
     {
-      if(isset($request->lectureNames)) {
+      if($request->lectureNames) {
         foreach ($request->lectureNames as $lectureName) {
           $department = Department::where('id',$request->departmentId)->first();
           $lecture = Lecture::where('name',$lectureName)->first();

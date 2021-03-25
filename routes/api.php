@@ -8,7 +8,7 @@ use App\Http\Controllers\Api\V1\ExamController;
 Route::namespace('Api\V1')
     ->prefix('v1/exams')
     ->group(function () {
-        Route::post('modify-exam-store', [ExamController::class, 'storeExamQuestions'])->name('add-exam-store');
+        Route::post('{examination_id}/modify-exam-store', [ExamController::class, 'storeExamQuestions'])->name('add-exam-store');
         Route::get('load-examination-questions', [ExamController::class, 'getExamQuestions'])->name('load-exams');
 });
 

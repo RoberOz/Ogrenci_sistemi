@@ -12,10 +12,10 @@ use App\Models\DepartmentLecture;
 
 class DepartmentLectureController extends Controller
 {
-    public function detach(Request $request)
+    public function detach($department,$lecture)
     {
-      $department = Department::where('id',$request->departmentId)->first();
-      $lecture = Lecture::where('id',$request->departmentLectureId)->first();
+      $department = Department::where('id',$department)->first();
+      $lecture = Lecture::where('id',$lecture)->first();
 
       $department->lectures()->detach($lecture->id);
 

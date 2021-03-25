@@ -5,21 +5,19 @@
       <div class="list-group col" id="examinationQuestions">
         <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" @click="addNewQuestion()">Soru Ekle</button>
         <br>
-        <draggable ghost-class="ghost" @end="onEnd" :options="{animation:200}">
+        <draggable :list="questions" ghost-class="ghost" @end="onEnd" :options="{animation:200}">
           <transition-group type="transition">
             <div v-for="(question,index) in questions" :key="index">
-              <div v-if="(question.examination_id == examination.id) || question.examination_id == '' ">
-                <div class="list-group-item">
-                  <textarea rows="2" cols="80" v-model="question.content" @change="findExamId(index,examination.id)"></textarea>
-                  <button type="button" class="btn btn-primary btn-outline-light" style="background:#B60C09" @click="deleteQuestion(index)">Soruyu Sil</button>
-                  <div v-for="option in question.options">
-                    <input type="text" v-model="option.key" @change="findExamId(index,examination.id)" style="width:30px;"> :
-                    <input type="text" v-model="option.value" @change="findExamId(index,examination.id)">
-                    <button type="button" class="btn btn-primary btn-outline-light btn-sm" style="background:#B60C09" @click="deleteQuestionOption(index)">X</button>
-                    <br><br>
-                  </div>
-                  <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" @click="addNewQuestionOption(index)">Şık Ekle</button>
+              <div class="list-group-item">
+                <textarea rows="2" cols="80" v-model="question.content"></textarea>
+                <button type="button" class="btn btn-primary btn-outline-light" style="background:#B60C09" @click="deleteQuestion(index)">Soruyu Sil</button>
+                <div v-for="option in question.options">
+                  <input type="text" v-model="option.key" style="width:30px;"> :
+                  <input type="text" v-model="option.value">
+                  <button type="button" class="btn btn-primary btn-outline-light btn-sm" style="background:#B60C09" @click="deleteQuestionOption(index)">X</button>
+                  <br><br>
                 </div>
+                <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" @click="addNewQuestionOption(index)">Şık Ekle</button>
               </div>
             </div>
           </transition-group>
@@ -27,11 +25,10 @@
       </div>
       <br>
       <div align="center">
+        <input type="hidden" ref="exam" :value="examination.id">
         <button type="submit" class="btn btn-primary btn-outline-light" style="background:#19A713;">Kaydet</button>
       </div>
     </form>
-    <p><strong>Previous Index:</strong> {{oldIndex}} </p>
-    <p><strong>New Index:</strong> {{newIndex}} </p>
   </div>
 </template>
 
@@ -50,12 +47,9 @@ import Swal from 'sweetalert2';
         },
         data() {
           return {
-            oldIndex: "",
-            newIndex: "",
             questions: [
               {
                 examinationQuestionId:"",
-                examination_id: "",
                 order: "",
                 content: "",
                 options: [
@@ -76,7 +70,6 @@ import Swal from 'sweetalert2';
           addNewQuestion(){
             this.questions.push({
                             examinationQuestionId:"",
-                            examination_id:"",
                             order: "",
                             content: "",
                             options: [
@@ -100,7 +93,8 @@ import Swal from 'sweetalert2';
             this.questions[index].options.pop();
           },
           submitForm(){
-            axios.post('/api/v1/exams/modify-exam-store',this.questions)
+            let examination_id = this.$refs.exam.value;
+            axios.post('/api/v1/exams/'+ examination_id +'/modify-exam-store',this.questions)
                  .then((response) => {
                    Swal.fire({
                      position: 'top-end',
@@ -109,7 +103,7 @@ import Swal from 'sweetalert2';
                      showConfirmButton: false,
                      timer: 1500,
                     });
-                    //examination_idlocation.reload();
+                   //location.reload();
                    console.log('success');
                  })
                  .catch((error) => {
@@ -123,17 +117,9 @@ import Swal from 'sweetalert2';
                  });
           },
           onEnd: function(evt) {
-            console.log(evt);
-            console.log("evt.oldIndex: " + evt.oldIndex);
-            console.log("evt.newIndex: " + evt.newIndex);
-            this.questions[evt.oldIndex].order = evt.newIndex;
-            this.questions[evt.newIndex].order = evt.oldIndex;
-
-            this.oldIndex = evt.oldIndex;
-            this.newIndex = evt.newIndex;
-          },
-          findExamId(index,id) {
-            this.questions[index].examination_id = id;
+            this.questions.map((question,index) => {
+              question.order = index + 1;
+            })
           },
           loadExaminationQuestions(){
             axios.get('/api/v1/exams/load-examination-questions')
