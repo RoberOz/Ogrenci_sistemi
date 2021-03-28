@@ -40,11 +40,11 @@ class DepartmentController extends Controller
       return redirect(route('department-list.index'));
     }
 
-    public function destroy(Department $department_list)
+    public function destroy(Department $department)
     {
-      Department::where('id', $department_list->id)->delete();
+      $department->delete();
 
-      return response()->json([], 200);
+      return response()->json([], 204);
     }
 
 }

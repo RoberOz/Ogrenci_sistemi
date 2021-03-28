@@ -1,11 +1,10 @@
 <template>
   <div>
-    <!-- <form method="post" action="{{url('exams/modify-exam-store')}}"> -->
     <form v-on:submit.prevent="submitForm">
       <div class="list-group col" id="examinationQuestions">
         <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" @click="addNewQuestion()">Soru Ekle</button>
         <br>
-        <draggable :list="questions" ghost-class="ghost" @end="onEnd" :options="{animation:200}">
+        <draggable :list="questions" ghost-class="ghost" @end="manageOrder" :options="{animation:200}">
           <transition-group type="transition">
             <div v-for="(question,index) in questions" :key="index">
               <div class="list-group-item">
@@ -25,7 +24,7 @@
       </div>
       <br>
       <div align="center">
-        <input type="hidden" ref="exam" :value="examination.id">
+        <input type="hidden" ref="examId" :value="examination.id">
         <button type="submit" class="btn btn-primary btn-outline-light" style="background:#19A713;">Kaydet</button>
       </div>
     </form>
@@ -49,7 +48,7 @@ import Swal from 'sweetalert2';
           return {
             questions: [
               {
-                examinationQuestionId:"",
+                examination_id:"",
                 order: "",
                 content: "",
                 options: [
@@ -69,7 +68,7 @@ import Swal from 'sweetalert2';
         methods:{
           addNewQuestion(){
             this.questions.push({
-                            examinationQuestionId:"",
+                            examination_id:"",
                             order: "",
                             content: "",
                             options: [
@@ -93,8 +92,8 @@ import Swal from 'sweetalert2';
             this.questions[index].options.pop();
           },
           submitForm(){
-            let examination_id = this.$refs.exam.value;
-            axios.post('/api/v1/exams/'+ examination_id +'/modify-exam-store',this.questions)
+            let examinationId = this.$refs.examId.value;
+            axios.post('/api/v1/exams/'+ examinationId +'/modify-exam-store',this.questions)
                  .then((response) => {
                    Swal.fire({
                      position: 'top-end',
@@ -116,7 +115,7 @@ import Swal from 'sweetalert2';
                    console.log('Error submitForm failed!');
                  });
           },
-          onEnd: function(evt) {
+          manageOrder: function(evt) {
             this.questions.map((question,index) => {
               question.order = index + 1;
             })

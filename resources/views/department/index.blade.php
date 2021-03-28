@@ -8,9 +8,9 @@
                 <div class="card-header" style="background:#C6C6C6"><strong>{{ __('Bölüm Listesi') }}</strong></div>
                   <div class="card-body" style="background:#C3D6D7">
 
-                      @if (session('department_head'))
+                      @if (session('success_department_head_alert'))
                           <div class="alert alert-success" role="alert">
-                              <h5 style="color:green">Atama başarılı</h5>
+                              <h6 style="color:green">Atama başarılı</h6>
                           </div>
                       @endif
 
@@ -92,7 +92,7 @@ $(document).ready(function(){
               url: '{{ url('/departments/department-list')}}/'+departmentId,
               method: 'delete',
               success: function(response) {
-                //window.location.href = "department-list";
+                window.location.href = "department-list";
               }
           });
       });
@@ -106,15 +106,12 @@ $(document).ready(function(){
 <script>
 $(document).ready(function(){
       $('.js-delete-department-head-btn').on('click', function () {
-          let departmentHeadId = $(this).attr("data-id");
-          console.log(departmentHeadId);
+          let department = $(this).attr("data-id");
+          console.log(department);
           $.ajax({
               headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-              url: '{{ url('/departments/department-head-unassign')}}',
-              method: 'post',
-              data: {
-                'departmentHeadId': departmentHeadId,
-              },
+              url: '{{ url('/departments/department-head-unassign')}}/' + department,
+              method: 'delete',
               success: function(response) {
                 window.location.href = "department-list";
               }

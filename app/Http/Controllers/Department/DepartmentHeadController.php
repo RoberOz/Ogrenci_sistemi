@@ -20,17 +20,16 @@ class DepartmentHeadController extends Controller
       $departmentHead->save();
 
       $data = $request->input('department_head');
-      $request->session()->flash('department_head', $data);
+      $request->session()->flash('success_department_head_alert', $data);
 
       return redirect(route('department-list.index'));
     }
 
-    public function unassign(UnassignDepartmentHeadRequest $request)
+    public function unassign(Department $department)
     {
-      $department_head = Department::where('id',$request->departmentHeadId)->first();
-      $department_head->department_head_user_id = null;
+      $department->department_head_user_id = null;
 
-      $department_head->save();
+      $department->save();
       return response()->json([], 204);
     }
 }

@@ -8,15 +8,11 @@ use Illuminate\Http\Request;
 use App\Models\Lecture;
 use App\Models\Department;
 use App\Models\Examination;
-use App\Models\DepartmentLecture;
 
 class DepartmentLectureController extends Controller
 {
-    public function detach($department,$lecture)
+    public function detach(Department $department,Lecture $lecture)
     {
-      $department = Department::where('id',$department)->first();
-      $lecture = Lecture::where('id',$lecture)->first();
-
       $department->lectures()->detach($lecture->id);
 
       return response()->json([], 204);

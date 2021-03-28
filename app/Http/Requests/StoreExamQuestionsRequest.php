@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UnassignDepartmentHeadRequest extends FormRequest
+class StoreExamQuestionsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,11 @@ class UnassignDepartmentHeadRequest extends FormRequest
     public function rules()
     {
         return [
-            'departmentHeadId' => 'numeric|exists:departments,id|required',
+          '*.order' => 'integer|min:1|required',
+          '*.content' => 'required',
+          '*.options' => 'array|min:3|required',
+          '*.options.*.key' => 'required',
+          '*.options.*.value' => 'required',
         ];
     }
 }

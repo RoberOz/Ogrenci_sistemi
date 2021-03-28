@@ -77,9 +77,10 @@ Route::prefix('departments')
     ->middleware('auth')
     ->middleware('isGraduated')
     ->group(function () {
-        Route::resource('department-list', DepartmentController::class, ['only' => ['index','create','store','destroy']]);
+        Route::resource('department-list', DepartmentController::class, ['only' => ['index','create','store']]);
+        Route::delete('department-list/{department}', [DepartmentController::class, 'destroy'])->name('department-delete');
         Route::resource('department-head', DepartmentHeadController::class, ['only' => ['store']]);
-        Route::post('department-head-unassign', [DepartmentHeadController::class, 'unassign'])->name('department-head-unassign');
+        Route::delete('department-head-unassign/{department}', [DepartmentHeadController::class, 'unassign'])->name('department-head-unassign');
         Route::resource('department-lecture', DepartmentLectureController::class, ['only' => ['show']]);
         Route::delete('{department}/lecture/{lecture}', [DepartmentLectureController::class, 'detach'])->name('department-lecture-detach');
         Route::resource('department-lecture-exams', DepartmentLectureExamController::class, ['only' => ['index','store','destroy']]);

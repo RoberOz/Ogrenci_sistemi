@@ -5,31 +5,23 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Examination;
 use App\Models\ExaminationQuestion;
-use Validator;
+use App\Http\Requests\StoreExamQuestionsRequest;
 
-class ExamController extends Controller
+class ExaminationQuestionController extends Controller
 {
-    public function storeExamQuestions(Request $request)
+    public function storeExamQuestions(StoreExamQuestionsRequest $request,Examination $examinationId)
     {
-        //Validation  *****************
-        $validator = Validator::make($request->all(), [
-          'row.*.content' => 'required',
-          'examination_id' => 'exist:examinations,id|required',
-          'row.*.options' => 'array|required',
-          'row.*.content' => 'integer|required',
-        ]);
-
         $questions = $request->all();
         foreach ($questions as $question) {
-          $examinationQuestions = ExaminationQuestion::where('examination_id',$request->examination_id)->delete();
+          $examinationQuestions = ExaminationQuestion::where('examination_id',$examinationId->id)->delete();
         }
-        // ****************************
 
         foreach ($questions as $question) {
           $examinationQuestion = new ExaminationQuestion();
           $examinationQuestion->content = $question['content'];
-          $examinationQuestion->examination_id = $request->examination_id;
+          $examinationQuestion->examination_id = $examinationId->id;
           $examinationQuestion->order = $question['order'];
           $examinationQuestion->options = $question['options'];
 

@@ -25,21 +25,19 @@ class DepartmentAssignLectureController extends Controller
 
     public function store(AssignDepartmentLectureRequest $request)
     {
-      if($request->lectureNames) {
-        foreach ($request->lectureNames as $lectureName) {
-          $department = Department::where('id',$request->departmentId)->first();
-          $lecture = Lecture::where('name',$lectureName)->first();
+      foreach ($request->lectureNames as $lectureName) {
+        $department = Department::where('id',$request->departmentId)->first();
+        $lecture = Lecture::where('name',$lectureName)->first();
 
-          $pivotArray=[$lecture->id];
-          $pivotArray=[
-            $lecture->id => [
-              'class' => $request->class,
-              'period' => $request->period
-            ]
-          ];
+        $pivotArray=[$lecture->id];
+        $pivotArray=[
+          $lecture->id => [
+            'class' => $request->class,
+            'period' => $request->period
+          ]
+        ];
 
-          $department->lectures()->sync($pivotArray,false);
-        }
+        $department->lectures()->sync($pivotArray,false);
       }
 
       return back();
