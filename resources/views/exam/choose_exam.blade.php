@@ -8,9 +8,9 @@
                 <div class="card-header" style="background:#C6C6C6"><strong>{{ __('Sınav Seç') }}</strong></div>
                   <div class="card-body" style="background:#C3D6D7">
 
-                      @if (session('status'))
-                          <div class="alert alert-success" role="alert">
-                              {{ session('status') }}
+                      @if (session('failed_choose_exeam'))
+                          <div class="alert alert-danger" role="alert">
+                              Sınav seçimi başarısız
                           </div>
                       @endif
 
@@ -39,11 +39,7 @@
                                   @if ($departmentLecture->id == $examination->department_lecture_id && $examination->exam_id == 1)
                                     {{$examination->exam_date}} <br> {{$examination->exam_start_time}} - {{$examination->exam_end_time}}
                                     <br><br>
-                                    <form method="get" action="{{url('exams/modify-exam-paper')}}">
-                                      <input type="hidden" name=department_lecture_id value="{{$examination->department_lecture_id}}">
-                                      <input type="hidden" name=exam_id value="{{$examination->exam_id}}">
-                                      <button type="submit" class="btn btn-primary btn-outline-light" style="background:#19A713">Seç</button>
-                                    </form>
+                                    <button class="btn btn-primary btn-outline-light" style="background:#19A713" onclick="location.href='{{route('modify-exam',[$examination->department_lecture_id,$examination->exam_id])}}'">Seç</button>
                                   @endif
                                 @endforeach
                               </td>
@@ -52,11 +48,7 @@
                                   @if ($departmentLecture->id == $examination->department_lecture_id && $examination->exam_id == 2)
                                     {{$examination->exam_date}} <br> {{$examination->exam_start_time}} - {{$examination->exam_end_time}}
                                     <br><br>
-                                    <form method="get" action="{{url('exams/modify-exam-paper')}}">
-                                      <input type="hidden" name=department_lecture_id value="{{$examination->department_lecture_id}}">
-                                      <input type="hidden" name=exam_id value="{{$examination->exam_id}}">
-                                      <button type="submit" class="btn btn-primary btn-outline-light" style="background:#19A713">Seç</button>
-                                    </form>
+                                    <button class="btn btn-primary btn-outline-light" style="background:#19A713" onclick="location.href='{{route('modify-exam',[$examination->department_lecture_id,$examination->exam_id])}}'">Seç</button>
                                   @endif
                                 @endforeach
                               </td>

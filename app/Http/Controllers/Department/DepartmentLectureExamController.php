@@ -5,44 +5,36 @@ namespace App\Http\Controllers\Department;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Http\Requests\ShowDepartmentLectureExamRequest;
 use App\Http\Requests\StoreDepartmentLectureExamRequest;
+use App\Http\Requests\DeleteExamDateRequest;
 
 use App\Models\Lecture;
 use App\Models\Department;
 use App\Models\DepartmentLecture;
 use App\Models\Examination;
 
+use Illuminate\Support\Facades\Validator;
+
 class DepartmentLectureExamController extends Controller
 {
 
-    public function index(ShowDepartmentLectureExamRequest $request)
+    public function showExamDates(Department $department,Lecture $lecture)
     {
-        $departmentLecture = DepartmentLecture::where('department_id', $request->department_id)
-                                              ->where('lecture_id', $request->lecture_id)
-                                              ->where('class', $request->class)
-                                              ->where('period', $request->period)
+        $departmentLecture = DepartmentLecture::where('department_id', $department->id)
+                                              ->where('lecture_id', $lecture->id)
                                               ->first();
         $departments = Department::all();
         $lectures = Lecture::all();
 
         return view('department.lecture_exams')->with([
+          'department' => $department,
+          'lecture' => $lecture,
           'departmentLecture' => $departmentLecture,
-          'departments' => $departments,
-          'lectures' => $lectures,
-          'departmentId' => $request->department_id,
-          'lectureId' => $request->lecture_id,
-          'class' => $request->class,
-          'period' => $request->period,
         ]);
     }
 
     public function store(StoreDepartmentLectureExamRequest $request)
     {
-      if ($request->first_exam == null && $request->second_exam == null) {
-        return redirect(route('home'));
-      }
-
       if ($request->exam_id == 1) {
         if (Examination::where('department_lecture_id', $request->department_lecture_id)
                        ->where('exam_id', $request->exam_id)
@@ -63,7 +55,9 @@ class DepartmentLectureExamController extends Controller
 
         $examination->save();
 
-        return redirect(route('department-list.index'));
+        session()->flash('success_exam_date_store_alert');
+
+        return back();
       }
       elseif ($request->exam_id == 2) {
         if (Examination::where('department_lecture_id', $request->department_lecture_id)
@@ -85,20 +79,20 @@ class DepartmentLectureExamController extends Controller
 
         $examination->save();
 
+        session()->flash('success_exam_date_store_alert');
+
         return back();
-      }
-      else {
-        return redirect(route('home'));
       }
     }
 
-    public function destroy(Request $request)
+    public function destroyExam(DepartmentLecture $departmentLecture,DeleteExamDateRequest $request)
     {
-      Examination::where('department_lecture_id', $request->departmentLectureId)
+      Examination::where('department_lecture_id', $departmentLecture->id)
                  ->where('exam_id', $request->examId)
                  ->first()
                  ->delete();
 
+      session()->flash('success_exam_delete');
       return response()->json([], 204);
     }
   }

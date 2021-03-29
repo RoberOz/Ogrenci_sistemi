@@ -14,6 +14,12 @@
                           </div>
                       @endif
 
+                      @if (session('success_department_head_delete_alert'))
+                          <div class="alert alert-success" role="alert">
+                              <h6 style="color:green">Bölüm başkanı kaldırıldı</h6>
+                          </div>
+                      @endif
+
                       <div style="background-color:lightblue">
                           @foreach ($errors->all() as $error)
                             <li>{{$error}}</li>
@@ -48,9 +54,7 @@
                                       @csrf
                                       <select name="department_head">
                                         @foreach ($users as $user)
-                                          @if ($user->id !== $department->user_id)
-                                            <option value="{{$user->id}}">{{$user->name}}</option>
-                                          @endif
+                                          <option value="{{$user->id}}">{{$user->name}}</option>
                                         @endforeach
                                       </select>
                                       <input type=hidden name=department_id value={{$department->id}}></input>
@@ -59,7 +63,7 @@
                                   @endif
                                 </td>
                                 <td align="center">
-                                  <button class="btn btn-primary btn-outline-light btn-xl" style="background:#32A2EC" onclick="location.href='{{route('department-lecture.show',$department->id)}}'">Detay</button>
+                                  <button class="btn btn-primary btn-outline-light btn-xl" style="background:#32A2EC" onclick="location.href='{{route('department-lecture-show',$department->id)}}'">Detay</button>
                                   <button class="btn btn-primary btn-outline-light btn-xl" style="background:#19A713" onclick="location.href='{{route('department-assign-lecture.show',$department->id)}}'">Bölüme Ders Ata</button>
                                   <button class="js-delete-department-btn btn btn-primary btn-outline-light" style="background:#B60C09" data-id={{$department->id}}>Bölümü Sil</button>
                                 </td>
@@ -92,7 +96,7 @@ $(document).ready(function(){
               url: '{{ url('/departments/department-list')}}/'+departmentId,
               method: 'delete',
               success: function(response) {
-                window.location.href = "department-list";
+                window.location.href = "";
               }
           });
       });
@@ -113,7 +117,7 @@ $(document).ready(function(){
               url: '{{ url('/departments/department-head-unassign')}}/' + department,
               method: 'delete',
               success: function(response) {
-                window.location.href = "department-list";
+                window.location.href = "";
               }
           });
       });

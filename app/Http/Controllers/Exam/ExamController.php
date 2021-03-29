@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Exam;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Lecture;
 use App\Models\Department;
 use App\Models\DepartmentLecture;
 use App\Models\Examination;
@@ -13,12 +14,10 @@ use App\Models\ExaminationQuestion;
 class ExamController extends Controller
 {
 
-    public function index(Request $request)
+    public function index(Department $department,Lecture $lecture)
     {
-      $departmentLecture = DepartmentLecture::where('department_id', $request->department_id)
-                                            ->where('lecture_id', $request->lecture_id)
-                                            ->where('class', $request->class)
-                                            ->where('period', $request->period)
+      $departmentLecture = DepartmentLecture::where('department_id', $department->id)
+                                            ->where('lecture_id', $lecture->id)
                                             ->first();
       $examinations = Examination::all();
 
@@ -28,24 +27,24 @@ class ExamController extends Controller
       ]);
     }
 
-    public function showExamQuestion(Request $request)
+    public function showExamQuestion(DepartmentLecture $departmentLecture,$examId)
     {
-        $examination = Examination::where('department_lecture_id', $request->department_lecture_id)
-                                  ->where('exam_id', $request->exam_id)
-                                  ->first();
+        if ($examId !== null && ($examId == 1 || $examId == 2)) {
+          $examination = Examination::where('department_lecture_id', $departmentLecture->id)
+                                    ->where('exam_id', $examId)
+                                    ->first();
 
-        $examinationQuestions = ExaminationQuestion::orderBy('order','ASC')->get();
+          $examinationQuestions = ExaminationQuestion::orderBy('order','ASC')->get();
 
-        return view('exam.questions')->with([
-          'examination' => $examination,
-          'examinationQuestions' => $examinationQuestions,
-        ]);
-    }
+          return view('exam.questions')->with([
+            'examination' => $examination,
+            'examinationQuestions' => $examinationQuestions,
+          ]);
+        }
+        else {
+          session()->flash('failed_choose_exeam');
 
-    public function destroy($id)
-    {
-        ExaminationQuestion::where('id', $id)->delete();
-
-        return response()->json([], 204);
+          return back();
+        }
     }
 }

@@ -64,7 +64,7 @@
                           </tbody>
                         </table>
                         <div align="center">
-                          <button class="btn btn-primary btn-outline-light btn-xl" style="background:#4C8DE1" onclick="location.href='user-list/create'">Ekle</button>
+                          <button class="btn btn-primary btn-outline-light btn-xl" style="background:#4C8DE1" onclick="location.href='/users/create'">Ekle</button>
                         </div>
                       </div>
 

@@ -15,7 +15,7 @@
           <div class="collapse" id="collapseAdminPanel" data-parent="#accordionSidenav">
             <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPagesMenu">
               <a class="nav-link" href={{route('user-list.index')}}><i class="fas fa-clipboard-list"></i>&nbsp Kullanıcı Listesi</a>
-              <a class="nav-link" href={{route('user-list.create')}}><i class="fas fa-plus-circle"></i>&nbsp Yeni Kullanıcı Oluştur</a>
+              <a class="nav-link" href={{route('user-create')}}><i class="fas fa-plus-circle"></i>&nbsp Yeni Kullanıcı Oluştur</a>
             </nav>
           </div>
           <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapseTeacherPanel" aria-expanded="false" aria-controls="collapseTeacherPanel">

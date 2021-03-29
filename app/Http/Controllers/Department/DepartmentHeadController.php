@@ -20,7 +20,7 @@ class DepartmentHeadController extends Controller
       $departmentHead->save();
 
       $data = $request->input('department_head');
-      $request->session()->flash('success_department_head_alert', $data);
+      $request->session()->flash('success_department_head_alert',$data);
 
       return redirect(route('department-list.index'));
     }
@@ -30,6 +30,9 @@ class DepartmentHeadController extends Controller
       $department->department_head_user_id = null;
 
       $department->save();
+
+      session()->flash('success_department_head_delete_alert');
+
       return response()->json([], 204);
     }
 }

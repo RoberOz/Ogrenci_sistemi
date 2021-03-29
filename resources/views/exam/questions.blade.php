@@ -17,12 +17,6 @@
                 </div>
                   <div class="card-body" style="background:#C3D6D7">
 
-                      @if (session('status'))
-                          <div class="alert alert-success" role="alert">
-                              {{ session('status') }}
-                          </div>
-                      @endif
-
                       <div style="background-color:lightblue">
                           @foreach ($errors->all() as $error)
                             <li>{{$error}}</li>

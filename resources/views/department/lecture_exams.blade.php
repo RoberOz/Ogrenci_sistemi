@@ -7,24 +7,16 @@
           <div class="card" style="background:#C3D6D7">
             <div class="card-header" style="background:#C6C6C6">
               <strong>
-                @foreach ($departments as $department)
-                  @if ($department->id == $departmentId)
-                    {{$department->name}} --
-                    @foreach ($lectures as $lecture)
-                      @if ($lecture->id == $lectureId)
-                        {{$lecture->name}} --
-                      @endif
-                    @endforeach
-                  @endif
-                @endforeach
+                {{$department->name}} --
+                {{$lecture->name}} --
                 Sınav Tarihleri
               </strong>
             </div>
               <div class="card-body" style="background:#C3D6D7">
 
-                  @if (session('status'))
+                  @if (session('success_exam_date_store_alert'))
                       <div class="alert alert-success" role="alert">
-                          {{ session('status') }}
+                          <h6 style="color:green">Sınav tarihi başarıyla kaydedildi</h6>
                       </div>
                   @endif
 
@@ -60,21 +52,13 @@
                       </thead>
                       <tbody style="background:#D1D1D1">
                           <tr role="row" class="odd">
-                            @foreach ($departments as $department)
-                              @if ($department->id == $departmentId)
-                                <td align="center"><br><br>{{$department->name}}</td>
-                              @endif
-                            @endforeach
-                            @foreach ($lectures as $lecture)
-                              @if ($lecture->id == $lectureId)
-                                <td align="center"><br><br>{{$lecture->name}}</td>
-                              @endif
-                            @endforeach
-                            <td align="center"><br><br>{{$class}}.Sınıf</td>
+                            <td align="center"><br><br>{{$department->name}}</td>
+                            <td align="center"><br><br>{{$lecture->name}}</td>
+                            <td align="center"><br><br>{{$departmentLecture->class}}.Sınıf</td>
                             <td align="center">
-                              @if ($period == 1)
+                              @if ($departmentLecture->period == 1)
                                 <br><br> Güz
-                              @elseif ($period == 2)
+                              @elseif ($departmentLecture->period == 2)
                                 <br><br> Bahar
                               @endif
                             </td>

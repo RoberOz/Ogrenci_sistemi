@@ -18,12 +18,12 @@ class DepartmentLectureController extends Controller
       return response()->json([], 204);
     }
 
-    public function show(Department $department_lecture)
+    public function showDepartmentLecture(Department $department)
     {
       $examinations = Examination::all();
 
       return view('department.lectures')->with([
-        'department' => $department_lecture,
+        'department' => $department,
         'examinations' => $examinations,
       ]);
     }

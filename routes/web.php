@@ -50,7 +50,8 @@ Route::prefix('users')
     ->middleware('auth')
     ->middleware('isGraduated')
     ->group(function () {
-        Route::resource('user-list', UserController::class, ['except' => ['show']]);
+        Route::resource('user-list', UserController::class, ['except' => ['show','create']]);
+        Route::get('create', [UserController::class, 'create'])->name('user-create');
 });
 
 Route::prefix('teachers')
@@ -81,9 +82,11 @@ Route::prefix('departments')
         Route::delete('department-list/{department}', [DepartmentController::class, 'destroy'])->name('department-delete');
         Route::resource('department-head', DepartmentHeadController::class, ['only' => ['store']]);
         Route::delete('department-head-unassign/{department}', [DepartmentHeadController::class, 'unassign'])->name('department-head-unassign');
-        Route::resource('department-lecture', DepartmentLectureController::class, ['only' => ['show']]);
+        Route::get('{department}/department-lecture', [DepartmentLectureController::class, 'showDepartmentLecture'])->name('department-lecture-show');
         Route::delete('{department}/lecture/{lecture}', [DepartmentLectureController::class, 'detach'])->name('department-lecture-detach');
-        Route::resource('department-lecture-exams', DepartmentLectureExamController::class, ['only' => ['index','store','destroy']]);
+        Route::resource('department-lecture-exams', DepartmentLectureExamController::class, ['only' => ['store']]);
+        Route::delete('department-lecture/{departmentLecture}/exam-dates', [DepartmentLectureExamController::class, 'destroyExam'])->name('department-exam-dates-delete');
+        Route::get('{department}/lecture/{lecture}/exam-dates', [DepartmentLectureExamController::class, 'showExamDates'])->name('department-exam-dates');
         Route::resource('department-assign-lecture', DepartmentAssignLectureController::class, ['only' => ['show','store']]);
         Route::resource('department-user', DepartmentUserController::class, ['only' => ['store','create']]);
         Route::get('department-user', [DepartmentUserController::class, 'detach'])->name('department-user-detach');
@@ -93,8 +96,8 @@ Route::prefix('exams')
     ->middleware('auth')
     ->middleware('isGraduated')
     ->group(function () {
-        Route::resource('modify-exam', ExamController::class, ['only' => ['index','destroy']]);
-        Route::get('modify-exam-paper', [ExamController::class, 'showExamQuestion'])->name('modify-exam');
+        Route::get('department/{department}/lecture/{lecture}/choose-exam', [ExamController::class, 'index'])->name('choose-exam');
+        Route::get('department-lecture/{departmentLecture}/exam-id/{examId}/modify-exam', [ExamController::class, 'showExamQuestion'])->name('modify-exam');
 });
 
 Route::prefix('lectures')
