@@ -29,7 +29,6 @@
 
                             <examination-form
                               :examination="{{$examination}}"
-                              :examinationquestions="{{$examinationQuestions}}"
                             ></examination-form>
 
                           </div>

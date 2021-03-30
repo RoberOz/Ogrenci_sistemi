@@ -38,7 +38,6 @@ class ExamController extends Controller
 
           return view('exam.questions')->with([
             'examination' => $examination,
-            'examinationQuestions' => $examinationQuestions,
           ]);
         }
         else {

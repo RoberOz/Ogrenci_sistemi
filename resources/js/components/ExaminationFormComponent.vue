@@ -2,7 +2,14 @@
   <div>
     <form v-on:submit.prevent="submitForm">
       <div class="list-group col" id="examinationQuestions">
-        <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" @click="addNewQuestion()">Soru Ekle</button>
+        <div class="row">
+          <div class="col">
+            <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" @click="addNewQuestion()">Soru Ekle</button>
+          </div>
+          <div class="col-md-auto">
+            <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" @click="downloadPdf()">Pdf Olarak İndir</button>
+          </div>
+        </div>
         <br>
         <draggable :list="questions" ghost-class="ghost" @end="manageOrder" :options="{animation:200}">
           <transition-group type="transition">
@@ -38,7 +45,6 @@ import Swal from 'sweetalert2';
 
     export default {
         props: [
-          'examinationquestions',
           'examination'
         ],
         components: {
@@ -129,6 +135,9 @@ import Swal from 'sweetalert2';
                  .catch((error) => {
                    console.log('Error loadExaminationQuestions failed!');
                  });
+          },
+          downloadPdf() {
+            window.location.href = '/exams/export-pdf'
           },
         },
     }

@@ -23,6 +23,7 @@ use App\Http\Controllers\Department\DepartmentLectureExamController;
 use App\Http\Controllers\Department\DepartmentAssignLectureController;
 use App\Http\Controllers\Department\DepartmentUserController;
 use App\Http\Controllers\Exam\ExamController;
+use App\Http\Controllers\Exam\ExamExportPdfController;
 use App\Http\Controllers\Lecture\LectureController;
 use App\Http\Controllers\Lecture\UserLectureController;
 
@@ -98,6 +99,8 @@ Route::prefix('exams')
     ->group(function () {
         Route::get('department/{department}/lecture/{lecture}/choose-exam', [ExamController::class, 'index'])->name('choose-exam');
         Route::get('department-lecture/{departmentLecture}/exam-id/{examId}/modify-exam', [ExamController::class, 'showExamQuestion'])->name('modify-exam');
+        Route::get('get-exams', [ExamExportPdfController::class, 'getExaminations'])->name('get-exams');
+        Route::get('export-pdf', [ExamExportPdfController::class, 'exportPdf'])->name('exam-export-pdf');
 });
 
 Route::prefix('lectures')
