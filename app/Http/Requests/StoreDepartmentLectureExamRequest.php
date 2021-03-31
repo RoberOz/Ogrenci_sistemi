@@ -28,8 +28,8 @@ class StoreDepartmentLectureExamRequest extends FormRequest
           'second_exam' => 'date',
           'exam_start_time' => 'date_format:H:i|before:exam_end_time|required',
           'exam_end_time' => 'date_format:H:i|after:exam_start_time|required',
-          'department_lecture_id' => 'numeric|exists:department_lecture,id|required',
-          'exam_id' => 'numeric|in:1,2|required'
+          'department_lecture_id' => 'integer|exists:department_lecture,id|required',
+          'exam_id' => 'integer|in:1,2|required'
         ];
     }
 }

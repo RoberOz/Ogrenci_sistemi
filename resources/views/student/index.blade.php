@@ -8,9 +8,15 @@
                 <div class="card-header" style="background:#C6C6C6"><strong>{{ __('Öğrenci Listesi') }}</strong></div>
                   <div class="card-body" style="background:#C3D6D7">
 
-                      @if (session('status'))
+                      @if (session('success_department_user_assign'))
                           <div class="alert alert-success" role="alert">
-                              {{ session('status') }}
+                              Öğrenci başarıyla bölüme kaydedildi
+                          </div>
+                      @endif
+
+                      @if (session('success_department_user_detach'))
+                          <div class="alert alert-success" role="alert">
+                              Öğrenci bölümden çıkarıldı
                           </div>
                       @endif
 
@@ -73,15 +79,14 @@
                                        @endif
                                     @endforeach
                                     @if ($isAssignedDepartment == "false")
-                                      <form method="get" action="{{url('/departments/department-user/create')}}">
+                                      <form method="get" action="{{url('departments/user/'.$user->id.'/department-user-create')}}">
                                         @csrf
                                         <select name="department_id">
                                           @foreach ($departments as $selectDepartment)
                                             <option value="{{$selectDepartment->id}}">{{$selectDepartment->name}}</option>
                                           @endforeach
                                         </select>
-                                        <input type=hidden name=user_id value={{$user->id}}></input>
-                                        <button class="btn btn-primary btn-outline-light btn-sm"  style="background:#1AAE14" type="submit">Ata</button>
+                                        <button type="submit" class="btn btn-primary btn-outline-light btn-sm" style="background:#1AAE14">Ata</button>
                                       </form>
                                     @endif
                                     @php $isAssignedDepartment = "false" @endphp
@@ -124,12 +129,8 @@ $(document).ready(function(){
           console.log(departmentId);
           $.ajax({
               headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-              url: '{{ url('/departments/department-user')}}',
-              method: 'get',
-              data: {
-                'userId': userId,
-                'departmentId':departmentId,
-              },
+              url: '/departments/'+ departmentId +'/user/'+ userId +'/department-user',
+              method: 'delete',
               success: function(response) {
                 window.location.href = "student-list";
               }

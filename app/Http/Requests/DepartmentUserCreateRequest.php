@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AssignDepartmentUserRequest extends FormRequest
+class DepartmentUserCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,7 @@ class AssignDepartmentUserRequest extends FormRequest
     public function rules()
     {
         return [
-          'user_id' => 'numeric|exists:users,id|required',
-          'department_id' => 'numeric|exists:departments,id|required',
-          'department_foundation_year' => 'numeric|required',
-          'department_registered_year' => 'numeric|digits:4|gte:department_foundation_year|required'
+            'department_id' => 'integer|exists:departments,id|required',
         ];
     }
 }

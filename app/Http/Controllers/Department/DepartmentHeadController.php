@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\AssignDepartmentHeadRequest;
-use App\Http\Requests\UnassignDepartmentHeadRequest;
 
 use App\Models\Department;
 
@@ -19,9 +18,7 @@ class DepartmentHeadController extends Controller
 
       $departmentHead->save();
 
-      $data = $request->input('department_head');
-      $request->session()->flash('success_department_head_alert',$data);
-
+      session()->flash('success_department_head_alert');
       return redirect(route('department-list.index'));
     }
 
@@ -32,7 +29,6 @@ class DepartmentHeadController extends Controller
       $department->save();
 
       session()->flash('success_department_head_delete_alert');
-
       return response()->json([], 204);
     }
 }

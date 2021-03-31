@@ -13,12 +13,12 @@ use App\Models\DepartmentLecture;
 
 class DepartmentAssignLectureController extends Controller
 {
-    public function show(Department $department_assign_lecture)
+    public function show(Department $department)
     {
         $lectures = Lecture::all();
 
         return view('department.assign-lectures')->with([
-          'department' => $department_assign_lecture,
+          'department' => $department,
           'lectures' => $lectures
         ]);
     }
@@ -40,6 +40,7 @@ class DepartmentAssignLectureController extends Controller
         $department->lectures()->sync($pivotArray,false);
       }
 
+      session()->flash('success_department_lecture_assign');
       return back();
     }
 

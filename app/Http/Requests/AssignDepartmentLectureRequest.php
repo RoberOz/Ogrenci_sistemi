@@ -24,8 +24,8 @@ class AssignDepartmentLectureRequest extends FormRequest
     public function rules()
     {
         return [
-            'departmentId' => 'numeric|required',
-            'lectureNames' => 'required',
+            'departmentId' => 'integer|exists:departments,id|required',
+            'lectureNames.*' => 'exists:lectures,name|required',
             'class' => 'integer|digits:1|in:1,2,3,4|required|',
             'period' => 'integer|digits:1|in:1,2|required|'
         ];

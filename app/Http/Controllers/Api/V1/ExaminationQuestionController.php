@@ -11,17 +11,17 @@ use App\Http\Requests\StoreExamQuestionsRequest;
 
 class ExaminationQuestionController extends Controller
 {
-    public function storeExamQuestions(StoreExamQuestionsRequest $request,Examination $examinationId)
+    public function storeExamQuestions(StoreExamQuestionsRequest $request,Examination $examination)
     {
         $questions = $request->all();
         foreach ($questions as $question) {
-          $examinationQuestions = ExaminationQuestion::where('examination_id',$examinationId->id)->delete();
+          $examinationQuestions = ExaminationQuestion::where('examination_id',$examination->id)->delete();
         }
 
         foreach ($questions as $question) {
           $examinationQuestion = new ExaminationQuestion();
           $examinationQuestion->content = $question['content'];
-          $examinationQuestion->examination_id = $examinationId->id;
+          $examinationQuestion->examination_id = $examination->id;
           $examinationQuestion->order = $question['order'];
           $examinationQuestion->options = $question['options'];
 

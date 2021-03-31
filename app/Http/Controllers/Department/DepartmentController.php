@@ -37,6 +37,7 @@ class DepartmentController extends Controller
 
       $department->save();
 
+      session()->flash('success_department_create');
       return redirect(route('department-list.index'));
     }
 
@@ -44,6 +45,7 @@ class DepartmentController extends Controller
     {
       $department->delete();
 
+      session()->flash('success_department_delete');
       return response()->json([], 204);
     }
 

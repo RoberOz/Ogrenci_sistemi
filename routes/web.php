@@ -88,9 +88,11 @@ Route::prefix('departments')
         Route::resource('department-lecture-exams', DepartmentLectureExamController::class, ['only' => ['store']]);
         Route::delete('department-lecture/{departmentLecture}/exam-dates', [DepartmentLectureExamController::class, 'destroyExam'])->name('department-exam-dates-delete');
         Route::get('{department}/lecture/{lecture}/exam-dates', [DepartmentLectureExamController::class, 'showExamDates'])->name('department-exam-dates');
-        Route::resource('department-assign-lecture', DepartmentAssignLectureController::class, ['only' => ['show','store']]);
-        Route::resource('department-user', DepartmentUserController::class, ['only' => ['store','create']]);
-        Route::get('department-user', [DepartmentUserController::class, 'detach'])->name('department-user-detach');
+        Route::resource('department-assign-lecture', DepartmentAssignLectureController::class, ['only' => ['store']]);
+        Route::get('{department}/department-assign-lecture', [DepartmentAssignLectureController::class, 'show'])->name('show-department-assign-lecture');
+        Route::get('user/{user}/department/{department}/department-user', [DepartmentUserController::class, 'store'])->name('department-user-store');;
+        Route::get('user/{user}/department-user-create', [DepartmentUserController::class, 'createPage'])->name('department-user-create');
+        Route::delete('/{department}/user/{user}/department-user', [DepartmentUserController::class, 'detach'])->name('department-user-detach');
 });
 
 Route::prefix('exams')

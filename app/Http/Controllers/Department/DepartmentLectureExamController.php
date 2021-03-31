@@ -13,8 +13,6 @@ use App\Models\Department;
 use App\Models\DepartmentLecture;
 use App\Models\Examination;
 
-use Illuminate\Support\Facades\Validator;
-
 class DepartmentLectureExamController extends Controller
 {
 
@@ -23,8 +21,6 @@ class DepartmentLectureExamController extends Controller
         $departmentLecture = DepartmentLecture::where('department_id', $department->id)
                                               ->where('lecture_id', $lecture->id)
                                               ->first();
-        $departments = Department::all();
-        $lectures = Lecture::all();
 
         return view('department.lecture_exams')->with([
           'department' => $department,
@@ -36,12 +32,12 @@ class DepartmentLectureExamController extends Controller
     public function store(StoreDepartmentLectureExamRequest $request)
     {
       if ($request->exam_id == 1) {
-        if (Examination::where('department_lecture_id', $request->department_lecture_id)
-                       ->where('exam_id', $request->exam_id)
-                       ->first()) {
-          $examination = Examination::where('department_lecture_id', $request->department_lecture_id)
-                                    ->where('exam_id', $request->exam_id)
-                                    ->first();
+
+        $examinationControl = Examination::where('department_lecture_id', $request->department_lecture_id)
+                                         ->where('exam_id', $request->exam_id)
+                                         ->first();
+        if ($examinationControl) {
+          $examination = $examinationControl;
         }
         else {
           $examination = new Examination();
@@ -60,12 +56,12 @@ class DepartmentLectureExamController extends Controller
         return back();
       }
       elseif ($request->exam_id == 2) {
-        if (Examination::where('department_lecture_id', $request->department_lecture_id)
-                       ->where('exam_id', $request->exam_id)
-                       ->first()) {
-          $examination = Examination::where('department_lecture_id', $request->department_lecture_id)
-                                    ->where('exam_id', $request->exam_id)
-                                    ->first();
+
+        $examinationControl = Examination::where('department_lecture_id', $request->department_lecture_id)
+                                         ->where('exam_id', $request->exam_id)
+                                         ->first();
+        if ($examinationControl) {
+          $examination = $examinationControl;
         }
         else {
           $examination = new Examination();

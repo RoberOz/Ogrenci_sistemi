@@ -16,7 +16,7 @@
 
                   @if (session('success_exam_date_store_alert'))
                       <div class="alert alert-success" role="alert">
-                          <h6 style="color:green">Sınav tarihi başarıyla kaydedildi</h6>
+                          Sınav tarihi başarıyla kaydedildi
                       </div>
                   @endif
 

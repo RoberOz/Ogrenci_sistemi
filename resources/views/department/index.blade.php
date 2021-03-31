@@ -8,15 +8,27 @@
                 <div class="card-header" style="background:#C6C6C6"><strong>{{ __('Bölüm Listesi') }}</strong></div>
                   <div class="card-body" style="background:#C3D6D7">
 
+                      @if (session('success_department_create'))
+                          <div class="alert alert-success" role="alert">
+                              Bölüm başarıyla oluştururldu
+                          </div>
+                      @endif
+
+                      @if (session('success_department_delete'))
+                          <div class="alert alert-success" role="alert">
+                              Bölüm başarıyla silindi
+                          </div>
+                      @endif
+
                       @if (session('success_department_head_alert'))
                           <div class="alert alert-success" role="alert">
-                              <h6 style="color:green">Atama başarılı</h6>
+                              Bölüm başkanı ataması başarılı
                           </div>
                       @endif
 
                       @if (session('success_department_head_delete_alert'))
                           <div class="alert alert-success" role="alert">
-                              <h6 style="color:green">Bölüm başkanı kaldırıldı</h6>
+                              Bölüm başkanı kaldırıldı
                           </div>
                       @endif
 
@@ -64,7 +76,7 @@
                                 </td>
                                 <td align="center">
                                   <button class="btn btn-primary btn-outline-light btn-xl" style="background:#32A2EC" onclick="location.href='{{route('department-lecture-show',$department->id)}}'">Detay</button>
-                                  <button class="btn btn-primary btn-outline-light btn-xl" style="background:#19A713" onclick="location.href='{{route('department-assign-lecture.show',$department->id)}}'">Bölüme Ders Ata</button>
+                                  <button class="btn btn-primary btn-outline-light btn-xl" style="background:#19A713" onclick="location.href='{{route('show-department-assign-lecture',$department->id)}}'">Bölüme Ders Ata</button>
                                   <button class="js-delete-department-btn btn btn-primary btn-outline-light" style="background:#B60C09" data-id={{$department->id}}>Bölümü Sil</button>
                                 </td>
                               </tr>

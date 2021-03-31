@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use Carbon\Carbon;
+
 class StoreDepartmentRequest extends FormRequest
 {
     /**
@@ -24,9 +26,9 @@ class StoreDepartmentRequest extends FormRequest
     public function rules()
     {
         return [
-          'name' => 'required|unique:departments,name',
+          'name' => 'unique:departments,name|required',
           'years' => 'integer|in:2,4|required',
-          'foundation_year' => 'integer|required'
+          'foundation_year' => 'integer|digits:4|gte:'.Carbon::now()->subYears(10)->year.'|lte:'.Carbon::now()->year.'|required'
         ];
     }
 }

@@ -8,9 +8,9 @@
                 <div class="card-header" style="background:#C6C6C6"><strong>{{ __("$department->name'ne Ders Ata") }}</strong></div>
                   <div class="card-body" style="background:#C3D6D7">
 
-                      @if (session('status'))
+                      @if (session('success_department_lecture_assign'))
                           <div class="alert alert-success" role="alert">
-                              {{ session('status') }}
+                              Seçtiğiniz dersler {{$department->name}}'e başarıyla kaydedildi
                           </div>
                       @endif
 
