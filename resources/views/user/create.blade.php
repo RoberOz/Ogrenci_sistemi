@@ -6,11 +6,6 @@
         <div class="col-md-8">
             <div class="card">
               <div class="panel-body" style="background:#C3D6D7">
-                @if (session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
-                    </div>
-                @endif
 
                 <br>
 

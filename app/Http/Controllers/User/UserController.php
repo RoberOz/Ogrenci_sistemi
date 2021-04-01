@@ -42,48 +42,38 @@ class UserController extends Controller
 
         $user->save();
 
+        session()->flash('success_user_create');
         return redirect(route('user-list.index'));
     }
 
-    public function edit($id)
+    public function edit(User $user)
     {
-        $user = User::find($id);
+        $this->authorize('update', $user);
 
-        if (null == $user) {
-            return redirect('/');
-        } else {
-
-            $this->authorize('update', $user);
-
-            return view('user.edit')->with([
-              'user' => $user
-            ]);
-        }
+        return view('user.edit')->with([
+          'user' => $user
+        ]);
     }
 
-    public function update(UpdateUserRequest $request, $id)
+    public function update(UpdateUserRequest $request,User $user)
     {
-        $user = User::find($id);
-        if (null == $user) {
-            return redirect('/');
-        } else {
+        $this->authorize('update', $user);
 
-            $this->authorize('update', $user);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
 
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = $request->password;
+        $user->save();
 
-            $user->save();
-
-            return redirect(route('user-list.index'));
-        }
+        session()->flash('success_user_update');
+        return redirect(route('user-list.index'));
     }
 
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        User::where('id', $id)->delete();
+        $user->delete();
 
+        session()->flash('success_user_delete');
         return response()->json([], 204);
     }
 }

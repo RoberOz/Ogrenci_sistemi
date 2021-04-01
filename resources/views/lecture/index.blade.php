@@ -8,9 +8,9 @@
                 <div class="card-header" style="background:#C6C6C6"><strong>{{ __('Ders Listesi') }}</strong></div>
                   <div class="card-body" style="background:#C3D6D7">
 
-                      @if (session('status'))
+                      @if (session('success_user_lecture_store'))
                           <div class="alert alert-success" role="alert">
-                              {{ session('status') }}
+                              Dersleriniz başarıyla kaydedildi
                           </div>
                       @endif
 
@@ -37,7 +37,7 @@
                                 </tr>
                               </thead>
                               <tbody style="background:#D1D1D1">
-                                <form method="post" action="{{url('lectures/user-lecture')}}">
+                                <form method="post" action="{{route('lecture-user-store')}}">
                                   @csrf
                                   @foreach ($users as $user)
                                     @if ($user->id == auth()->user()->id)

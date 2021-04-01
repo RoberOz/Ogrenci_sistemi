@@ -7,9 +7,21 @@
             <div class="card">
                 <div class="card-header" style="background:#C6C6C6"><strong>{{ __('Kullanıcı Listesi') }}</strong></div>
                   <div class="card-body" style="background:#C3D6D7">
-                      @if (session('status'))
+                      @if (session('success_user_create'))
                           <div class="alert alert-success" role="alert">
-                              {{ session('status') }}
+                              Kullanıcı başarıyla oluşturuldu
+                          </div>
+                      @endif
+
+                      @if (session('success_user_update'))
+                          <div class="alert alert-success" role="alert">
+                              Kullanıcı başarıyla güncellendi
+                          </div>
+                      @endif
+
+                      @if (session('success_user_delete'))
+                          <div class="alert alert-success" role="alert">
+                              Kullanıcı başarıyla silindi
                           </div>
                       @endif
 
@@ -50,12 +62,8 @@
                                   @endif
                                 </td>
                                 <td align="center">
-                                  @if (auth()->user()->hasRole('admin'))
-                                    <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('user-list.edit',$user->id)}}'">Düzenle</button>
-                                  @else
-                                    @if (auth()->user()->id == $user->id)
-                                      <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('user-list.edit',$user->id)}}'">Düzenle</button>
-                                    @endif
+                                  @if (auth()->user()->hasRole('admin') || auth()->user()->id == $user->id)
+                                    <button class="btn btn-primary btn-outline-light btn-xl" style="background:#C38D08" onclick="location.href='{{route('user-edit',$user->id)}}'">Düzenle</button>
                                   @endif
                                   <button class="js-delete-user-btn btn btn-primary btn-outline-light btn-xl" style="background:#B60C09" data-id={{$user->id}}>Kişiyi Sil</button>
                                 </td>
@@ -85,7 +93,7 @@ $(document).ready(function(){
           console.log(userId);
           $.ajax({
               headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-              url: '{{ url('/users/user-list')}}/'+userId,
+              url: '{{ url('/users/delete')}}/'+userId,
               method: 'delete',
               success: function(response) {
                 window.location.href = "user-list";

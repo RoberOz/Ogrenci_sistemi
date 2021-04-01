@@ -36,7 +36,8 @@ Route::get('/', [MainController::class, 'index'])->name('home');
 Route::prefix('profiles')
     ->middleware('auth')
     ->group(function () {
-        Route::resource('edit', ProfileController::class, ['only' => ['update','index']]);
+        Route::resource('edit', ProfileController::class, ['only' => ['index']]);
+        Route::put('update/{user}', [ProfileController::class, 'update'])->name('update-profile');
 });
 
 Route::prefix('student_forms')
@@ -51,8 +52,11 @@ Route::prefix('users')
     ->middleware('auth')
     ->middleware('isGraduated')
     ->group(function () {
-        Route::resource('user-list', UserController::class, ['except' => ['show','create']]);
+        Route::resource('user-list', UserController::class, ['only' => ['index','store']]);
         Route::get('create', [UserController::class, 'create'])->name('user-create');
+        Route::get('edit/{user}', [UserController::class, 'edit'])->name('user-edit');
+        Route::put('update/{user}', [UserController::class, 'update'])->name('user-update');
+        Route::delete('delete/{user}', [UserController::class, 'destroy'])->name('user-delete');
 });
 
 Route::prefix('teachers')
@@ -111,4 +115,6 @@ Route::prefix('lectures')
     ->group(function () {
         Route::get('lecture-list', [LectureController::class, 'index'])->name('lecture-list');
         Route::resource('user-lecture', UserLectureController::class, ['only' => ['store','index','destroy']]);
+        Route::get('lecture-user-store', [LectureController::class, 'store'])->name('lecture-user-store');
+        Route::delete('lecture-user-delete/{lecture}', [UserLectureController::class, 'destroy'])->name('lecture-user-delete');
 });

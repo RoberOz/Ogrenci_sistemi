@@ -8,9 +8,9 @@
                 <div class="card-header" style="background:#C6C6C6"><strong>{{ __('Seçtiğim Ders Listesi') }}</strong></div>
                   <div class="card-body" style="background:#C3D6D7">
 
-                      @if (session('status'))
+                      @if (session('success_lecture_user_delete'))
                           <div class="alert alert-success" role="alert">
-                              {{ session('status') }}
+                              Dersler başarıyla silindi
                           </div>
                       @endif
 
@@ -81,7 +81,7 @@ $(document).ready(function(){
           console.log(lectureId);
           $.ajax({
               headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-              url: '{{ url('/lectures/user-lecture')}}/'+lectureId,
+              url: '{{ url('/lectures/lecture-user-delete')}}/'+lectureId,
               method: 'delete',
               success: function(response) {
                 window.location.href = "user-lecture";

@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Lecture;
 
+use App\Http\Requests\StoreUserLectureRequest;
+
 use App\Enums\PeriodEnum;
 
 use Carbon\Carbon;
@@ -45,35 +47,35 @@ class UserLectureController extends Controller
     ]);
   }
 
-  public function store(Request $request)
+  public function store(StoreUserLectureRequest $request)
   {
-      if ($request->lectureNames !== null) {
-        foreach ($request->lectureNames as $lectureName) {
-          $lectures = Lecture::where('name',$lectureName)->first();
-          $users = User::where('id',auth()->user()->id);
+      foreach ($request->lectureNames as $lectureName) {
+        $lectures = Lecture::where('name',$lectureName)->first();
+        $users = User::where('id',auth()->user()->id);
 
-          $pivotArray = [auth()->user()->id];
-          $pivotArray =[
-            auth()->user()->id => [
-              'class' => $request->class,
-              'period' => $request->period
-            ],
-          ];
+        $pivotArray = [auth()->user()->id];
+        $pivotArray =[
+          auth()->user()->id => [
+            'class' => $request->class,
+            'period' => $request->period
+          ],
+        ];
 
-          $lectures->users()->sync($pivotArray,false);
+        $lectures->users()->sync($pivotArray,false);
       }
-    }
 
-    return redirect(route('lecture-list'));
+      session()->flash('success_user_lecture_store');
+      return redirect(route('lecture-list'));
   }
 
-  public function destroy(Lecture $user_lecture)
+  public function destroy(Lecture $lecture)
   {
     $users = User::where('id',auth()->user()->id);
 
 
-    $user_lecture->users()->detach(auth()->user()->id);
+    $lecture->users()->detach(auth()->user()->id);
 
+    session()->flash('success_lecture_user_delete');
     return response()->json([], 204);
   }
 }

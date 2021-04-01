@@ -19,28 +19,16 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function update(UpdateProfileRequest $request, $id)
+    public function update(UpdateProfileRequest $request,User $user)
     {
-        $this->validate($request, [
-        'name' => 'required|min:3|max:70',
-        'email' => 'required|email',
-        'password' => 'required|min:9',
-        ]);
+        $this->authorize('update', $user);
 
-        $user = User::find($id);
-        if (null == $user) {
-            return redirect('/');
-        } else {
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
 
-          $this->authorize('update', $user);
+        $user->save();
 
-          $user->name = $request->name;
-          $user->email = $request->email;
-          $user->password = $request->password;
-
-          $user->save();
-
-          return redirect(route('edit.index'));
-      }
+        return redirect(route('edit.index'));
     }
 }
