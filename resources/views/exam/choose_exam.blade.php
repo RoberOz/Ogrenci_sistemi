@@ -40,6 +40,8 @@
                                     {{$examination->exam_date}} <br> {{$examination->exam_start_time}} - {{$examination->exam_end_time}}
                                     <br><br>
                                     <button class="btn btn-primary btn-outline-light" style="background:#19A713" onclick="location.href='{{route('modify-exam',[$examination->department_lecture_id,$examination->exam_id])}}'">Seç</button>
+                                    <br><br>
+                                    <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" onclick="location.href='{{route('exam-export-pdf',[$examination->department_lecture_id,$examination->exam_id])}}'">Pdf Olarak İndir</button>
                                   @endif
                                 @endforeach
                               </td>
@@ -49,6 +51,8 @@
                                     {{$examination->exam_date}} <br> {{$examination->exam_start_time}} - {{$examination->exam_end_time}}
                                     <br><br>
                                     <button class="btn btn-primary btn-outline-light" style="background:#19A713" onclick="location.href='{{route('modify-exam',[$examination->department_lecture_id,$examination->exam_id])}}'">Seç</button>
+                                    <br><br>
+                                    <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" onclick="location.href='{{route('exam-export-pdf',[$examination->department_lecture_id,$examination->exam_id])}}'">Pdf Olarak İndir</button>
                                   @endif
                                 @endforeach
                               </td>

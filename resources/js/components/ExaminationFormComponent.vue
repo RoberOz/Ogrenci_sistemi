@@ -4,10 +4,7 @@
       <div class="list-group col" id="examinationQuestions">
         <div class="row">
           <div class="col">
-            <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" @click="addNewQuestion()">Soru Ekle</button>
-          </div>
-          <div class="col-md-auto">
-            <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" @click="downloadPdf()">Pdf Olarak İndir</button>
+            <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" @click="addNewQuestion(),manageOrder()">Soru Ekle</button>
           </div>
         </div>
         <br>
@@ -108,7 +105,6 @@ import Swal from 'sweetalert2';
                      showConfirmButton: false,
                      timer: 1500,
                     });
-                   //location.reload();
                    console.log('success');
                  })
                  .catch((error) => {
@@ -127,7 +123,7 @@ import Swal from 'sweetalert2';
             })
           },
           loadExaminationQuestions(){
-            axios.get('/api/v1/exams/load-examination-questions')
+            axios.get('/api/v1/exams/examination/'+ this.examination.id +'/load-examination-questions')
                  .then((response) => {
                      this.questions = response.data.data;
                      console.log("loadExaminationQuestions successful");
@@ -135,9 +131,6 @@ import Swal from 'sweetalert2';
                  .catch((error) => {
                    console.log('Error loadExaminationQuestions failed!');
                  });
-          },
-          downloadPdf() {
-            window.location.href = '/exams/export-pdf'
           },
         },
     }

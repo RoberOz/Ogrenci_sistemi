@@ -31,9 +31,11 @@ class ExaminationQuestionController extends Controller
         return response()->json([], 201);
     }
 
-    public function getExamQuestions()
+    public function getExamQuestions(Examination $examination)
     {
-        $examinationQuestions = ExaminationQuestion::orderBy('order')->get();
+        $examinationQuestions = ExaminationQuestion::where('examination_id', $examination->id)
+                                                   ->orderBy('order')
+                                                   ->get();
 
         return response()->json([
           'data' => $examinationQuestions,

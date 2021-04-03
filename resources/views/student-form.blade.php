@@ -36,7 +36,8 @@
           <div class="card-header">Öğrenci Formlarını indir</div>
             <div align="center">
               <br><br>
-                <button onClick="location.href='{{route('student-form-export')}}'" class="btn btn-primary btn-outline-light btn-xl">İndir</button>
+                <button onClick="location.href='{{route('student-form-export')}}'" class="btn btn-primary btn-outline-light btn-xl">Form Listesini İndir</button>
+                <button onClick="location.href='{{route('student-form-export-example')}}'" class="btn btn-primary btn-outline-light btn-xl">Örnek Form</button>
               <br><br>
             </div>
           </div>

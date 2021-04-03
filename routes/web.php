@@ -45,6 +45,7 @@ Route::prefix('student_forms')
     ->group(function () {
         Route::resource('form', StudentFormController::class, ['only' => ['index','store']]);
         Route::get('export', [StudentFormExportController::class, 'export'])->name('student-form-export');
+        Route::get('export-example', [StudentFormExportController::class, 'exportExample'])->name('student-form-export-example');
         Route::post('import', [StudentFormImportController::class, 'import'])->name('student-form-import');
 });
 
@@ -65,6 +66,7 @@ Route::prefix('teachers')
     ->group(function () {
         Route::get('teacher-list', [TeacherController::class, 'index'])->name('teacher-list');
         Route::get('export', [TeacherExportController::class, 'export'])->name('teacher-export');
+        Route::get('export-example', [TeacherExportController::class, 'exportExample'])->name('teacher-export-example');
         Route::get('import', [TeacherImportController::class, 'show'])->name('teacher-import-show');
         Route::post('import', [TeacherImportController::class, 'store'])->name('teacher-import-store');
 });
@@ -75,6 +77,7 @@ Route::prefix('students')
     ->group(function () {
         Route::get('student-list', [StudentController::class, 'index'])->name('student-list');
         Route::get('export', [StudentExportController::class, 'export'])->name('student-export');
+        Route::get('export-example', [StudentExportController::class, 'exportExample'])->name('student-export-example');
         Route::get('import', [StudentImportController::class, 'show'])->name('student-import-show');
         Route::post('import', [StudentImportController::class, 'store'])->name('student-import-store');
 });
@@ -105,8 +108,8 @@ Route::prefix('exams')
     ->group(function () {
         Route::get('department/{department}/lecture/{lecture}/choose-exam', [ExamController::class, 'index'])->name('choose-exam');
         Route::get('department-lecture/{departmentLecture}/exam-id/{examId}/modify-exam', [ExamController::class, 'showExamQuestion'])->name('modify-exam');
-        Route::get('get-exams', [ExamExportPdfController::class, 'getExaminations'])->name('get-exams');
-        Route::get('export-pdf', [ExamExportPdfController::class, 'exportPdf'])->name('exam-export-pdf');
+        Route::get('department-lecture/{departmentLecture}/exam-id/{examId}/get-exams', [ExamExportPdfController::class, 'getExaminations'])->name('get-exams');
+        Route::get('department-lecture/{departmentLecture}/exam-id/{examId}/export-pdf', [ExamExportPdfController::class, 'exportPdf'])->name('exam-export-pdf');
 });
 
 Route::prefix('lectures')

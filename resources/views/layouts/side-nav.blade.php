@@ -28,6 +28,7 @@
               <a class="nav-link" href={{route('teacher-list')}}><i class="fas fa-clipboard-list"></i>&nbsp Öğretmen Listesi</a>
               <a class="nav-link" href={{route('teacher-import-show')}}><i class="fas fa-upload"></i>&nbsp Liste Yükle</a>
               <a class="nav-link" href={{route('teacher-export')}}><i class="fas fa-download"></i>&nbsp Listeyi İndir</a>
+              <a class="nav-link" href={{route('teacher-export-example')}}><i class="fas fa-download"></i>&nbsp Örnek Liste İndir</a>
             </nav>
           </div>
           <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapseStudentPanel" aria-expanded="false" aria-controls="collapseStudentPanel">
@@ -40,6 +41,7 @@
               <a class="nav-link" href={{route('student-list')}}><i class="fas fa-clipboard-list"></i>&nbsp Öğrenci Listesi</a>
               <a class="nav-link" href={{route('student-import-show')}}><i class="fas fa-upload"></i>&nbsp Liste Yükle</a>
               <a class="nav-link" href={{route('student-export')}}><i class="fas fa-download"></i>&nbsp Listeyi İndir</a>
+              <a class="nav-link" href={{route('student-export-example')}}><i class="fas fa-download"></i>&nbsp Örnek Liste İndir</a>
             </nav>
           </div>
           <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapseDepartmentPanel" aria-expanded="false" aria-controls="collapseDepartmentPanel">
