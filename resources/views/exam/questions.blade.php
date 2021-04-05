@@ -7,9 +7,9 @@
             <div class="card">
                 <div class="card-header" style="background:#C6C6C6">
                   <strong>
-                    @if ($examination->exam_id == 1)
+                    @if ($examination->exam_order == 'first_exam')
                       Vize
-                    @elseif ($examination->exam_id == 2)
+                    @elseif ($examination->exam_order == 'second_exam')
                       Final
                     @endif
                     - Tarih: {{$examination->exam_date}} - Başlangıç: {{$examination->exam_start_time}} - Bitiş: {{$examination->exam_end_time}}

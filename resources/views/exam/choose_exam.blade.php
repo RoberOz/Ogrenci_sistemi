@@ -8,12 +8,6 @@
                 <div class="card-header" style="background:#C6C6C6"><strong>{{ __('Sınav Seç') }}</strong></div>
                   <div class="card-body" style="background:#C3D6D7">
 
-                      @if (session('failed_choose_exeam'))
-                          <div class="alert alert-danger" role="alert">
-                              Sınav seçimi başarısız
-                          </div>
-                      @endif
-
                       <div style="background-color:lightblue">
                           @foreach ($errors->all() as $error)
                             <li>{{$error}}</li>
@@ -36,23 +30,23 @@
                             <tr>
                               <td align="center">
                                 @foreach ($examinations as $examination)
-                                  @if ($departmentLecture->id == $examination->department_lecture_id && $examination->exam_id == 1)
+                                  @if ($departmentLecture->id == $examination->department_lecture_id && $examination->exam_order == 'first_exam')
                                     {{$examination->exam_date}} <br> {{$examination->exam_start_time}} - {{$examination->exam_end_time}}
                                     <br><br>
-                                    <button class="btn btn-primary btn-outline-light" style="background:#19A713" onclick="location.href='{{route('modify-exam',[$examination->department_lecture_id,$examination->exam_id])}}'">Seç</button>
+                                    <button class="btn btn-primary btn-outline-light" style="background:#19A713" onclick="location.href='{{route('modify-exam',[$examination->id])}}'">Seç</button>
                                     <br><br>
-                                    <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" onclick="location.href='{{route('exam-export-pdf',[$examination->department_lecture_id,$examination->exam_id])}}'">Pdf Olarak İndir</button>
+                                    <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" onclick="location.href='{{route('exam-export-pdf',[$examination->id])}}'">Pdf Olarak İndir</button>
                                   @endif
                                 @endforeach
                               </td>
                               <td align="center">
                                 @foreach ($examinations as $examination)
-                                  @if ($departmentLecture->id == $examination->department_lecture_id && $examination->exam_id == 2)
+                                  @if ($departmentLecture->id == $examination->department_lecture_id && $examination->exam_order == 'second_exam')
                                     {{$examination->exam_date}} <br> {{$examination->exam_start_time}} - {{$examination->exam_end_time}}
                                     <br><br>
-                                    <button class="btn btn-primary btn-outline-light" style="background:#19A713" onclick="location.href='{{route('modify-exam',[$examination->department_lecture_id,$examination->exam_id])}}'">Seç</button>
+                                    <button class="btn btn-primary btn-outline-light" style="background:#19A713" onclick="location.href='{{route('modify-exam',[$examination->id])}}'">Seç</button>
                                     <br><br>
-                                    <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" onclick="location.href='{{route('exam-export-pdf',[$examination->department_lecture_id,$examination->exam_id])}}'">Pdf Olarak İndir</button>
+                                    <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" onclick="location.href='{{route('exam-export-pdf',[$examination->id])}}'">Pdf Olarak İndir</button>
                                   @endif
                                 @endforeach
                               </td>

@@ -29,6 +29,7 @@ class ProfileController extends Controller
 
         $user->save();
 
+        session()->flash('success_user_update');
         return redirect(route('edit.index'));
     }
 }

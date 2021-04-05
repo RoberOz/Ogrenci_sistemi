@@ -63,6 +63,7 @@ class StudentFormController extends Controller
 
       $student_form->save();
 
+      session()->flash('success_student_form');
       return redirect(route('form.index'));
   }
 }

@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+  @if (session('success_student_form'))
+      <div class="alert alert-success" role="alert">
+          Öğrenci formu gönderildi
+      </div>
+  @endif
+
   <div class="row justify-content-center">
     <div style="background-color:lightblue">
       @foreach ($errors->all() as $error)

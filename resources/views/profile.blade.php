@@ -8,6 +8,12 @@
 
               <br>
 
+              @if (session('success_user_update'))
+                  <div class="alert alert-success" role="alert">
+                      Bilgileriniz güncellendi
+                  </div>
+              @endif
+
               <div style="background-color:lightblue">
                   @foreach ($errors->all() as $error)
                     <li>{{$error}}</li>

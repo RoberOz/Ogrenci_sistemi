@@ -9,7 +9,6 @@ use App\Models\Lecture;
 use App\Models\Department;
 use App\Models\DepartmentLecture;
 use App\Models\Examination;
-use App\Models\ExaminationQuestion;
 
 class ExamController extends Controller
 {
@@ -27,23 +26,10 @@ class ExamController extends Controller
       ]);
     }
 
-    public function showExamQuestion(DepartmentLecture $departmentLecture,$examId)
+    public function showExamQuestion(Examination $examination)
     {
-        if ($examId !== null && ($examId == 1 || $examId == 2)) {
-          $examination = Examination::where('department_lecture_id', $departmentLecture->id)
-                                    ->where('exam_id', $examId)
-                                    ->first();
-
-          $examinationQuestions = ExaminationQuestion::orderBy('order','ASC')->get();
-
-          return view('exam.questions')->with([
-            'examination' => $examination,
-          ]);
-        }
-        else {
-          session()->flash('failed_choose_exeam');
-
-          return back();
-        }
+        return view('exam.questions')->with([
+          'examination' => $examination,
+        ]);
     }
 }

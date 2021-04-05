@@ -58,17 +58,17 @@
                                 </td>
                                 <td align="center">
                                   @foreach ($examinations as $examination)
-                                    @if ($examination->department_lecture_id == $lecture->id && $examination->exam_id == 1)
+                                    @if ($examination->department_lecture_id == $lecture->id && $examination->exam_order == 'first_exam')
                                       <br>{{$examination->exam_date}}
-                                      <button class="js-delete-department-exam-date-lecture-btn btn btn-primary btn-outline-light btn-xs" exam-id="1" data-id={{$examination->department_lecture_id}} style="background:#DC2818">X</button>
+                                      <button class="js-delete-department-exam-date-lecture-btn btn btn-primary btn-outline-light btn-xs" data-id={{$examination->id}} style="background:#DC2818">X</button>
                                     @endif
                                   @endforeach
                                 </td>
                                 <td align="center">
                                   @foreach ($examinations as $examination)
-                                    @if ($examination->department_lecture_id == $lecture->id && $examination->exam_id == 2)
+                                    @if ($examination->department_lecture_id == $lecture->id && $examination->exam_order == 'second_exam')
                                       <br>{{$examination->exam_date}}
-                                      <button class="js-delete-department-exam-date-lecture-btn btn btn-primary btn-outline-light btn-xs" exam-id="2" data-id={{$examination->department_lecture_id}} style="background:#DC2818">X</button>
+                                      <button class="js-delete-department-exam-date-lecture-btn btn btn-primary btn-outline-light btn-xs" data-id={{$examination->id}} style="background:#DC2818">X</button>
                                     @endif
                                   @endforeach
                                 </td>
@@ -118,17 +118,12 @@ $(document).ready(function(){
 <script>
 $(document).ready(function(){
       $('.js-delete-department-exam-date-lecture-btn').on('click', function () {
-          let examId = $(this).attr("exam-id");
-          let departmentLectureId = $(this).attr("data-id");
-          console.log(examId);
-          console.log(departmentLectureId);
+          let examination = $(this).attr("data-id");
+          console.log(examination);
           $.ajax({
               headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-              url: '/departments/department-lecture/'+ departmentLectureId +'/exam-dates',
+              url: '/departments/department-lecture/exam-dates/'+ examination,
               method: 'delete',
-              data: {
-                'examId': examId,
-              },
               success: function(response) {
                 window.location.href = "";
               }

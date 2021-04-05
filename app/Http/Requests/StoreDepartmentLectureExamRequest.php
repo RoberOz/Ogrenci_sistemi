@@ -29,7 +29,7 @@ class StoreDepartmentLectureExamRequest extends FormRequest
           'exam_start_time' => 'date_format:H:i|before:exam_end_time|required',
           'exam_end_time' => 'date_format:H:i|after:exam_start_time|required',
           'department_lecture_id' => 'integer|exists:department_lecture,id|required',
-          'exam_id' => 'integer|in:1,2|required'
+          'exam_order' => 'string|in:first_exam,second_exam|required'
         ];
     }
 }

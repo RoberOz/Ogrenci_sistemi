@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\StoreDepartmentLectureExamRequest;
-use App\Http\Requests\DeleteExamDateRequest;
 
 use App\Models\Lecture;
 use App\Models\Department;
@@ -31,10 +30,10 @@ class DepartmentLectureExamController extends Controller
 
     public function store(StoreDepartmentLectureExamRequest $request)
     {
-      if ($request->exam_id == 1) {
+      if ($request->exam_order == 'first_exam') {
 
         $examinationControl = Examination::where('department_lecture_id', $request->department_lecture_id)
-                                         ->where('exam_id', $request->exam_id)
+                                         ->where('exam_order', $request->exam_order)
                                          ->first();
         if ($examinationControl) {
           $examination = $examinationControl;
@@ -44,7 +43,7 @@ class DepartmentLectureExamController extends Controller
         }
 
         $examination->department_lecture_id = $request->department_lecture_id;
-        $examination->exam_id = $request->exam_id;
+        $examination->exam_order = $request->exam_order;
         $examination->exam_date = $request->first_exam;
         $examination->exam_start_time = $request->exam_start_time;
         $examination->exam_end_time = $request->exam_end_time;
@@ -55,10 +54,10 @@ class DepartmentLectureExamController extends Controller
 
         return back();
       }
-      elseif ($request->exam_id == 2) {
+      elseif ($request->exam_order == 'second_exam') {
 
         $examinationControl = Examination::where('department_lecture_id', $request->department_lecture_id)
-                                         ->where('exam_id', $request->exam_id)
+                                         ->where('exam_order', $request->exam_order)
                                          ->first();
         if ($examinationControl) {
           $examination = $examinationControl;
@@ -68,7 +67,7 @@ class DepartmentLectureExamController extends Controller
         }
 
         $examination->department_lecture_id = $request->department_lecture_id;
-        $examination->exam_id = $request->exam_id;
+        $examination->exam_order = $request->exam_order;
         $examination->exam_date = $request->second_exam;
         $examination->exam_start_time = $request->exam_start_time;
         $examination->exam_end_time = $request->exam_end_time;
@@ -81,12 +80,9 @@ class DepartmentLectureExamController extends Controller
       }
     }
 
-    public function destroyExam(DepartmentLecture $departmentLecture,DeleteExamDateRequest $request)
+    public function destroyExam(Examination $examination)
     {
-      Examination::where('department_lecture_id', $departmentLecture->id)
-                 ->where('exam_id', $request->examId)
-                 ->first()
-                 ->delete();
+      $examination->delete();
 
       session()->flash('success_exam_delete');
       return response()->json([], 204);

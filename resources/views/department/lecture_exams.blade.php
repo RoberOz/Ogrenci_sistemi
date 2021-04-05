@@ -69,7 +69,7 @@
                                 <input type="time" name="exam_start_time"> -
                                 <input type="time" name="exam_end_time"><br><br>
                                 <input type="hidden" name="department_lecture_id" value="{{$departmentLecture->id}}">
-                                <input type="hidden" name="exam_id" value="1">
+                                <input type="hidden" name="exam_order" value="first_exam">
                                 <button type="submit" class="btn btn-primary btn-outline-light btn-sm" style="background:#19A713">Ata</button>
                               </form>
                             </td>
@@ -80,7 +80,7 @@
                                   <input type="time" name="exam_start_time"> -
                                   <input type="time" name="exam_end_time"><br><br>
                                   <input type="hidden" name="department_lecture_id" value="{{$departmentLecture->id}}">
-                                  <input type="hidden" name="exam_id" value="2">
+                                  <input type="hidden" name="exam_order" value="second_exam">
                                 <button type="submit" class="btn btn-primary btn-outline-light btn-sm" style="background:#19A713">Ata</button>
                               </form>
                             </td>

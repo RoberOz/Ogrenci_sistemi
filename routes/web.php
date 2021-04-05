@@ -93,7 +93,7 @@ Route::prefix('departments')
         Route::get('{department}/department-lecture', [DepartmentLectureController::class, 'showDepartmentLecture'])->name('department-lecture-show');
         Route::delete('{department}/lecture/{lecture}', [DepartmentLectureController::class, 'detach'])->name('department-lecture-detach');
         Route::resource('department-lecture-exams', DepartmentLectureExamController::class, ['only' => ['store']]);
-        Route::delete('department-lecture/{departmentLecture}/exam-dates', [DepartmentLectureExamController::class, 'destroyExam'])->name('department-exam-dates-delete');
+        Route::delete('department-lecture/exam-dates/{examination}', [DepartmentLectureExamController::class, 'destroyExam'])->name('department-exam-dates-delete');
         Route::get('{department}/lecture/{lecture}/exam-dates', [DepartmentLectureExamController::class, 'showExamDates'])->name('department-exam-dates');
         Route::resource('department-assign-lecture', DepartmentAssignLectureController::class, ['only' => ['store']]);
         Route::get('{department}/department-assign-lecture', [DepartmentAssignLectureController::class, 'show'])->name('show-department-assign-lecture');
@@ -107,9 +107,9 @@ Route::prefix('exams')
     ->middleware('isGraduated')
     ->group(function () {
         Route::get('department/{department}/lecture/{lecture}/choose-exam', [ExamController::class, 'index'])->name('choose-exam');
-        Route::get('department-lecture/{departmentLecture}/exam-id/{examId}/modify-exam', [ExamController::class, 'showExamQuestion'])->name('modify-exam');
-        Route::get('department-lecture/{departmentLecture}/exam-id/{examId}/get-exams', [ExamExportPdfController::class, 'getExaminations'])->name('get-exams');
-        Route::get('department-lecture/{departmentLecture}/exam-id/{examId}/export-pdf', [ExamExportPdfController::class, 'exportPdf'])->name('exam-export-pdf');
+        Route::get('modify-exam/{examination}', [ExamController::class, 'showExamQuestion'])->name('modify-exam');
+        Route::get('department-lecture/examination-pdf/{examination}', [ExamExportPdfController::class, 'getExaminations'])->name('get-exams');
+        Route::get('department-lecture/examination-pdf/{examination}', [ExamExportPdfController::class, 'exportPdf'])->name('exam-export-pdf');
 });
 
 Route::prefix('lectures')
