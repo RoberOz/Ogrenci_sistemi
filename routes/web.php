@@ -110,6 +110,7 @@ Route::prefix('exams')
         Route::get('modify-exam/{examination}', [ExamController::class, 'showExamQuestion'])->name('modify-exam');
         Route::get('department-lecture/examination-pdf/{examination}', [ExamExportPdfController::class, 'getExaminations'])->name('get-exams');
         Route::get('department-lecture/examination-pdf/{examination}', [ExamExportPdfController::class, 'exportPdf'])->name('exam-export-pdf');
+        Route::get('list', [ExamController::class, 'showExamList'])->name('exam-list');
 });
 
 Route::prefix('lectures')

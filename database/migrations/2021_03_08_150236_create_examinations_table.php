@@ -16,6 +16,7 @@ class CreateExaminationsTable extends Migration
         Schema::create('examinations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('department_lecture_id');
+            $table->boolean('is_online');
             $table->string('exam_order');
             $table->date('exam_date');
             $table->time('exam_start_time');

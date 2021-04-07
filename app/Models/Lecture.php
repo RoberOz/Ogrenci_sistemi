@@ -17,7 +17,7 @@ class Lecture extends Model
     public function departments()
     {
 
-        return $this->belongsToMany(Department::class, 'department_lecture','department_id','lecture_id')->withTimeStamps();
+        return $this->belongsToMany(Department::class, 'department_lecture','department_id','lecture_id')->using('App\Models\LectureUser')->withTimeStamps();
 
     }
 

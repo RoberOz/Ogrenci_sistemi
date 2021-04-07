@@ -65,6 +65,8 @@
                             <td align="center">
                               <form method="post" action="{{url('departments/department-lecture-exams')}}">
                                 @csrf
+                                <strong>Okulda:</strong> <input type="radio" name="is_online" value="0" style="width:15px; height:15px;"><br>
+                                <strong>Online:</strong> <input type="radio" name="is_online" value="1" style="width:15px; height:15px;"><br>
                                 <input type="date" name="first_exam"><br><br>
                                 <input type="time" name="exam_start_time"> -
                                 <input type="time" name="exam_end_time"><br><br>
@@ -76,6 +78,8 @@
                             <td align="center">
                               <form method="post" action="{{url('departments/department-lecture-exams')}}">
                                 @csrf
+                                  <strong>Okulda:</strong> <input type="radio" name="is_online" value="0" style="width:15px; height:15px;"><br>
+                                  <strong>Online:</strong> <input type="radio" name="is_online" value="1" style="width:15px; height:15px;"><br>
                                   <input type="date" name="second_exam"><br><br>
                                   <input type="time" name="exam_start_time"> -
                                   <input type="time" name="exam_end_time"><br><br>

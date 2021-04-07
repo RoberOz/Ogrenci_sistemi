@@ -26,6 +26,7 @@ class StoreDepartmentLectureExamRequest extends FormRequest
         return [
           'first_exam' => 'date',
           'second_exam' => 'date',
+          'is_online' => 'numeric|in:1,0|required',
           'exam_start_time' => 'date_format:H:i|before:exam_end_time|required',
           'exam_end_time' => 'date_format:H:i|after:exam_start_time|required',
           'department_lecture_id' => 'integer|exists:department_lecture,id|required',

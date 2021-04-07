@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Exam;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\User;
 use App\Models\Lecture;
 use App\Models\Department;
 use App\Models\DepartmentLecture;
@@ -30,6 +31,21 @@ class ExamController extends Controller
     {
         return view('exam.questions')->with([
           'examination' => $examination,
+        ]);
+    }
+
+    public function showExamList()
+    {
+        $lectures = Lecture::with('users')->get();
+        $departmentUser = User::with('departments')->where('id', auth()->user()->id)->first();
+        $departmentLectures = DepartmentLecture::get();
+        $examinations = Examination::get();
+
+        return view('exam.list')->with([
+          'lectures' => $lectures,
+          'departmentUser' => $departmentUser,
+          'departmentLectures' => $departmentLectures,
+          'examinations' => $examinations
         ]);
     }
 }

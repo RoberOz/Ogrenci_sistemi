@@ -43,6 +43,7 @@ class DepartmentLectureExamController extends Controller
         }
 
         $examination->department_lecture_id = $request->department_lecture_id;
+        $examination->is_online = $request->is_online;
         $examination->exam_order = $request->exam_order;
         $examination->exam_date = $request->first_exam;
         $examination->exam_start_time = $request->exam_start_time;
@@ -67,6 +68,7 @@ class DepartmentLectureExamController extends Controller
         }
 
         $examination->department_lecture_id = $request->department_lecture_id;
+        $examination->is_online = $request->is_online;
         $examination->exam_order = $request->exam_order;
         $examination->exam_date = $request->second_exam;
         $examination->exam_start_time = $request->exam_start_time;

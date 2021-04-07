@@ -14,10 +14,10 @@
               <div class="list-group-item">
                 <textarea rows="2" cols="80" v-model="question.content"></textarea>
                 <button type="button" class="btn btn-primary btn-outline-light" style="background:#B60C09" @click="deleteQuestion(index)">Soruyu Sil</button>
-                <div v-for="option in question.options">
+                <div v-for="(option,indexOption) in question.options">
                   <input type="text" v-model="option.key" style="width:30px;"> :
                   <input type="text" v-model="option.value">
-                  <button type="button" class="btn btn-primary btn-outline-light btn-sm" style="background:#B60C09" @click="deleteQuestionOption(index)">X</button>
+                  <button type="button" class="btn btn-primary btn-outline-light btn-sm" style="background:#B60C09" @click="deleteQuestionOption(index,indexOption)">X</button>
                   <br><br>
                 </div>
                 <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" @click="addNewQuestionOption(index)">Şık Ekle</button>
@@ -83,7 +83,7 @@ import Swal from 'sweetalert2';
                           });
           },
           deleteQuestion(index){
-            this.questions.pop();
+            this.questions.splice(index,1);
           },
           addNewQuestionOption(index){
             this.questions[index].options.push({
@@ -91,8 +91,8 @@ import Swal from 'sweetalert2';
                                 value: "",
                               },);
           },
-          deleteQuestionOption(index){
-            this.questions[index].options.pop();
+          deleteQuestionOption(index,indexOption){
+            this.questions[index].options.splice(indexOption,1);
           },
           submitForm(){
             let examinationId = this.$refs.examId.value;
