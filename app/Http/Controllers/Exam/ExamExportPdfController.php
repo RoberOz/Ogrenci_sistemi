@@ -17,7 +17,7 @@ class ExamExportPdfController extends Controller
         $examinationQuestions = ExaminationQuestion::where('examination_id', $examination->id)
                                                    ->orderBy('order','ASC')
                                                    ->get();
-        return view('exam.export-pdf')->with([
+        return view('exam.export_pdf')->with([
           'examinationQuestions' => $examinationQuestions
         ]);
     }
@@ -28,7 +28,7 @@ class ExamExportPdfController extends Controller
                                                    ->orderBy('order','ASC')
                                                    ->get();
 
-        $pdf = PDF::loadView('exam.export-pdf',compact('examinationQuestions'));
+        $pdf = PDF::loadView('exam.export_pdf',compact('examinationQuestions'));
         return $pdf->download('examinationQuestions.pdf');
     }
 }

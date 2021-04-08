@@ -10,6 +10,7 @@ use App\Models\Lecture;
 use App\Models\Department;
 use App\Models\DepartmentLecture;
 use App\Models\Examination;
+use App\Models\ExaminationQuestion;
 
 class ExamController extends Controller
 {
@@ -46,6 +47,15 @@ class ExamController extends Controller
           'departmentUser' => $departmentUser,
           'departmentLectures' => $departmentLectures,
           'examinations' => $examinations
+        ]);
+    }
+
+    public function onlineExam(Examination $examination)
+    {
+        $examinationQuestions = ExaminationQuestion::where('examination_id',$examination->id)->get();
+
+        return view('exam.online_exam')->with([
+          'examinationQuestions' => $examinationQuestions
         ]);
     }
 }
