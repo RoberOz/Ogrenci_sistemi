@@ -52,10 +52,8 @@ class ExamController extends Controller
 
     public function onlineExam(Examination $examination)
     {
-        $examinationQuestions = ExaminationQuestion::where('examination_id',$examination->id)->get();
-
         return view('exam.online_exam')->with([
-          'examinationQuestions' => $examinationQuestions
+          'examination' => $examination
         ]);
     }
 }

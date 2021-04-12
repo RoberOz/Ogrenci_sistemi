@@ -120,6 +120,6 @@ Route::prefix('lectures')
     ->group(function () {
         Route::get('lecture-list', [LectureController::class, 'index'])->name('lecture-list');
         Route::resource('user-lecture', UserLectureController::class, ['only' => ['store','index','destroy']]);
-        Route::get('lecture-user-store', [LectureController::class, 'store'])->name('lecture-user-store');
+        Route::post('lecture-user-store', [UserLectureController::class, 'store'])->name('lecture-user-store');
         Route::delete('lecture-user-delete/{lecture}', [UserLectureController::class, 'destroy'])->name('lecture-user-delete');
 });

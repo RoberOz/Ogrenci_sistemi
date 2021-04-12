@@ -17,28 +17,28 @@
                       @if (isset($departmentUser))
                         @if ($period !== 0)
                           <div class="col-sm-14">
-                            <table class="table table-bordered table-hover" width="100%" cellspacing="0" role="grid">
-                              <thead style="background:#B6B6B6">
-                                <tr role="row" align="center">
-                                  <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
-                                    Dersler
-                                  </th>
-                                  <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
-                                    Sınıf
-                                  </th>
-                                  <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
-                                    Dönem
-                                  </th>
-                                  @if ($isFirstPeriodRegistrationDate || $isSecondPeriodRegistrationDate)
-                                    <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
-                                      İşlemler
+                            <form method="post" action="{{url('lectures/lecture-user-store')}}">
+                              @csrf
+                              <table class="table table-bordered table-hover" width="100%" cellspacing="0" role="grid">
+                                <thead style="background:#B6B6B6">
+                                  <tr role="row" align="center">
+                                    <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
+                                      Dersler
                                     </th>
-                                  @endif
-                                </tr>
-                              </thead>
-                              <tbody style="background:#D1D1D1">
-                                <form method="post" action="{{route('lecture-user-store')}}">
-                                  @csrf
+                                    <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
+                                      Sınıf
+                                    </th>
+                                    <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
+                                      Dönem
+                                    </th>
+                                    @if ($isFirstPeriodRegistrationDate || $isSecondPeriodRegistrationDate)
+                                      <th tabindex="0" rowspan="1" colspan="1" style="width: 70px;">
+                                        İşlemler
+                                      </th>
+                                    @endif
+                                  </tr>
+                                </thead>
+                                <tbody style="background:#D1D1D1">
                                   @foreach ($users as $user)
                                     @if ($user->id == auth()->user()->id)
                                       @foreach ($user->departments as $department)
@@ -90,9 +90,9 @@
                                       </td>
                                     </tr>
                                   @endif
-                                </form>
-                              </tbody>
-                            </table>
+                                </tbody>
+                              </table>
+                            </form>
                           </div>
                         @elseif ($period == 0)
                           <div align="center" class="alert" style="color:#E00B0B">
