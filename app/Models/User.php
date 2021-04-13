@@ -53,4 +53,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Department::class, 'department_user','user_id','department_id')->withPivot(["is_cap_dal"])->withTimeStamps();
 
     }
+
+    public function examinationQuestionAnswers()
+    {
+        return $this->hasMany(ExaminationQuestionAnswer::class, 'user_id', 'id');
+    }
 }

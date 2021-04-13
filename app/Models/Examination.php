@@ -18,4 +18,9 @@ class Examination extends Model
     {
         return $this->hasMany(ExaminationQuestion::class, 'examination_id', 'id');
     }
+
+    public function examinationQuestionAnswers()
+    {
+        return $this->hasMany(ExaminationQuestionAnswer::class, 'examination_id', 'id');
+    }
 }

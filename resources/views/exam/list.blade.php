@@ -65,7 +65,7 @@
                                                     <strong>Başlangıç saati:</strong> {{$examination->exam_start_time}} <br> <strong>Bitiş saati:</strong> {{$examination->exam_end_time}}
                                                   </td>
                                                   <td align="center">
-                                                    @if ((Carbon\Carbon::now('Europe/Istanbul')->format('Y-m-d') == $examination->exam_date) && (Carbon\Carbon::now('Europe/Istanbul')->between($examination->exam_start_time,$examination->exam_end_time)))
+                                                    @if ((Carbon\Carbon::now('Europe/Istanbul')->format('Y-m-d') == $examination->exam_date) && (Carbon\Carbon::now('Europe/Istanbul')->between($examination->exam_start_time,$examination->exam_end_time)) && $examination->is_online == "1")
                                                       <button class="btn btn-primary btn-outline-light" style="background:#19A713" onclick="location.href='{{route('online-exam',$examination->id)}}'">Sınava Gir</button>
                                                     @endif
                                                   </td>

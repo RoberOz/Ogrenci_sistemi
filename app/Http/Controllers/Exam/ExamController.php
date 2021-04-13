@@ -11,6 +11,7 @@ use App\Models\Department;
 use App\Models\DepartmentLecture;
 use App\Models\Examination;
 use App\Models\ExaminationQuestion;
+use App\Models\ExaminationQuestionAnswer;
 
 class ExamController extends Controller
 {
@@ -39,21 +40,30 @@ class ExamController extends Controller
     {
         $lectures = Lecture::with('users')->get();
         $departmentUser = User::with('departments')->where('id', auth()->user()->id)->first();
-        $departmentLectures = DepartmentLecture::get();
-        $examinations = Examination::get();
+        $departmentLectures = DepartmentLecture::all();
+        $examinations = Examination::all();
 
         return view('exam.list')->with([
           'lectures' => $lectures,
           'departmentUser' => $departmentUser,
           'departmentLectures' => $departmentLectures,
-          'examinations' => $examinations
+          'examinations' => $examinations,
         ]);
     }
 
     public function onlineExam(Examination $examination)
     {
+        $cannotAccessToExam = false;
+        $examinationQuestionAnswer = ExaminationQuestionAnswer::where('user_id',auth()->user()->id)
+                                                              ->where('examination_id',$examination->id)
+                                                              ->first();
+        if ($examinationQuestionAnswer) {
+          $cannotAccessToExam = true;
+        }
+
         return view('exam.online_exam')->with([
-          'examination' => $examination
+          'examination' => $examination,
+          'cannotAccessToExam' => $cannotAccessToExam
         ]);
     }
 }
