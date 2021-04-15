@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "sweetalert2": "^10.15.6",
+        "vue-moment": "^4.1.0",
         "vuedraggable": "^2.24.3"
     }
 }

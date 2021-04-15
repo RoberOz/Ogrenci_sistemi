@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div class="card-header" style="background:#DFDFDF">
+      <div align="center">
+        {{hours}}:{{minutes}}:{{seconds}}
+      </div>
+    </div>
     <form v-on:submit.prevent="submitForm">
       <div v-if="questions[0].content">
         <div class="card-header" style="background:#DFDFDF">
@@ -48,8 +53,12 @@ Vue.prototype.$eventBus = new Vue();
     ],
     data() {
       return {
-        questionIndex: 0,
-        answer: "",
+        exam_start_time: "",
+        exam_end_time: "",
+        interval: "",
+        hours: "",
+        minutes: "",
+        seconds: "",
         questions: [
           {
             examination_id: "",
@@ -63,6 +72,8 @@ Vue.prototype.$eventBus = new Vue();
             ],
           }
         ],
+        questionIndex: 0,
+        answer: "",
         answers: [],
         clicked: [],
       }
@@ -70,8 +81,41 @@ Vue.prototype.$eventBus = new Vue();
     mounted() {
       this.loadExaminationQuestions();
       console.log("Online Examination Component Mounted.");
+      const monthNames = ["", "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+
+      //new Date('April 15, 2021 17:00:00 GMT+03:00')
+      this.exam_start_time = new Date(''+ monthNames[new Date(this.examination.exam_date).getMonth() + 1] +' '+ new Date(this.examination.exam_date).getDate() +', '+ new Date(this.examination.exam_date).getFullYear() +' '+ this.examination.exam_start_time +' GMT+03:00').getTime();
+      this.exam_end_time = new Date(''+ monthNames[new Date(this.examination.exam_date).getMonth() + 1] +' '+ new Date(this.examination.exam_date).getDate() +', '+ new Date(this.examination.exam_date).getFullYear() +' '+ this.examination.exam_end_time +' GMT+03:00').getTime();
+
+      this.timer(this.exam_start_time,this.exam_end_time);
+      this.interval = setInterval(() => {
+          this.timer(this.exam_start_time,this.exam_end_time);
+      }, 1000);
     },
     methods:{
+      timer: function(exam_start_time,exam_end_time){
+        var now = new Date().getTime();
+
+        var start = exam_start_time - now;
+        var end = exam_end_time - now;
+
+        if(start < 0 && end < 0){
+          clearInterval(this.interval);
+          this.submitForm();
+        }
+        else if(start < 0 && end > 0){
+          this.calculateTime(end);
+        }
+        else if(start > 0 && end > 0){
+          window.location.href = '/exams/list';
+        }
+      },
+      calculateTime(dist){
+        this.hours = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        this.minutes = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+        this.seconds = Math.floor((dist % (1000 * 60)) / 1000);
+      },
       submitForm(){
         axios.post('/api/v1/exams/store-online-exam',{answers: this.answers,examinationId: this.examination.id,userId: this.user})
              .then((response) => {

@@ -1,37 +1,45 @@
 <template>
   <div>
-    <form v-on:submit.prevent="submitForm">
-      <div class="list-group col" id="examinationQuestions">
-        <div class="row">
-          <div class="col">
-            <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" @click="addNewQuestion(),manageOrder()">Soru Ekle</button>
+    <div v-if="modifyAllowed === true">
+      <form v-on:submit.prevent="submitForm">
+        <div class="list-group col" id="examinationQuestions">
+          <div class="row">
+            <div class="col">
+              <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" @click="addNewQuestion(),manageOrder()">Soru Ekle</button>
+            </div>
           </div>
+          <br>
+          <draggable :list="questions" ghost-class="ghost" @end="manageOrder" :options="{animation:200}">
+            <transition-group type="transition">
+              <div v-for="(question,index) in questions" :key="index">
+                <div class="list-group-item">
+                  <textarea rows="2" cols="80" v-model="question.content"></textarea>
+                  <button type="button" class="btn btn-primary btn-outline-light" style="background:#B60C09" @click="deleteQuestion(index)">Soruyu Sil</button>
+                  <div v-for="(option,indexOption) in question.options">
+                    <input type="text" v-model="option.key" style="width:30px;"> :
+                    <input type="text" v-model="option.value">
+                    <button type="button" class="btn btn-primary btn-outline-light btn-sm" style="background:#B60C09" @click="deleteQuestionOption(index,indexOption)">X</button>
+                    <br><br>
+                  </div>
+                  <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" @click="addNewQuestionOption(index)">Şık Ekle</button>
+                </div>
+              </div>
+            </transition-group>
+          </draggable>
         </div>
         <br>
-        <draggable :list="questions" ghost-class="ghost" @end="manageOrder" :options="{animation:200}">
-          <transition-group type="transition">
-            <div v-for="(question,index) in questions" :key="index">
-              <div class="list-group-item">
-                <textarea rows="2" cols="80" v-model="question.content"></textarea>
-                <button type="button" class="btn btn-primary btn-outline-light" style="background:#B60C09" @click="deleteQuestion(index)">Soruyu Sil</button>
-                <div v-for="(option,indexOption) in question.options">
-                  <input type="text" v-model="option.key" style="width:30px;"> :
-                  <input type="text" v-model="option.value">
-                  <button type="button" class="btn btn-primary btn-outline-light btn-sm" style="background:#B60C09" @click="deleteQuestionOption(index,indexOption)">X</button>
-                  <br><br>
-                </div>
-                <button type="button" class="btn btn-primary btn-outline-light" style="width:150px;" @click="addNewQuestionOption(index)">Şık Ekle</button>
-              </div>
-            </div>
-          </transition-group>
-        </draggable>
-      </div>
-      <br>
-      <div align="center">
-        <input type="hidden" ref="examId" :value="examination.id">
-        <button type="submit" class="btn btn-primary btn-outline-light" style="background:#19A713;">Kaydet</button>
-      </div>
-    </form>
+        <div align="center">
+          <input type="hidden" ref="examId" :value="examination.id">
+          <button type="submit" class="btn btn-primary btn-outline-light" style="background:#19A713;">Kaydet</button>
+        </div>
+      </form>
+    </div>
+    <div align="center" v-else>
+      <strong style="color:#EA1D1D">
+        <i class="fas fa-exclamation"></i><i class="fas fa-exclamation"></i><i class="fas fa-exclamation"></i>
+         Sınav başlamış olduğundan sorular üzerinde değişiklik yapamazsınız
+      </strong>
+    </div>
   </div>
 </template>
 
@@ -39,6 +47,7 @@
 import axios from "axios";
 import draggable from 'vuedraggable';
 import Swal from 'sweetalert2';
+import moment from 'moment';
 
     export default {
         props: [
@@ -49,6 +58,7 @@ import Swal from 'sweetalert2';
         },
         data() {
           return {
+            modifyAllowed: "",
             questions: [
               {
                 examination_id:"",
@@ -66,9 +76,27 @@ import Swal from 'sweetalert2';
         },
         mounted() {
             this.loadExaminationQuestions();
+            this.examModify();
             console.log('Examination Form Component Mounted.');
         },
         methods:{
+          examModify(){
+            const monthNames = ["", "January", "February", "March", "April", "May", "June",
+              "July", "August", "September", "October", "November", "December"];
+
+            var exam_start = new Date(''+ monthNames[new Date(this.examination.exam_date).getMonth() + 1] +' '+ new Date(this.examination.exam_date).getDate() +', '+ new Date(this.examination.exam_date).getFullYear() +' '+ this.examination.exam_start_time +' GMT+03:00');
+
+            if (moment()._d > exam_start)
+            {
+              this.modifyAllowed = false;
+              console.log('Modify not allowed.');
+            }
+            else
+            {
+              this.modifyAllowed = true;
+              console.log('Modify allowed.');
+            }
+          },
           addNewQuestion(){
             this.questions.push({
                             examination_id:"",
