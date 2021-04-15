@@ -13,12 +13,16 @@ class ExaminationController extends Controller
 {
     public function storeOnlineExam(StoreOnlineExaminationRequest $request)
     {
-        $examinationQuestionAnswer = new ExaminationQuestionAnswer();
-        $examinationQuestionAnswer->examination_id = $request['examinationId'];
-        $examinationQuestionAnswer->user_id = $request['userId'];
-        $examinationQuestionAnswer->answers = $request['answers'];
+        foreach ($request['answers'] as $answer) {
+          $examinationQuestionAnswer = new ExaminationQuestionAnswer();
+          $examinationQuestionAnswer->user_id = $request['userId'];
+          $examinationQuestionAnswer->examination_id = $request['examinationId'];
+          $examinationQuestionAnswer->question_id = $answer['question_id'];
+          $examinationQuestionAnswer->answer_key = $answer['key'];
+          $examinationQuestionAnswer->answer_value = $answer['value'];
 
-        $examinationQuestionAnswer->save();
+          $examinationQuestionAnswer->save();
+        }
 
         return response()->json([], 201);
     }

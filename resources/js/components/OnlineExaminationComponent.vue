@@ -6,7 +6,7 @@
       </div>
     </div>
     <form v-on:submit.prevent="submitForm">
-      <div v-if="questions[0].content">
+      <div v-if="questions[questionIndex]">
         <div class="card-header" style="background:#DFDFDF">
           <div class="btn-group" v-for="(question,index) in questions">
             <button type="button" class="btn btn-primary btn-outline-light" style="background:#539E5D;" @click="pickQuestion(index)" :disabled="clicked.includes(index)">{{index + 1}}</button>
@@ -22,12 +22,12 @@
           <tr>
             <td>
               <div v-for="option in questions[questionIndex].options">
-                <input type="radio" name="question_answer" @change="pickAnswer" v-model="answer" :value="option['key']">
+                <input type="radio" name="question_key" @click="answer = option['value'], question_id = questions[questionIndex].id" @change="pickAnswer" v-model="questionKey" :value="option['key']">
                 {{option['key']}}) {{option['value']}}
                 <br>
               </div>
               <br>
-              <button type="button" class="btn btn-primary btn-outline-light btn-sm" @click="answer = null">Seçenekleri temizle</button>
+              <button type="button" class="btn btn-primary btn-outline-light btn-sm" @click="answer = null, questionKey = null, question_id = null">Seçenekleri temizle</button>
               <br><br>
               <div class="btn-group">
                 <button type="button" class="btn btn-primary btn-outline-light" style="background:#2AC020" @click="saveAnswer(questionIndex)">Cevabı Kaydet</button>
@@ -73,7 +73,9 @@ Vue.prototype.$eventBus = new Vue();
           }
         ],
         questionIndex: 0,
+        question_id: "",
         answer: "",
+        questionKey: "",
         answers: [],
         clicked: [],
       }
@@ -117,44 +119,59 @@ Vue.prototype.$eventBus = new Vue();
         this.seconds = Math.floor((dist % (1000 * 60)) / 1000);
       },
       submitForm(){
-        axios.post('/api/v1/exams/store-online-exam',{answers: this.answers,examinationId: this.examination.id,userId: this.user})
-             .then((response) => {
-               console.log('success');
-               Swal.fire({
-                 position: 'top',
-                 icon: 'success',
-                 title: 'Gönderildi',
-                 text: 'Sınavınız başarıyla gönderilmiştir',
-                 showConfirmButton: false,
-                 timer: 3000
-              })
-              setTimeout(() => {
-                window.location.href = '/exams/list';
-              }, 3000);
-             })
-             .catch((error) => {
-               Swal.fire({
-                position: 'top',
-                icon: 'error',
-                title: 'Hata',
-                text: 'Hatalı işlem',
-                timer: 1500
-              })
-               console.log('Error submitForm failed!');
-             });
+        if (this.answers == "")
+        {
+          Swal.fire({
+           position: 'top',
+           icon: 'error',
+           title: 'Hata',
+           text: 'Hiçbir soruya yanıt vermediniz',
+           timer: 1500
+         })
+        }
+        else
+        {
+          axios.post('/api/v1/exams/store-online-exam',{answers: this.answers,examinationId: this.examination.id,userId: this.user})
+               .then((response) => {
+                 console.log('success');
+                 Swal.fire({
+                   position: 'top',
+                   icon: 'success',
+                   title: 'Gönderildi',
+                   text: 'Sınavınız başarıyla gönderilmiştir',
+                   showConfirmButton: false,
+                   timer: 3000
+                })
+                setTimeout(() => {
+                  window.location.href = '/exams/list';
+                }, 3000);
+               })
+               .catch((error) => {
+                 Swal.fire({
+                  position: 'top',
+                  icon: 'error',
+                  title: 'Hata',
+                  text: 'Hatalı işlem',
+                  timer: 1500
+                })
+                 console.log('Error submitForm failed!');
+               });
+        }
       },
       pickAnswer: function (event) {
-        this.answer = event.target.value;
+        this.questionKey = event.target.value;
       },
       saveAnswer(questionIndex){
         if (this.answer !== "" && !this.clicked.includes(questionIndex)) {
           this.answers.push(
             {
-              questionIndex: questionIndex,
-              questionAnswer: this.answer,
+              question_id: this.question_id,
+              key: this.questionKey,
+              value: this.answer,
             }
           ),
           this.answer = "";
+          this.questionKey = "";
           this.clicked.push(questionIndex);
         }
         else if (this.clicked.includes(questionIndex)) {
@@ -174,9 +191,12 @@ Vue.prototype.$eventBus = new Vue();
          })
         }
       },
-      pickQuestion(index){
+      pickQuestion(index,id){
         this.answer = "";
+        this.questionKey = "";
+        this.question_id = "";
         this.questionIndex = index;
+        console.log('asdadsa');
       },
       loadExaminationQuestions(){
         axios.get('/api/v1/exams/examination/'+ this.examination.id +'/load-examination-questions')

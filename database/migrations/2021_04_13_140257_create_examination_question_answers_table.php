@@ -13,7 +13,9 @@ class CreateExaminationQuestionAnswersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('examination_id');
             $table->unsignedBigInteger('user_id');
-            $table->json('answers');
+            $table->unsignedBigInteger('question_id');
+            $table->string('answer_key');
+            $table->string('answer_value');
             $table->timestamps();
 
             $table->foreign('examination_id')
@@ -24,6 +26,11 @@ class CreateExaminationQuestionAnswersTable extends Migration
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
+                ->onDelete('cascade');
+
+            $table->foreign('question_id')
+                ->references('id')
+                ->on('examination_questions')
                 ->onDelete('cascade');
         });
     }
