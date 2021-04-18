@@ -83,7 +83,7 @@ $(document).ready(function(){
           console.log(userId);
           $.ajax({
               headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-              url: '{{ url('/users/user-list')}}/'+userId,
+              url: '{{ url('/users/delete')}}/'+userId,
               method: 'delete',
               success: function(response) {
                 window.location.href = "";

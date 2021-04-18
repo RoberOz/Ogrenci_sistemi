@@ -196,7 +196,6 @@ Vue.prototype.$eventBus = new Vue();
         this.questionKey = "";
         this.question_id = "";
         this.questionIndex = index;
-        console.log('asdadsa');
       },
       loadExaminationQuestions(){
         axios.get('/api/v1/exams/examination/'+ this.examination.id +'/load-examination-questions')
