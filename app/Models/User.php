@@ -2,42 +2,60 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+//use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
+
+use App\Models\Department;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
+    use HasRoles;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name',
         'email',
+        'is_graduated',
         'password',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_graduated' => 'boolean',
     ];
+
+    public function department()
+    {
+
+        return $this->hasOne(Department::class, 'department_head_user_id', 'id');
+
+    }
+
+    public function lectures()
+    {
+
+        return $this->hasMany(Lecture::class, 'lecture_user','lecture_id','user_id');
+
+    }
+
+    public function departments()
+    {
+
+        return $this->belongsToMany(Department::class, 'department_user','user_id','department_id')->withPivot(["is_cap_dal"])->withTimeStamps();
+
+    }
+
+    public function examinationQuestionAnswers()
+    {
+        return $this->hasMany(ExaminationQuestionAnswer::class, 'user_id', 'id');
+    }
 }
