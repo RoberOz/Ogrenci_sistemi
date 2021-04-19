@@ -131,7 +131,7 @@ Vue.prototype.$eventBus = new Vue();
         }
         else
         {
-          axios.post('/api/v1/exams/store-online-exam',{answers: this.answers,examinationId: this.examination.id,userId: this.user})
+          axios.post('/api/v1/exams/'+ this.examination.id +'/store-online-exam',{answers: this.answers,userId: this.user})
                .then((response) => {
                  console.log('success');
                  Swal.fire({

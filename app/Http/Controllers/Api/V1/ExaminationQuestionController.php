@@ -13,11 +13,11 @@ class ExaminationQuestionController extends Controller
 {
     public function storeExamQuestions(StoreExamQuestionsRequest $request,Examination $examination)
     {
-        \DB::transaction(function () use ($request,$examination) {
+        \DB::beginTransaction();
+        try {
           $questions = $request->all();
-          foreach ($questions as $question) {
-            $examinationQuestions = ExaminationQuestion::where('examination_id',$examination->id)->delete();
-          }
+
+          $this->deleteExistingQuestions($questions,$examination);
 
           foreach ($questions as $question) {
             $examinationQuestion = new ExaminationQuestion();
@@ -29,8 +29,20 @@ class ExaminationQuestionController extends Controller
             $examinationQuestion->save();
           }
 
+          \DB::commit();
           return response()->json([], 201);
-        });
+        } catch (\Exception $e) {
+          \DB::rollBack();
+          return response()->json([], 417);
+        }
+
+    }
+
+    public function deleteExistingQuestions($questions,Examination $examination)
+    {
+        foreach ($questions as $question) {
+          $examinationQuestions = ExaminationQuestion::where('examination_id',$examination->id)->delete();
+        }
     }
 
     public function getExamQuestions(Examination $examination)
