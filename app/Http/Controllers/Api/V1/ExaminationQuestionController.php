@@ -13,22 +13,24 @@ class ExaminationQuestionController extends Controller
 {
     public function storeExamQuestions(StoreExamQuestionsRequest $request,Examination $examination)
     {
-        $questions = $request->all();
-        foreach ($questions as $question) {
-          $examinationQuestions = ExaminationQuestion::where('examination_id',$examination->id)->delete();
-        }
+        \DB::transaction(function () use ($request,$examination) {
+          $questions = $request->all();
+          foreach ($questions as $question) {
+            $examinationQuestions = ExaminationQuestion::where('examination_id',$examination->id)->delete();
+          }
 
-        foreach ($questions as $question) {
-          $examinationQuestion = new ExaminationQuestion();
-          $examinationQuestion->content = $question['content'];
-          $examinationQuestion->examination_id = $examination->id;
-          $examinationQuestion->order = $question['order'];
-          $examinationQuestion->options = $question['options'];
+          foreach ($questions as $question) {
+            $examinationQuestion = new ExaminationQuestion();
+            $examinationQuestion->content = $question['content'];
+            $examinationQuestion->examination_id = $examination->id;
+            $examinationQuestion->order = $question['order'];
+            $examinationQuestion->options = $question['options'];
 
-          $examinationQuestion->save();
-        }
+            $examinationQuestion->save();
+          }
 
-        return response()->json([], 201);
+          return response()->json([], 201);
+        });
     }
 
     public function getExamQuestions(Examination $examination)

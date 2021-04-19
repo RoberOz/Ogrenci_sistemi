@@ -22,14 +22,14 @@ class StudentFormExport implements
 {
     public function collection()
     {
-        return StudentForm::all();
+        return StudentForm::with('user')->get();
     }
 
     public function map($studentForm): array
     {
         return [
             $studentForm->user_id,
-            User::where('id',$studentForm->user_id)->first()->name,
+            $studentForm->user->name,
             $studentForm->tc_kimlik_no,
             $studentForm->birth_date,
             $studentForm->email,
