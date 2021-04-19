@@ -37,7 +37,7 @@
     <div align="center" v-else>
       <strong style="color:#EA1D1D">
         <i class="fas fa-exclamation"></i><i class="fas fa-exclamation"></i><i class="fas fa-exclamation"></i>
-         Sınav başlamış olduğundan sorular üzerinde değişiklik yapamazsınız
+         Sınav başlamış veya bitmiş olduğundan sorular üzerinde değişiklik yapamazsınız
       </strong>
     </div>
   </div>
