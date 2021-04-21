@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\ExaminationQuestionAnswer;
 use App\Models\Examination;
 
+use App\Jobs\GradeExamination;
+
 use App\Http\Requests\StoreOnlineExaminationRequest;
 
 class ExaminationController extends Controller
@@ -22,7 +24,9 @@ class ExaminationController extends Controller
           $examinationQuestionAnswer->answer_key = $answer['key'];
           $examinationQuestionAnswer->answer_value = $answer['value'];
 
-          $examinationQuestionAnswer->save();
+          //$examinationQuestionAnswer->save();
+          $job = new GradeExamination($examinationQuestionAnswer);
+          dispatch($job);
         }
 
         return response()->json([], 201);

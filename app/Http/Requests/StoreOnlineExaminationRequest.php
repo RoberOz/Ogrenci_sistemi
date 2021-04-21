@@ -25,7 +25,6 @@ class StoreOnlineExaminationRequest extends FormRequest
     {
         return [
             'userId' => 'integer|exists:users,id|required',
-            'examinationId' => 'integer|exists:examinations,id|required',
             'answers' => 'array|required',
             '*.answers.*.questionIndex' => 'required',
             '*.answers.*.questionAnswer' => 'required',
