@@ -26,16 +26,20 @@ class ExaminationQuestionController extends Controller
             $examinationQuestion->order = $question['order'];
             $examinationQuestion->options = $question['options'];
 
+            foreach ($question['options'] as $key => $option) {
+              if ($option == $question['correct_answer']) {
+                $examinationQuestion->correct_answer = $option;
+              }
+            }
+
             $examinationQuestion->save();
           }
-
           \DB::commit();
           return response()->json([], 201);
         } catch (\Exception $e) {
           \DB::rollBack();
           return response()->json([], 417);
         }
-
     }
 
     public function deleteExistingQuestions($questions,Examination $examination)

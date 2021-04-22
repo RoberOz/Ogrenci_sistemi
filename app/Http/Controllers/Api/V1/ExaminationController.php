@@ -24,9 +24,13 @@ class ExaminationController extends Controller
           $examinationQuestionAnswer->answer_key = $answer['key'];
           $examinationQuestionAnswer->answer_value = $answer['value'];
 
-          //$examinationQuestionAnswer->save();
-          $job = new GradeExamination($examinationQuestionAnswer);
-          dispatch($job);
+          $data = array(
+            'examination_id'=> $examination->id,
+          );
+
+          $examinationQuestionAnswer->save();
+
+          GradeExamination::dispatch($data);
         }
 
         return response()->json([], 201);

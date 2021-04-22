@@ -12,6 +12,7 @@ use App\Models\DepartmentLecture;
 use App\Models\Examination;
 use App\Models\ExaminationQuestion;
 use App\Models\ExaminationQuestionAnswer;
+use App\Models\GradeUserExamination;
 
 class ExamController extends Controller
 {
@@ -66,4 +67,66 @@ class ExamController extends Controller
           'cannotAccessToExam' => $cannotAccessToExam
         ]);
     }
+
+    public function examResultPage()
+    {
+        $lectures = Lecture::with('users')->get();
+        $departmentUser = User::with('departments')->where('id', auth()->user()->id)->first();
+        $departmentLectures = DepartmentLecture::all();
+        $examinations = Examination::all();
+
+        return view('exam.results')->with([
+          'lectures' => $lectures,
+          'departmentUser' => $departmentUser,
+          'departmentLectures' => $departmentLectures,
+          'examinations' => $examinations,
+        ]);
+    }
+
+    public function showResults(Examination $examination)
+    {
+        $departmentLectures = DepartmentLecture::all();
+        $lectures = Lecture::all();
+
+        $examinationQuestions = ExaminationQuestion::where('examination_id', $examination->id)->get();
+        $examinationQuestionAnswers = ExaminationQuestionAnswer::where('examination_id', $examination->id)
+                                                               ->where('user_id', auth()->user()->id)
+                                                               ->get();
+        $gradeUserExaminations = GradeUserExamination::all();
+
+        $totalQuestion = 0;
+        foreach ($examinationQuestions as $examinationQuestion) {
+          $totalQuestion += 1;
+        }
+
+        $correctAnswers = 0;
+        $wrongAnswers = 0;
+        $unAnswered = 0;
+        foreach ($examinationQuestionAnswers as $examinationQuestionAnswer) {
+          foreach ($gradeUserExaminations as $gradeUserExamination) {
+            if ($gradeUserExamination->examination_question_answers_id == $examinationQuestionAnswer->id) {
+              if ($gradeUserExamination->is_correct == 1) {
+                $correctAnswers += 1;
+              }
+              elseif ($gradeUserExamination->is_correct == 0) {
+                $wrongAnswers += 1;
+              }
+            }
+          }
+        }
+        $unAnswered = $totalQuestion - ($correctAnswers + $wrongAnswers);
+
+        return view('exam.show-exam-results')->with([
+          'departmentLectures' => $departmentLectures,
+          'lectures' => $lectures,
+          'examination' => $examination,
+          'examinationQuestions' => $examinationQuestions,
+          'examinationQuestionAnswers' => $examinationQuestionAnswers,
+          'totalQuestion' => $totalQuestion,
+          'correctAnswers' => $correctAnswers,
+          'wrongAnswers' => $wrongAnswers,
+          'unAnswered' => $unAnswered,
+        ]);
+    }
+
 }

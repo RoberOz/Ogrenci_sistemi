@@ -74,6 +74,7 @@
           <div class="collapse" id="collapseExamePanel" data-parent="#accordionSidenav">
             <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPagesMenu">
               <a class="nav-link" href={{route('exam-list')}}><i class="fas fa-clipboard-list"></i>&nbsp Sınav Listesi</a>
+              <a class="nav-link" href={{route('exam-results')}}><i class="fas fa-poll"></i>&nbsp Sınav Sonuçları</a>
             </nav>
           </div>
         <!-- Sidenav Link (Charts)-->

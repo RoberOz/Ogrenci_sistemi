@@ -24,6 +24,7 @@ class StoreExamQuestionsRequest extends FormRequest
     public function rules()
     {
         return [
+          '*.correct_answer' => 'required',
           '*.order' => 'integer|min:1|required',
           '*.content' => 'required',
           '*.options' => 'array|min:3|required',
