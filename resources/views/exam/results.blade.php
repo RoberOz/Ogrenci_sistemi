@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header" style="background:#C6C6C6">
                   <strong>
-                    Sınav Listesi
+                    Sınav Sonuçları
                   </strong>
                 </div>
                   <div class="card-body" style="background:#C3D6D7">
@@ -26,9 +26,6 @@
                                     Sınav
                                   </th>
                                   <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
-                                    Verilen Not
-                                  </th>
-                                  <th tabindex="0" rowspan="1" colspan="1" style="width: 83px;">
                                     Sonuç
                                   </th>
                                 </tr>
@@ -45,17 +42,16 @@
                                                 <tr role="row" class="odd">
                                                   <td align="center">{{$lecture->name}}</td>
                                                   <td align="center">
-                                                    @foreach ($examinations as $examination)
-                                                      @if ($examination->exam_order == 'first_exam')
-                                                        Vize
-                                                      @elseif ($examination->exam_order == 'second_exam')
-                                                        Final
-                                                      @endif
-                                                    @endforeach
+                                                    @if ($examination->exam_order == 'first_exam')
+                                                      Vize
+                                                    @elseif ($examination->exam_order == 'second_exam')
+                                                      Final
+                                                    @endif
                                                   </td>
-                                                  <td align="center"></td>
                                                   <td align="center">
-                                                    <button class="btn btn-primary btn-outline-light btn-sm" style="background:#19A713" onclick="location.href='{{route('exam-results-show',$examination->id)}}'">Gör</button>
+                                                    @if ((Carbon\Carbon::now('Europe/Istanbul')->format('Y-m-d') >= $examination->exam_date) && !(Carbon\Carbon::now('Europe/Istanbul')->between($examination->exam_end_time,Carbon\Carbon::now('Europe/Istanbul')->format('H:i:s'))))
+                                                      <button class="btn btn-primary btn-outline-light btn-sm" style="background:#19A713" onclick="location.href='{{route('exam-results-show',$examination->id)}}'">Gör</button>
+                                                    @endif
                                                   </td>
                                                 </tr>
                                               @endif

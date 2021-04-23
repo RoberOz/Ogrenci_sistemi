@@ -75,6 +75,9 @@ class ExamController extends Controller
         $departmentLectures = DepartmentLecture::all();
         $examinations = Examination::all();
 
+        $examinationQuestionAnswers = ExaminationQuestionAnswer::where('user_id', auth()->user()->id)->get();
+        $gradeUserExaminations = GradeUserExamination::all();
+
         return view('exam.results')->with([
           'lectures' => $lectures,
           'departmentUser' => $departmentUser,
@@ -102,11 +105,13 @@ class ExamController extends Controller
         $correctAnswers = 0;
         $wrongAnswers = 0;
         $unAnswered = 0;
+        $userGrade = 0;
         foreach ($examinationQuestionAnswers as $examinationQuestionAnswer) {
           foreach ($gradeUserExaminations as $gradeUserExamination) {
             if ($gradeUserExamination->examination_question_answers_id == $examinationQuestionAnswer->id) {
               if ($gradeUserExamination->is_correct == 1) {
                 $correctAnswers += 1;
+                $userGrade += $gradeUserExamination->grade;
               }
               elseif ($gradeUserExamination->is_correct == 0) {
                 $wrongAnswers += 1;
@@ -126,6 +131,7 @@ class ExamController extends Controller
           'correctAnswers' => $correctAnswers,
           'wrongAnswers' => $wrongAnswers,
           'unAnswered' => $unAnswered,
+          'userGrade' => $userGrade,
         ]);
     }
 

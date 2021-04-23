@@ -17,6 +17,7 @@ class CreateGradeUserExaminationsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('examination_question_answers_id');
             $table->boolean('is_correct');
+            $table->float('grade');
             $table->timestamps();
 
             $table->foreign('examination_question_answers_id')

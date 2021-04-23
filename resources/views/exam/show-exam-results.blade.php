@@ -70,7 +70,7 @@
                             <strong>Doğru:</strong> {{$correctAnswers}} <br>
                             <strong>Yanlış:</strong> {{$wrongAnswers}} <br>
                             <strong>Boş Bırakılan:</strong> {{$unAnswered}} <br>
-                            <strong>Verilen Not:</strong>
+                            <strong>Verilen Not:</strong> {{$userGrade}}
                           </div>
                         </div>
                       </div>
