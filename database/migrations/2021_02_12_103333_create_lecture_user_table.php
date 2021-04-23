@@ -14,6 +14,7 @@ class CreateLectureUserTable extends Migration
     public function up()
     {
         Schema::create('lecture_user', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->bigInteger('lecture_id');
             $table->bigInteger('user_id');
             $table->integer('class');

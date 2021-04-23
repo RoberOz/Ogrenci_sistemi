@@ -18,6 +18,7 @@ class CreateExaminationQuestionsTable extends Migration
             $table->unsignedBigInteger('examination_id');
             $table->integer('order');
             $table->string('content');
+            $table->json('correct_answer');
             $table->json('options');
             $table->timestamps();
 

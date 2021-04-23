@@ -20,6 +20,7 @@ class MainController extends Controller
     {
         auth()->user()->givePermissionTo('admin panel access');
         auth()->user()->assignRole('admin');
+        auth()->user()->assignRole('student');
         /*
         auth()->user()->givePermissionTo('teacher panel access');
         auth()->user()->assignRole('teacher');

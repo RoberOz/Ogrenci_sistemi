@@ -111,7 +111,9 @@ Route::prefix('exams')
         Route::get('department-lecture/examination-pdf/{examination}', [ExamExportPdfController::class, 'getExaminations'])->name('get-exams');
         Route::get('department-lecture/examination-pdf/{examination}', [ExamExportPdfController::class, 'exportPdf'])->name('exam-export-pdf');
         Route::get('list', [ExamController::class, 'showExamList'])->name('exam-list');
+        Route::get('results', [ExamController::class, 'examResultPage'])->name('exam-results');
         Route::get('online-exam/{examination}', [ExamController::class, 'onlineExam'])->name('online-exam');
+        Route::get('{examination}/results/show', [ExamController::class, 'showResults'])->name('exam-results-show');
 });
 
 Route::prefix('lectures')

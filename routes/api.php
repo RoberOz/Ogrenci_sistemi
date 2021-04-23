@@ -9,8 +9,9 @@ use App\Http\Controllers\Api\V1\ExaminationController;
 Route::prefix('v1/exams')
     ->group(function () {
         Route::post('{examination}/modify-exam-store', [ExaminationQuestionController::class, 'storeExamQuestions'])->name('add-exam-store');
+        Route::post('delete-existing-questions', [ExaminationQuestionController::class, 'deleteExistingQuestions'])->name('delete-existing-questions');
         Route::get('examination/{examination}/load-examination-questions', [ExaminationQuestionController::class, 'getExamQuestions'])->name('load-exams');
-        Route::post('store-online-exam', [ExaminationController::class, 'storeOnlineExam'])->name('store-online-exam');
+        Route::post('{examination}/store-online-exam', [ExaminationController::class, 'storeOnlineExam'])->name('store-online-exam');
 });
 
 

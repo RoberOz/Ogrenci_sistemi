@@ -33,7 +33,7 @@ class TeacherExport implements
             $user->id,
             $user->name,
             $user->email,
-            Department::where('department_head_user_id',$user->id)->first()->name ?? 'No',
+            $user->department->name ?? 'No',
         ];
     }
 

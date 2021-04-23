@@ -13,22 +13,40 @@ class ExaminationQuestionController extends Controller
 {
     public function storeExamQuestions(StoreExamQuestionsRequest $request,Examination $examination)
     {
-        $questions = $request->all();
+        \DB::beginTransaction();
+        try {
+          $questions = $request->all();
+
+          $this->deleteExistingQuestions($questions,$examination);
+
+          foreach ($questions as $question) {
+            $examinationQuestion = new ExaminationQuestion();
+            $examinationQuestion->content = $question['content'];
+            $examinationQuestion->examination_id = $examination->id;
+            $examinationQuestion->order = $question['order'];
+            $examinationQuestion->options = $question['options'];
+
+            foreach ($question['options'] as $key => $option) {
+              if ($option == $question['correct_answer']) {
+                $examinationQuestion->correct_answer = $option;
+              }
+            }
+
+            $examinationQuestion->save();
+          }
+          \DB::commit();
+          return response()->json([], 201);
+        } catch (\Exception $e) {
+          \DB::rollBack();
+          return response()->json([], 417);
+        }
+    }
+
+    public function deleteExistingQuestions($questions,Examination $examination)
+    {
         foreach ($questions as $question) {
           $examinationQuestions = ExaminationQuestion::where('examination_id',$examination->id)->delete();
         }
-
-        foreach ($questions as $question) {
-          $examinationQuestion = new ExaminationQuestion();
-          $examinationQuestion->content = $question['content'];
-          $examinationQuestion->examination_id = $examination->id;
-          $examinationQuestion->order = $question['order'];
-          $examinationQuestion->options = $question['options'];
-
-          $examinationQuestion->save();
-        }
-
-        return response()->json([], 201);
     }
 
     public function getExamQuestions(Examination $examination)

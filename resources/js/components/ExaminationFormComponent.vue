@@ -16,7 +16,8 @@
                   <textarea rows="2" cols="80" v-model="question.content"></textarea>
                   <button type="button" class="btn btn-primary btn-outline-light" style="background:#B60C09" @click="deleteQuestion(index)">Soruyu Sil</button>
                   <div v-for="(option,indexOption) in question.options">
-                    <input type="text" v-model="option.key" style="width:30px;"> :
+                    <input type="radio" name="answer" v-model="question.checked" :value="indexOption" @click="correctAnswer(question.correct_answer,option.key,option.value)">
+                    <input type="text" v-model="option.key" @change="question.correct_answer = {key: null, value: null}, checked = null" style="width:30px;"> :
                     <input type="text" v-model="option.value">
                     <button type="button" class="btn btn-primary btn-outline-light btn-sm" style="background:#B60C09" @click="deleteQuestionOption(index,indexOption)">X</button>
                     <br><br>
@@ -37,7 +38,7 @@
     <div align="center" v-else>
       <strong style="color:#EA1D1D">
         <i class="fas fa-exclamation"></i><i class="fas fa-exclamation"></i><i class="fas fa-exclamation"></i>
-         Sınav başlamış olduğundan sorular üzerinde değişiklik yapamazsınız
+         Sınav başlamış veya bitmiş olduğundan sorular üzerinde değişiklik yapamazsınız
       </strong>
     </div>
   </div>
@@ -61,9 +62,14 @@ import moment from 'moment';
             modifyAllowed: "",
             questions: [
               {
+                checked:"",
                 examination_id:"",
                 order: "",
                 content: "",
+                correct_answer: {
+                    key: "",
+                    value: "",
+                  },
                 options: [
                   {
                     key: "",
@@ -80,6 +86,10 @@ import moment from 'moment';
             console.log('Examination Form Component Mounted.');
         },
         methods:{
+          correctAnswer(answer,key,value){
+            answer.key = key,
+            answer.value = value
+          },
           examModify(){
             const monthNames = ["", "January", "February", "March", "April", "May", "June",
               "July", "August", "September", "October", "November", "December"];
@@ -99,9 +109,14 @@ import moment from 'moment';
           },
           addNewQuestion(){
             this.questions.push({
+                            checked:"",
                             examination_id:"",
                             order: "",
                             content: "",
+                            correct_answer: {
+                                key: "",
+                                value: "",
+                              },
                             options: [
                               {
                                 key: "",

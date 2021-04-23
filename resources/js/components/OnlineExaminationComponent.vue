@@ -2,7 +2,7 @@
   <div>
     <div class="card-header" style="background:#DFDFDF">
       <div align="center">
-        {{hours}}:{{minutes}}:{{seconds}}
+        <label v-if="hours<10">0</label>{{hours}}:<label v-if="minutes<10">0</label>{{minutes}}:<label v-if="seconds<10">0</label>{{seconds}}
       </div>
     </div>
     <form v-on:submit.prevent="submitForm">
@@ -131,7 +131,7 @@ Vue.prototype.$eventBus = new Vue();
         }
         else
         {
-          axios.post('/api/v1/exams/store-online-exam',{answers: this.answers,examinationId: this.examination.id,userId: this.user})
+          axios.post('/api/v1/exams/'+ this.examination.id +'/store-online-exam',{answers: this.answers,userId: this.user})
                .then((response) => {
                  console.log('success');
                  Swal.fire({

@@ -23,8 +23,7 @@ class CreateDepartmentsTable extends Migration
 
             $table->foreign('department_head_user_id')
                 ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
+                ->on('users');
         });
     }
 
